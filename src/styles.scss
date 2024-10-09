@@ -1,4 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+ 
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
+body { margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif; }
+
+// Botão: Configurações de cor e estilo
+$btn-bg-color: #65558F;
+$btn-text-color: #ffffff;
+$btn-font-size:2.1rem;
+$btn-border-radius:6rem;
+
+//Container flex em linha: Configurações de layout flexível
+$display-flex-container-row: (
+  display: flex,
+  flex-direction: row,
+  justify-content: space-around,
+  align-items: center
+);
+
+//Container flex em coluna: Configurações de layout flexível
+$display-flex-container-column: (
+  display: flex,
+  flex-direction: column,
+  justify-content: center,
+  align-items: center
+);
