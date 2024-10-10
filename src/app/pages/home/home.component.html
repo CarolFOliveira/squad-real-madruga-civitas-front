@@ -3,15 +3,19 @@
         <img src="../../../assets/imgHome.svg" alt="Grupo de estudantes em uma atividade ao ar livre">
     </div>
     <div class="containerButtons">
-        <h1>Seja bem-vindo!</h1>
+        <h1 class="title">Seja bem-vindo!</h1>
         <h3>Para acessar a plataforma, selecione o seu tipo de perfil.</h3>
-        <app-button [texto]="'Sou professor(a)'" [id]="'btnLoginProf'" [class]="'btn'" [href]="'/'"/>
-        <app-button [texto]="'Sou responsável'" [id]="'btnLoginResp'" [class]="'btn'" [href]="'/'"/>
-        <app-button [texto]="'Sou administrador'" [id]="'btnAdmin'" [class]="'btnLink'" [href]="'/'"/>
+       
+        <app-button [texto]="'Sou professor(a)'" [id]="'btnLoginProf'" [class]="'btn'" [routerLink]="'/loginProfessor'"/>
+        <app-button [texto]="'Sou responsável'" [id]="'btnLoginResp'" [class]="'btn'" [routerLink]="'/'"/>
+        <app-button [texto]="'Sou administrador'" [id]="'btnAdmin'" [class]="'btnLink'" [routerLink]="'/'"/>
 
+      
+        
    </div>
 </div>
-    
+
+
     
       
 

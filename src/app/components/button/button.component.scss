@@ -1,21 +1,46 @@
 @import '../../../styles.scss';
 
+$buttontemplate:(
+    background-color: $btn-bg-color,
+    width: 32.8rem,
+    margin: 0.5rem 0,
+    padding: 1rem,
+    border-radius: $btn-border-radius,
+    height: 2.75rem,
+    display: flex,
+    align-items: center,
+    justify-content: center,
+);
+
+$textButton:(
+    color: $btn-text-color,
+    text-decoration: none,
+    font-size: $btn-font-size,
+    font-weight: 400,
+);
+
+.buttonForm{
+    @each $key, $value in $buttontemplate {
+        #{$key}: #{$value};
+      }
+    button{
+        background-color: transparent;
+        width: 100%;
+        border: none;
+        @each $key, $value in $textButton {
+            #{$key}: #{$value};
+        }
+    }
+}
+
 .btn{
-    background-color: $btn-bg-color;
-    width: 32.8rem;
-    margin: 0.5rem 0;
-    padding: 1rem;
-    border-radius: $btn-border-radius;
-    height: 2.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+    @each $key, $value in $buttontemplate {
+        #{$key}: #{$value};
+      }
     a{
-        color: $btn-text-color;
-        text-decoration: none;
-        font-size: $btn-font-size;
-        font-weight: 400;
+        @each $key, $value in $textButton {
+            #{$key}: #{$value};
+        }        
     }
        
 }

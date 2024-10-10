@@ -11,24 +11,9 @@
     margin: 0;
     gap: 8rem;
     
-    
-
-    .containerImg{
-       img{
-        height: 100vh;
-       }
-        
-    }
     .containerButtons{
         @each $key, $value in $display-flex-container-column {
             #{$key}: #{$value};
-          }
-          
-          h1{
-            font-size: 2.8rem;
-            font-weight: 700;
-            line-height: 3.2rem;
-            text-align: center;
           }
           h3{
             width: 25rem;
