@@ -10,6 +10,7 @@ $buttontemplate:(
     display: flex,
     align-items: center,
     justify-content: center,
+    cursor:pointer
 );
 
 $textButton:(
@@ -27,6 +28,7 @@ $textButton:(
         background-color: transparent;
         width: 100%;
         border: none;
+        cursor:pointer;
         @each $key, $value in $textButton {
             #{$key}: #{$value};
         }
@@ -58,10 +60,13 @@ $textButton:(
 }
 
 @media (max-width: 1280px) {
-    .btn{
-        width: 100%;
+    .btn, .buttonForm{
+        width: 90%;
         margin-left: 0;
-        font-size: 1.8rem;
+        a{
+            font-size: 1.5rem;
+        }
+        
     
     }
 }

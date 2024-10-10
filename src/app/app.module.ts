@@ -11,14 +11,16 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { LoginProfComponent } from './pages/login-prof/login-prof.component'
+import { LoginProfComponent } from './pages/login-prof/login-prof.component';
+import { LoginResponsavelComponent } from './pages/login-responsavel/login-responsavel.component'
 
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'loginProfessor', component: LoginProfComponent}
+  { path: 'loginProfessor', component: LoginProfComponent},
+  { path: 'loginResponsavel', component: LoginResponsavelComponent}
   
 ]
 @NgModule({
@@ -27,7 +29,8 @@ const routes: Routes = [
     HomeComponent,
     ButtonComponent,
     LoginComponent,
-    LoginProfComponent
+    LoginProfComponent,
+    LoginResponsavelComponent
   ],
   imports: [
     BrowserModule,
