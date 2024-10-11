@@ -1,0 +1,11 @@
+<div [class]="class">
+    <a *ngIf="class !== 'buttonForm'; else buttonForm" [id]="id" [routerLink]="routerLink">
+      {{texto}}
+    </a>
+    <ng-template #buttonForm>
+      <button [id]="id" type="submit">
+        {{texto}}
+      </button>
+    </ng-template>
+</div>
+  
