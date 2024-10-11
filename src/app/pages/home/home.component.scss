@@ -1,8 +1,6 @@
 @import '../../../styles.scss';
 
-
-.container {
-    
+.container {    
     @each $key, $value in $display-flex-container-row {
         #{$key}: #{$value};
     }
@@ -36,13 +34,11 @@
                 width: 100%;
             }
         }
-
         .containerButtons{
             padding: 0;
         }
-    }}
-    
-
+    }
+}
 @media (max-width: 768px) {
     .container {
         @each $key, $value in $display-flex-container-column {
@@ -51,15 +47,13 @@
         .containerImg img {
             height: 60vh;
         }
-}}
-
+    }
+}
 @media (max-width: 576px) {
     .container {
         gap: 2rem;
-
         .containerButtons{
             width: 70%;
-
             h1{
                 font-size: 2.3rem;
             }
