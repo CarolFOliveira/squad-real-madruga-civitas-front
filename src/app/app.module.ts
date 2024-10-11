@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,15 +13,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { LoginProfComponent } from './pages/login-prof/login-prof.component';
 import { LoginResponsavelComponent } from './pages/login-responsavel/login-responsavel.component'
 
-
-
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'loginProfessor', component: LoginProfComponent},
   { path: 'loginResponsavel', component: LoginResponsavelComponent}
-  
 ]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,9 +38,6 @@ const routes: Routes = [
     MatIconModule,
     RouterModule.forRoot(routes)
   ],
-  // exports:[
-  //   RouterModule
-  // ],
   providers: [],
   bootstrap: [AppComponent]
 })

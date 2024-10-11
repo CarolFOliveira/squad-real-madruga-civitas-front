@@ -12,14 +12,12 @@ $buttontemplate:(
     justify-content: center,
     cursor:pointer
 );
-
 $textButton:(
     color: $btn-text-color,
     text-decoration: none,
     font-size: $btn-font-size,
     font-weight: 400,
 );
-
 .buttonForm{
     @each $key, $value in $buttontemplate {
         #{$key}: #{$value};
@@ -34,7 +32,6 @@ $textButton:(
         }
     }
 }
-
 .btn{
     @each $key, $value in $buttontemplate {
         #{$key}: #{$value};
@@ -44,7 +41,6 @@ $textButton:(
             #{$key}: #{$value};
         }        
     }
-       
 }
 .btnLink{
     background-color: none;
@@ -56,9 +52,7 @@ $textButton:(
         line-height: 2.1rem;
         letter-spacing: 0.1px;
     }
-    
 }
-
 @media (max-width: 1280px) {
     .btn, .buttonForm{
         width: 90%;
@@ -66,7 +60,5 @@ $textButton:(
         a{
             font-size: 1.5rem;
         }
-        
-    
     }
 }
