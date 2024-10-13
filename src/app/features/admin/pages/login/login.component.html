@@ -6,20 +6,22 @@
       escola.
     </p>
   </hgroup>
-  <form class="form">
-    <input
-      class="form__input"
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
+    <app-input
+      [control]="loginForm.controls.email"
       autocomplete="email"
       placeholder="Insira seu e-mail"
-      type="text"
+      type="email"
     />
-    <input
-      class="form__input"
+    <app-input
+      [control]="loginForm.controls.password"
       autocomplete="current-password"
       placeholder="Insira sua senha"
       type="password"
     />
-    <button class="form__button" type="submit">Entrar</button>
+    <button class="form__button" type="submit" [disabled]="loginForm.invalid">
+      Entrar
+    </button>
     <a href="/">Voltar</a>
   </form>
 </section>

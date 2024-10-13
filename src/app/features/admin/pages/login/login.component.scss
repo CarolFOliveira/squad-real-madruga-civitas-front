@@ -40,6 +40,10 @@
     color: #fff;
     cursor: pointer;
     margin-block-start: 0.5rem;
+
+    &:disabled {
+      background-color: #eee;
+    }
   }
 
   &__button,

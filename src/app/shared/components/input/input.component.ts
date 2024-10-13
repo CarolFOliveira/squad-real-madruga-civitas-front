@@ -11,4 +11,26 @@ export class InputComponent {
   @Input() autocomplete = '';
   @Input() placeholder = '';
   @Input() type = 'text';
+
+  hasControlError(): boolean {
+    return this.control.invalid && this.control.touched;
+  }
+
+  getErrorMessage(): string {
+    const errorMessages = {
+      required: 'Este campo é obrigatório.',
+      email: 'Por favor, digite um e-mail válido.',
+      minlength: `O valor deve ter pelo menos ${
+        this.control.getError('minlength')?.requiredLength
+      } caracteres.`,
+      maxlength: `O valor deve ter no máximo ${
+        this.control.getError('maxlength')?.requiredLength
+      } caracteres.`,
+    };
+
+    for (const [key, message] of Object.entries(errorMessages))
+      if (this.control.hasError(key)) return message;
+
+    return '';
+  }
 }
