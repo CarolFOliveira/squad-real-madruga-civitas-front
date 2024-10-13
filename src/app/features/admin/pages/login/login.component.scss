@@ -1,0 +1,50 @@
+:host {
+  // TODO: configurar essas cores de forma global no tema, remover isso posteriormente
+  background-color: rgba($color: #65558f, $alpha: 0.65);
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+}
+
+.section {
+  background: #fff;
+  box-sizing: border-box;
+  max-width: 500px;
+  padding: 50px;
+  text-align: center;
+
+  &__header {
+    margin-bottom: 35px;
+  }
+
+  &__title {
+    font-size: 45px;
+    line-height: 52px;
+  }
+
+  &__description {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__button {
+    all: unset;
+    background-color: #65558f;
+    border-radius: 999px;
+    color: #fff;
+    cursor: pointer;
+    margin-block-start: 0.5rem;
+  }
+
+  &__button,
+  &__input {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
