@@ -13,6 +13,7 @@ import {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  loginFailed = false;
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -22,7 +23,11 @@ export class LoginComponent {
     ]),
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.loginForm.valueChanges.subscribe(() => {
+      this.loginFailed = false;
+    });
+  }
 
   onSubmit($event: SubmitEvent) {
     $event.preventDefault();
@@ -42,6 +47,8 @@ export class LoginComponent {
   }
 
   private handleLoginError(error: HttpErrorResponse) {
+    this.loginFailed = true;
+
     switch (error.status) {
       case 401:
         this.loginForm.setErrors({ unauthorized: true });

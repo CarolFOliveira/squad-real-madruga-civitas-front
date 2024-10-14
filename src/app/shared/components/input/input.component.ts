@@ -10,10 +10,11 @@ export class InputComponent {
   @Input() control = new FormControl();
   @Input() autocomplete = '';
   @Input() placeholder = '';
+  @Input() showErrors = false;
   @Input() type = 'text';
 
   hasControlError(): boolean {
-    return this.control.invalid && this.control.touched;
+    return (this.control.invalid && this.control.touched) || this.showErrors;
   }
 
   getErrorMessage(): string {

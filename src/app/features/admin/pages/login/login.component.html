@@ -10,12 +10,14 @@
   <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
     <app-input
       [control]="loginForm.controls.email"
+      [showErrors]="loginFailed"
       autocomplete="email"
       placeholder="Insira seu e-mail"
       type="email"
     />
     <app-input
       [control]="loginForm.controls.password"
+      [showErrors]="loginFailed"
       autocomplete="current-password"
       placeholder="Insira sua senha"
       type="password"
