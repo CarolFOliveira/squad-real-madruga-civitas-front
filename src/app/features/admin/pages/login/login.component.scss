@@ -42,3 +42,10 @@
     border-radius: 99px;
   }
 }
+
+.failed-message {
+  transform: translateY(-100%);
+  font-weight: 500;
+  color: #d63a32;
+  text-align: left;
+}

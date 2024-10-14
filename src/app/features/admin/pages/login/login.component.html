@@ -20,6 +20,12 @@
       placeholder="Insira sua senha"
       type="password"
     />
+
+    <!-- Para ficar igual ao Figma, essa mensagem aparece aqui quando o admin envia errado as credencias, talvez fosse mais interessante colocar essa mensagem em uma snackbar -->
+    <strong class="failed-message" *ngIf="loginForm.errors?.['unauthorized']"
+      >Seu e-mail ou senha estão incorretos.
+    </strong>
+
     <app-button
       label="Entrar"
       [disabled]="loginForm.invalid"
