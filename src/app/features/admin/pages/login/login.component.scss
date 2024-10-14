@@ -33,20 +33,6 @@
   flex-direction: column;
   gap: 10px;
 
-  &__button {
-    all: unset;
-    background-color: #65558f;
-    border-radius: 999px;
-    color: #fff;
-    cursor: pointer;
-    margin-block-start: 0.5rem;
-
-    &:disabled {
-      background-color: #eee;
-    }
-  }
-
-  &__button,
   &__input {
     font-size: 1rem;
     padding: 10px;
