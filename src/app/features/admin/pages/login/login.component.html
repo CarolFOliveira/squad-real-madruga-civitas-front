@@ -6,6 +6,7 @@
       escola.
     </p>
   </hgroup>
+
   <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
     <app-input
       [control]="loginForm.controls.email"
@@ -24,6 +25,6 @@
       [disabled]="loginForm.invalid"
       [isLoading]="loginForm.pending"
     />
-    <a href="/">Voltar</a>
+    <a color="primary" routerLink=".." mat-stroked-button>Voltar</a>
   </form>
 </section>
