@@ -4,21 +4,26 @@
   display: grid;
   place-items: center;
   min-height: 100%;
+  padding: 50px 10px;
 }
 
 .section {
   background: #fff;
   box-sizing: border-box;
   max-width: 500px;
-  padding: 50px;
   text-align: center;
+  padding: 50px 25px;
+
+  @media screen and (min-width: 480px) {
+    padding: 50px;
+  }
 
   &__header {
     margin-bottom: 35px;
   }
 
   &__title {
-    font-size: 45px;
+    font-size: clamp(35px, (1rem + 5vw), 45px);
     line-height: 52px;
   }
 
