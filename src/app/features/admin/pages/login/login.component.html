@@ -23,17 +23,19 @@
       type="password"
     />
 
-    <!-- Para ficar igual ao Figma, essa mensagem aparece aqui quando o admin envia errado as credencias, talvez fosse mais interessante colocar essa mensagem em uma snackbar -->
     <strong class="failed-message" *ngIf="loginForm.errors?.['unauthorized']"
       >Seu e-mail ou senha estão incorretos.
     </strong>
 
-    <app-button
-      label="Entrar"
-      type="submit"
-      [disabled]="loginForm.invalid"
-      [isLoading]="loginForm.pending"
-    />
+    <strong class="failed-message" *ngIf="loginForm.errors?.['noConnection']"
+      >Verifique a conexão e tente outra vez.
+    </strong>
+
+    <strong class="failed-message" *ngIf="loginForm.errors?.['serverError']"
+      >Houve um problema no servidor.
+    </strong>
+
+    <app-button label="Entrar" type="submit" [isLoading]="loginForm.pending" />
     <a color="primary" routerLink=".." mat-stroked-button>Voltar</a>
   </form>
 </section>

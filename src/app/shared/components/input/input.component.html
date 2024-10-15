@@ -12,5 +12,5 @@
     highlight_off
   </mat-icon>
 
-  <mat-error>{{ getErrorMessage() }}</mat-error>
+  <mat-error *ngIf="!showErrors">{{ getErrorMessage() }}</mat-error>
 </mat-form-field>
