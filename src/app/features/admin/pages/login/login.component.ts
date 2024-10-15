@@ -1,11 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   AuthService,
   LoginCredentials,
   LoginResponse,
 } from 'src/app/core/auth/auth.service';
+import { JwtService } from 'src/app/core/auth/jwt.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -26,7 +28,11 @@ export class LoginComponent {
     { updateOn: 'submit' }
   );
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private jwtService: JwtService,
+    private router: Router
+  ) {
     this.loginForm.valueChanges.subscribe(() => {
       this.loginFailed = false;
     });
@@ -46,7 +52,12 @@ export class LoginComponent {
   }
 
   private handleLoginSuccess(response: LoginResponse) {
-    console.log(response);
+    const { token } = response;
+    if (token) {
+      this.jwtService.saveToken(token);
+      // TODO: fazer o redirecionamento para a url correta
+      this.router.navigate(['/']);
+    }
   }
 
   private handleLoginError(error: HttpErrorResponse) {
