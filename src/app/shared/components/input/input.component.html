@@ -1,14 +1,14 @@
-<mat-form-field appearance="outline" class="form__field">
+<mat-form-field appearance="outline" class="material-input__field">
   <input
     matInput
     [autocomplete]="autocomplete"
     [formControl]="control"
     [placeholder]="placeholder"
     [type]="type"
-    [ngClass]="{ error: hasControlError() }"
+    [ngClass]="{ 'material-input__error': hasControlError() }"
   />
 
-  <mat-icon matSuffix class="error" *ngIf="hasControlError()">
+  <mat-icon matSuffix class="material-input__error" *ngIf="hasControlError()">
     highlight_off
   </mat-icon>
 
