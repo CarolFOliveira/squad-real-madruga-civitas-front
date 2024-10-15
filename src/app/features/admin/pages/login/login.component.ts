@@ -15,6 +15,11 @@ import { JwtService } from 'src/app/core/auth/jwt.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  /**
+   * Indica se ocorreu um erro durante o processo de login.
+   *
+   * Utilizada para controlar a exibição de mensagens de erro para o usuário.
+   */
   loginFailed = false;
   loginForm = new FormGroup(
     {
@@ -51,25 +56,44 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * Trata o sucesso do login
+   *
+   * Realiza as ações necessárias, como salvar o token de autenticação e redirecionar o usuário.
+   *
+   * @param response - A resposta do servidor contendo o token de autenticação.
+   *
+   * @remarks
+   * - Utiliza o serviço do token para armazenar ele no localStorage.
+   * - Redireciona o usuário para a página inicial após o login bem-sucedido.
+   */
   private handleLoginSuccess(response: LoginResponse) {
     const { token } = response;
     if (token) {
       this.jwtService.saveToken(token);
-      // TODO: fazer o redirecionamento para a url correta
       this.router.navigate(['/']);
     }
   }
 
-  private handleLoginError(error: HttpErrorResponse) {
+  /**
+   * handleLoginError
+   *
+   * Trata erros ocorridos durante o processo de login.
+   *
+   * @param error - Objeto de resposta do erro HTTP `HttpErrorResponse`
+   *
+   * @remarks
+   * Marca que o login como falhou e define erros apropriados no formulário de login com base no status do erro.
+   * - Se o status do erro for `401` (Não autorizado) - define um erro de "não autorizado" no formulário
+   * - Se o status do erro for `0` (Sem conexão), define um erro de "sem conexão" no formulário
+   * - Para outros status de erro,define um erro genérico de "erro do servidor" no formulário
+   */
+  private handleLoginError(error: HttpErrorResponse): void {
     this.loginFailed = true;
+    this.loginForm.updateValueAndValidity();
 
     switch (error.status) {
       case 401:
-        this.loginForm.setErrors({ unauthorized: true });
-        break;
-
-      // Remover esse caso (404) antes de fazer o PR
-      case 404:
         this.loginForm.setErrors({ unauthorized: true });
         break;
 

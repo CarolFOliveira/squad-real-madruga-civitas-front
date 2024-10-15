@@ -9,10 +9,10 @@ export class ButtonComponent {
   /**
    * Define a cor a ser utilizada no componente.
    *
-   * Valores possíveis pelo tema do Angular Material são:
-   * - primary - cor primária do tema
-   * - accent - cor secundária do tema
-   * - warn - cor utilizada para indicar alertas ou erros
+   * **Valores possíveis** pelo tema do Angular Material são:
+   * - `primary` - cor primária do tema
+   * - `accent` - cor secundária do tema
+   * - `warn` - cor utilizada para indicar alertas ou erros
    * @example
    * ```html
    * <app-button color="primary">Texto</app-button>
@@ -41,7 +41,7 @@ export class ButtonComponent {
   /**
    * O `type` controla o comportamento do botão quando ativado.
    *
-   * Valores possíveis:
+   * **Valores possíveis:**
    * - `submit`	Envia um formulário
    * - `reset`	Limpa um formulário
    * - `button`	Comportamento padrão de um botão
