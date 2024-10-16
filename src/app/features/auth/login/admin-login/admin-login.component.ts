@@ -2,19 +2,19 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import {
   AuthService,
   LoginCredentials,
   LoginResponse,
-} from 'src/app/core/auth/auth.service';
-import { JwtService } from 'src/app/core/auth/jwt.service';
+} from '../../services/auth.service';
 
 @Component({
   selector: 'app-admin-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  templateUrl: './admin-login.component.html',
+  styleUrls: ['./admin-login.component.scss'],
 })
-export class LoginComponent {
+export class AdminLoginComponent {
   /**
    * Indica se ocorreu um erro durante o processo de login.
    *
@@ -35,7 +35,7 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private jwtService: JwtService,
+    private storageService: StorageService,
     private router: Router
   ) {
     this.loginForm.valueChanges.subscribe(() => {
@@ -70,7 +70,7 @@ export class LoginComponent {
   private handleLoginSuccess(response: LoginResponse) {
     const { token } = response;
     if (token) {
-      this.jwtService.saveToken(token);
+      this.storageService.saveItem('jwtToken', token);
       this.router.navigate(['/']);
     }
   }

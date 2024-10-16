@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AdminRoutingModule } from './admin-routing.module';
-import { LoginComponent } from './pages/login/login.component';
+import { AuthRoutingModule } from './auth-routing.module';
+import { AdminLoginComponent } from './login/admin-login/admin-login.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [AdminLoginComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule,
+    AuthRoutingModule,
     MatButtonModule,
     ReactiveFormsModule,
     SharedModule,
   ],
 })
-export class AdminModule {}
+export class AuthModule {}
