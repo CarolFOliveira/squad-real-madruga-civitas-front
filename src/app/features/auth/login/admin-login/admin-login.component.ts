@@ -2,12 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StorageService } from 'src/app/shared/services/storage.service';
+
 import {
-  AuthService,
   LoginCredentials,
   LoginResponse,
-} from '../../services/auth.service';
+} from 'src/app/shared/interfaces/auth.interfaces';
+import { StorageService } from 'src/app/shared/services/storage.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -43,7 +44,7 @@ export class AdminLoginComponent {
     });
   }
 
-  onSubmit($event: SubmitEvent) {
+  public onSubmit($event: SubmitEvent): void {
     $event.preventDefault();
     if (this.loginForm.invalid) return;
 
@@ -67,7 +68,7 @@ export class AdminLoginComponent {
    * - Utiliza o serviço do token para armazenar ele no localStorage.
    * - Redireciona o usuário para a página inicial após o login bem-sucedido.
    */
-  private handleLoginSuccess(response: LoginResponse) {
+  private handleLoginSuccess(response: LoginResponse): void {
     const { token } = response;
     if (token) {
       this.storageService.saveItem('jwtToken', token);
