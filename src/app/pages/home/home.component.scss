@@ -1,0 +1,67 @@
+@import '../../../styles.scss';
+
+.container {    
+    @each $key, $value in $display-flex-container-row {
+        #{$key}: #{$value};
+    }
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    gap: 8rem;
+    
+    .containerButtons{
+        @each $key, $value in $display-flex-container-column {
+            #{$key}: #{$value};
+          }
+          h3{
+            width: 25rem;
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 2.5rem;
+            text-align: center;
+            margin-bottom: 5rem;
+          }
+    }
+}
+
+// Media Queries para tornar responsivo
+@media (max-width: 1280px) {
+    .container {
+        gap: 2rem;
+        .containerImg {
+            width: 80%;
+            img{
+                width: 100%;
+            }
+        }
+        .containerButtons{
+            padding: 0;
+        }
+    }
+}
+@media (max-width: 768px) {
+    .container {
+        @each $key, $value in $display-flex-container-column {
+            #{$key}: #{$value};
+        }
+        .containerImg img {
+            height: 60vh;
+        }
+    }
+}
+@media (max-width: 576px) {
+    .container {
+        gap: 2rem;
+        .containerButtons{
+            width: 70%;
+            h1{
+                font-size: 2.3rem;
+            }
+            h3{
+                font-size: 1.8rem;
+                width: 20rem;
+            }
+        }
+    }
+
+}
