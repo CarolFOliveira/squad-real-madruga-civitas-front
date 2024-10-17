@@ -43,17 +43,20 @@ export class AdminLoginComponent {
     });
   }
 
-  public onSubmit($event: SubmitEvent): void {
+  public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
     if (this.loginForm.invalid) return;
 
     this.loginForm.markAsPending();
 
     const credentials = this.loginForm.value as ILoginRequest;
-    this.authService.login(credentials).subscribe({
-      next: (response) => this.handleLoginSuccess(response),
-      error: (error: HttpErrorResponse) => this.handleLoginError(error),
-    });
+
+    try {
+      const response = await this.authService.login(credentials);
+      this.handleLoginSuccess(response);
+    } catch (error) {
+      this.handleLoginError(error as HttpErrorResponse);
+    }
   }
 
   /**
