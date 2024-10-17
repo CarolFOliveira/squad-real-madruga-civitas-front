@@ -1,13 +1,16 @@
+// Libs
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+// Services
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AuthService } from '../../services/auth.service';
 
-import { ILoginRequest } from '../../services/interfaces/ILoginRequest';
-import { ILoginResponse } from '../../services/interfaces/ILoginResponse';
+// Interfaces
+import { ILoginRequest } from '../../interfaces/ILoginRequest';
+import { ILoginResponse } from '../../interfaces/ILoginResponse';
 
 @Component({
   selector: 'app-admin-login',

@@ -1,6 +1,8 @@
+// Libs
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+// Components
 import { AdminLoginComponent } from './login/admin-login/admin-login.component';
 
 const routes: Routes = [

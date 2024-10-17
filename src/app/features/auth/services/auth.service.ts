@@ -1,9 +1,11 @@
+// Libs
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
-import { ILoginRequest } from './interfaces/ILoginRequest';
-import { ILoginResponse } from './interfaces/ILoginResponse';
+// Interfaces
+import { ILoginRequest } from '../interfaces/ILoginRequest';
+import { ILoginResponse } from '../interfaces/ILoginResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +34,7 @@ export class AuthService {
    * }
    * ```
    */
-  public async login(credentials: ILoginRequest): Promise<ILoginResponse> {
+  public login(credentials: ILoginRequest): Promise<ILoginResponse> {
     return firstValueFrom(
       this.http.post<ILoginResponse>('/api/login', credentials)
     );
