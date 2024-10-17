@@ -1,0 +1,22 @@
+.material-input__field {
+  width: 100%;
+
+  // Alterando cor padrão do campo de input, quando tem a classe de erro ativada
+  &:has(.material-input__error) {
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+      .mdc-notched-outline__leading,
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+      .mdc-notched-outline__trailing {
+      border-color: #d63a32 !important;
+    }
+  }
+
+  .material-input__error {
+    &,
+    &::placeholder {
+      // TODO: configurar cor de erro dos inputs no tema global
+      color: #d63a32 !important;
+      opacity: 1;
+    }
+  }
+}

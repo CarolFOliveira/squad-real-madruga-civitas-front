@@ -1,30 +1,23 @@
+// Libs
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule,Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { ButtonComponent } from './components/button/button.component';
+import { AppRoutingModule } from './app-routing.module';
 
-const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-]
+// Components
+import { AppComponent } from './app.component';
+import { HomeComponent } from './pages/home/home.component';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ButtonComponent,
-  ],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes)
+    HttpClientModule,
   ],
-
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
