@@ -1,4 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+}
+
+// Botão: Configurações de cor e estilo
+$btn-bg-color: #65558f;
+$btn-text-color: #ffffff;
+$btn-font-size: 2.1rem;
+$btn-border-radius: 6rem;
+
+//Container flex em linha: Configurações de layout flexível
+$display-flex-container-row: (
+  display: flex,
+  flex-direction: row,
+  justify-content: space-around,
+  align-items: center,
+);
+
+//Container flex em coluna: Configurações de layout flexível
+$display-flex-container-column: (
+  display: flex,
+  flex-direction: column,
+  justify-content: center,
+  align-items: center,
+);
+
+$buttontemplate: (
+  background-color: $btn-bg-color,
+  width: 32.8rem,
+  margin: 0.5rem 0,
+  padding: 1rem,
+  border-radius: $btn-border-radius,
+  height: 2.75rem,
+  display: flex,
+  align-items: center,
+  justify-content: center,
+  cursor: pointer,
+);
+
+$textButton: (
+  color: $btn-text-color,
+  text-decoration: none,
+  font-size: $btn-font-size,
+  font-weight: 400,
+);
+
+.containerImg {
+  img {
+    height: 100vh;
+  }
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  text-align: center;
+}
