@@ -3,12 +3,11 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import {
-  LoginCredentials,
-  LoginResponse,
-} from 'src/app/shared/interfaces/auth.interfaces';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AuthService } from '../../services/auth.service';
+
+import { ILoginRequest } from '../../services/interfaces/ILoginRequest';
+import { ILoginResponse } from '../../services/interfaces/ILoginResponse';
 
 @Component({
   selector: 'app-admin-login',
@@ -50,7 +49,7 @@ export class AdminLoginComponent {
 
     this.loginForm.markAsPending();
 
-    const credentials = this.loginForm.value as LoginCredentials;
+    const credentials = this.loginForm.value as ILoginRequest;
     this.authService.login(credentials).subscribe({
       next: (response) => this.handleLoginSuccess(response),
       error: (error: HttpErrorResponse) => this.handleLoginError(error),
@@ -68,7 +67,7 @@ export class AdminLoginComponent {
    * - Utiliza o serviço do token para armazenar ele no localStorage.
    * - Redireciona o usuário para a página inicial após o login bem-sucedido.
    */
-  private handleLoginSuccess(response: LoginResponse): void {
+  private handleLoginSuccess(response: ILoginResponse): void {
     const { token } = response;
     if (token) {
       this.storageService.saveItem('jwtToken', token);
