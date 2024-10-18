@@ -1,5 +1,13 @@
+// Libs
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+// Serviços
+import { StudentService } from '../../services/student.service';
+
+// Interfaces
+import { IStudentData } from '../interfaces/IStudentData';
 
 @Component({
   selector: 'app-student-registration',
@@ -7,6 +15,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./student-registration.component.scss'],
 })
 export class StudentRegistrationComponent {
+  constructor(private studentService: StudentService) {}
+
   // TODO: remover valores de exemplo
   options = [
     { value: '6A', viewValue: '6ª ano A' },
@@ -24,8 +34,9 @@ export class StudentRegistrationComponent {
         Validators.required,
         Validators.maxLength(12),
       ]),
-      enrollmentNumber: new FormControl('', [
+      enrollmentNumber: new FormControl(null, [
         Validators.required,
+        Validators.min(1),
         Validators.maxLength(6),
       ]),
       studentClass: new FormControl('', Validators.required),
@@ -37,9 +48,31 @@ export class StudentRegistrationComponent {
     { updateOn: 'submit' }
   );
 
-  onSubmit($event: SubmitEvent) {
+  public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
+    if (this.form.invalid) return;
 
-    console.log(this.form.value);
+    this.form.markAsPending();
+
+    const student = {
+      ...this.form.value,
+      enrollmentNumber: Number(this.form.value.enrollmentNumber),
+    } as IStudentData;
+
+    try {
+      const response = await this.studentService.register(student);
+      this.handleRegisterSuccess(response);
+    } catch (error) {
+      this.handleRegisterError(error as HttpErrorResponse);
+    }
+  }
+
+  private handleRegisterSuccess(response: unknown) {
+    // TODO: remover console log
+    console.log('Ok');
+  }
+
+  private handleRegisterError(error: HttpErrorResponse) {
+    this.form.setErrors({});
   }
 }
