@@ -1,9 +1,9 @@
 // Libs
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 
 // Interfaces
-import { firstValueFrom } from 'rxjs';
 import { IStudentData } from '../pages/interfaces/IStudentData';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class StudentService {
   constructor(private http: HttpClient) {}
 
   /**
-   * registerStudent
+   * register
    *
    * Registra um aluno enviando suas informações para o backend.
    *
@@ -23,6 +23,7 @@ export class StudentService {
    * @param student.enrollmentNumber - Número da matrícula
    * @param student.studentClass - Turma do aluno
    * @param student.guardianCPF - CPF do responsável pelo o aluno
+   *
    * @returns Uma `Promise` contendo a resposta do backend.
    */
   register(student: IStudentData): Promise<unknown> {

@@ -52,6 +52,19 @@ export class StudentRegistrationComponent {
     { updateOn: 'submit' }
   );
 
+  /**
+   * onSubmit
+   *
+   * Lida com o evento de submissão do formulário de registro de um novo aluno.
+   *
+   * @param $event - Evento do tipo `SubmitEvent` de envio de um formulário no browser
+   *
+   * @returns Uma `Promise` vazia que é resolvida após o processo de cadastro ser concluído.
+   *
+   * @remarks
+   * Responsável por todo o processo de cadastrado, incluindo validação do formulário,
+   * envio dos dados do aluno para cadastro e tratamento de respostas de sucesso ou erro.
+   */
   public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
     if (this.form.invalid) return;
@@ -71,16 +84,38 @@ export class StudentRegistrationComponent {
     }
   }
 
-  // TODO: remover any da resposta
-  private handleRegisterSuccess(response: any) {
+  /**
+   * handleRegisterSuccess
+   *
+   * Trata o caso de sucesso do registro de um novo aluno.
+   *
+   * @param response - A resposta do servidor contendo o status 201.
+   *
+   * @remarks
+   * - Remove o status pendente do form
+   * - Mostra uma mensagem de sucesso para o usuário admin que fecha automaticamente após 1 segundo
+   * - Redireciona o usuário admin para sua página principal
+   */
+  private handleRegisterSuccess(response: any): void {
+    // TODO: remover any da resposta e fazer o redirecionamento
     this.form.updateValueAndValidity();
-
-    if (response.status === 201) {
-      this.snackbarService.openSnackBar(response.message);
-    }
+    this.snackbarService.openSnackBar(response.message);
   }
 
-  private handleRegisterError(error: HttpErrorResponse) {
+  /**
+   * handleRegisterError
+   *
+   * Trata erros ocorridos durante o processo de registro de um aluno.
+   *
+   * @param error - Objeto de resposta do erro HTTP do tipo `HttpErrorResponse`
+   *
+   * @remarks
+   * Redefine os erros do formulário para tirar o status pending do form.
+   * - Se o status do erro for `409` (Conflito) - mostra uma notificação que o aluno já existe.
+   * - Se o status do erro for `0` (Sem conexão) - mostra uma notificação que o usuário está sem internet.
+   * - Para outros status de erro, mostra uma notificação com erro genérico de "Ocorreu um erro no servidor".
+   */
+  private handleRegisterError(error: HttpErrorResponse): void {
     this.form.setErrors({});
 
     switch (error.status) {
@@ -91,7 +126,7 @@ export class StudentRegistrationComponent {
         );
         break;
 
-      case 0:
+      case 0 && error.error instanceof ProgressEvent:
         this.snackbarService.openSnackBar(
           'Não foi possível conectar ao servidor. \nVerifique sua conexão com a internet.',
           'Fechar'

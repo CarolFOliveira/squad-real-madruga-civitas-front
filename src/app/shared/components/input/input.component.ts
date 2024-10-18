@@ -8,6 +8,23 @@ import { FormControl } from '@angular/forms';
   encapsulation: ViewEncapsulation.None,
 })
 export class InputComponent {
+  /**
+   * Máscara de entrada que define o formato aceito no campo de input.
+   *
+   * Padrões suportados:
+   * - `0`: dígitos (como números de 0 a 9)
+   * - `9`: dígitos (como números de 0 a 9), mas opcional
+   * - `A`: letras (maiúsculas ou minúsculas) e dígitos
+   * - `S`: apenas letras (maiúsculas ou minúsculas)
+   * - `U`: apenas letras maiúsculas
+   * - `L`: apenas letras minúsculas
+   *
+   * @example
+   * Para definir uma máscara que aceite apenas números e letras:
+   * ```html
+   * <app-input mask="000-AAA" />
+   * ```
+   */
   @Input() mask = '';
 
   /**
