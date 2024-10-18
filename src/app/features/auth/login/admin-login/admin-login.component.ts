@@ -24,6 +24,7 @@ export class AdminLoginComponent {
    * Utilizada para controlar a exibição de mensagens de erro para o usuário.
    */
   loginFailed = false;
+
   loginForm = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -46,6 +47,19 @@ export class AdminLoginComponent {
     });
   }
 
+  /**
+   * onSubmit
+   *
+   * Lida com o evento de submissão do formulário de login do administrador.
+   *
+   * @param $event - Evento do tipo `SubmitEvent` de envio de um formulário no browser
+   *
+   * @returns Uma `Promise` vazia que é resolvida após o processo de login ser concluído.
+   *
+   * @remarks
+   * Responsável por todo o processo de login, incluindo validação do formulário,
+   * envio das credenciais para autenticação e tratamento de respostas de sucesso ou erro.
+   */
   public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
     if (this.loginForm.invalid) return;
@@ -63,6 +77,8 @@ export class AdminLoginComponent {
   }
 
   /**
+   * handleLoginSuccess
+   *
    * Trata o sucesso do login
    *
    * Realiza as ações necessárias, como salvar o token de autenticação e redirecionar o usuário.
@@ -103,7 +119,7 @@ export class AdminLoginComponent {
         this.loginForm.setErrors({ unauthorized: true });
         break;
 
-      case 0:
+      case 0 && error.error instanceof ProgressEvent:
         this.loginForm.setErrors({ noConnection: true });
         break;
 

@@ -1,0 +1,72 @@
+:host {
+  display: grid;
+  margin: 0 auto;
+  // TODO: configurar uma largura máxima para o conteúdo no estilo global
+  max-width: 1020px;
+  padding: 10px;
+  place-items: center;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.btn {
+  all: unset;
+  align-self: start;
+  justify-self: start;
+  height: 65px;
+  margin-block-start: 35px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.section {
+  align-self: start;
+  width: 100%;
+  max-width: 550px;
+
+  &__title {
+    margin-block-end: 0;
+  }
+
+  &__description {
+    margin-block-end: 1rem;
+  }
+}
+
+::ng-deep app-button {
+  text-align: center;
+
+  button {
+    margin-block-start: 10px;
+    max-width: 265px;
+  }
+}
+
+// TODO: mudar estilos globalmente ou criar um componente customizado para notificacoes
+::ng-deep .custom-snackbar {
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 25px 45px !important;
+  white-space: pre-line;
+  width: 350px;
+
+  .mat-mdc-simple-snack-bar {
+    flex-direction: column;
+    padding-block-end: 14px;
+  }
+
+  .mdc-button__label {
+    color: #65558f;
+    padding: 14px;
+  }
+
+  --mdc-snackbar-container-color: #f3edf7;
+  --mdc-snackbar-supporting-text-color: #65558f;
+  --mat-snack-bar-button-color: #00000043;
+}

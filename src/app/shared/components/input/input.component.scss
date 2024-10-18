@@ -1,3 +1,13 @@
+.label {
+  // TODO: colocar essas cores no tema global do material angular
+  background-color: #fef7ff;
+}
+
+.material-input__custom-placeholder::placeholder {
+  // TODO: colocar essas cores no tema global do material angular
+  color: #cac4d0 !important;
+}
+
 .material-input__field {
   width: 100%;
 
