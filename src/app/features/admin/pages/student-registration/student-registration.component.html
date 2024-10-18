@@ -1,4 +1,8 @@
-<a routerLink="/administrador">Voltar</a>
+<a class="btn-link" routerLink="/administrador">
+  <button mat-icon-button>
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</a>
 
 <section>
   <hgroup>
@@ -6,18 +10,36 @@
     <p>Preencha as informações do aluno</p>
   </hgroup>
 
-  <form class="form">
+  <form class="form" [formGroup]="form" (submit)="onSubmit($event)">
     <app-input
+      [control]="form.controls.studentName"
       label="Nome completo"
       placeholder="Digite o nome completo do aluno"
     />
-    <app-input label="RG" placeholder="xx.xxx.xxx-x" />
     <app-input
+      [control]="form.controls.studentRG"
+      label="RG"
+      mask="00.000.000-0"
+      placeholder="xx.xxx.xxx-x"
+    />
+    <app-input
+      [control]="form.controls.enrollmentNumber"
       label="Número da Matrícula"
+      mask="000000"
       placeholder="Digite o número da matrícula"
     />
-    <app-select [options]="options" label="Turma" placeholder="6º ano B" />
-    <app-input label="CPF do responsável" placeholder="123.456.789-00" />
-    <app-button type="submit" label="Cadastrar" />
+    <app-select
+      [control]="form.controls.studentClass"
+      [options]="options"
+      label="Turma"
+      placeholder="6º ano B"
+    />
+    <app-input
+      [control]="form.controls.guardianCPF"
+      label="CPF do responsável"
+      mask="000.000.000-00"
+      placeholder="123.456.789-00"
+    />
+    <app-button [attr.class]="'form__btn'" type="submit" label="Cadastrar" />
   </form>
 </section>

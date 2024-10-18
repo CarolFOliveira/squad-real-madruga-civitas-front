@@ -8,6 +8,8 @@ import { FormControl } from '@angular/forms';
   encapsulation: ViewEncapsulation.None,
 })
 export class InputComponent {
+  @Input() mask = '';
+
   /**
    * Referência ao `FormControl` associado ao input.
    *
@@ -57,6 +59,9 @@ export class InputComponent {
    */
   @Input() type = 'text';
 
+  /** Texto que será exibido na label, valor opcional.  */
+  @Input() label = '';
+
   /**
    * hasControlError
    *
@@ -70,7 +75,7 @@ export class InputComponent {
    * @returns retorna `true` se houver um erro no input, `false` caso contrário.
    */
   hasControlError(): boolean {
-    return (this.control.invalid && this.control.dirty) || this.showErrors;
+    return (this.control?.invalid && this.control?.dirty) || this.showErrors;
   }
 
   /**
@@ -90,16 +95,16 @@ export class InputComponent {
       required: 'Este campo é obrigatório.',
       email: 'Por favor, digite um e-mail válido.',
       minlength: `O valor deve ter pelo menos ${
-        this.control.getError('minlength')?.requiredLength
+        this.control?.getError('minlength')?.requiredLength
       } caracteres.`,
       maxlength: `O valor deve ter no máximo ${
-        this.control.getError('maxlength')?.requiredLength
+        this.control?.getError('maxlength')?.requiredLength
       } caracteres.`,
       // ....
     };
 
     for (const [key, message] of Object.entries(errorMessages))
-      if (this.control.hasError(key)) return message;
+      if (this.control?.hasError(key)) return message;
 
     return '';
   }
