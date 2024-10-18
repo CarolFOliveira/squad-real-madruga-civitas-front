@@ -100,7 +100,9 @@ export class InputComponent {
       maxlength: `O valor deve ter no máximo ${
         this.control?.getError('maxlength')?.requiredLength
       } caracteres.`,
-      // ....
+      mask: `O valor deve estar no formato  ${
+        this.control?.getError('mask')?.requiredMask
+      }`,
     };
 
     for (const [key, message] of Object.entries(errorMessages))

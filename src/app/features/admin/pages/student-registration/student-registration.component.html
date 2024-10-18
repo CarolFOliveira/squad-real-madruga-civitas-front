@@ -1,4 +1,4 @@
-<a class="btn-link" routerLink="/administrador">
+<a class="btn" routerLink="/administrador">
   <button mat-icon-button>
     <mat-icon>arrow_back</mat-icon>
   </button>
@@ -25,8 +25,8 @@
     <app-input
       [control]="form.controls.enrollmentNumber"
       label="Número da Matrícula"
-      mask="000000"
       placeholder="Digite o número da matrícula"
+      type="number"
     />
     <app-select
       [control]="form.controls.studentClass"
@@ -40,6 +40,11 @@
       mask="000.000.000-00"
       placeholder="123.456.789-00"
     />
-    <app-button [attr.class]="'form__btn'" type="submit" label="Cadastrar" />
+    <app-button
+      [attr.class]="'form__btn'"
+      [isLoading]="form.pending"
+      label="Cadastrar"
+      type="submit"
+    />
   </form>
 </section>

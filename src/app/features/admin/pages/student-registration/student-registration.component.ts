@@ -3,7 +3,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-// Serviços
+// Services
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { StudentService } from '../../services/student.service';
 
 // Interfaces
@@ -15,7 +16,10 @@ import { IStudentData } from '../interfaces/IStudentData';
   styleUrls: ['./student-registration.component.scss'],
 })
 export class StudentRegistrationComponent {
-  constructor(private studentService: StudentService) {}
+  constructor(
+    private studentService: StudentService,
+    private snackbarService: SnackbarService
+  ) {}
 
   // TODO: remover valores de exemplo
   options = [
@@ -67,12 +71,38 @@ export class StudentRegistrationComponent {
     }
   }
 
-  private handleRegisterSuccess(response: unknown) {
-    // TODO: remover console log
-    console.log('Ok');
+  // TODO: remover any da resposta
+  private handleRegisterSuccess(response: any) {
+    this.form.updateValueAndValidity();
+
+    if (response.status === 201) {
+      this.snackbarService.openSnackBar(response.message);
+    }
   }
 
   private handleRegisterError(error: HttpErrorResponse) {
     this.form.setErrors({});
+
+    switch (error.status) {
+      case 409:
+        this.snackbarService.openSnackBar(
+          `Estudante já existe nos cadastros. \nVerifique as informações digitadas ou digite novas informações.`,
+          'Entendi'
+        );
+        break;
+
+      case 0:
+        this.snackbarService.openSnackBar(
+          'Não foi possível conectar ao servidor. \nVerifique sua conexão com a internet.',
+          'Fechar'
+        );
+        break;
+
+      default:
+        this.snackbarService.openSnackBar(
+          'Ocorreu um erro no servidor. Tente novamente mais tarde.',
+          'Fechar'
+        );
+    }
   }
 }

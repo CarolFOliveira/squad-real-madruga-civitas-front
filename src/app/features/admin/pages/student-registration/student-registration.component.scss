@@ -9,7 +9,7 @@
   height: 100dvh;
 }
 
-.btn-link {
+.btn {
   all: unset;
   align-self: start;
   justify-self: start;
@@ -38,4 +38,27 @@ section {
     margin-block-start: 20px;
     max-width: 265px;
   }
+}
+
+// TODO: mudar estilos globalmente ou criar um componente customizado para notificacoes
+::ng-deep .custom-snackbar {
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 25px 45px !important;
+  white-space: pre-line;
+  width: 350px;
+
+  .mat-mdc-simple-snack-bar {
+    flex-direction: column;
+    padding-block-end: 14px;
+  }
+
+  .mdc-button__label {
+    color: #65558f;
+    padding: 14px;
+  }
+
+  --mdc-snackbar-container-color: #f3edf7;
+  --mdc-snackbar-supporting-text-color: #65558f;
+  --mat-snack-bar-button-color: #00000043;
 }
