@@ -1,0 +1,23 @@
+<a routerLink="/administrador">Voltar</a>
+
+<section>
+  <hgroup>
+    <h2>Cadastro de aluno</h2>
+    <p>Preencha as informações do aluno</p>
+  </hgroup>
+
+  <form class="form">
+    <app-input
+      label="Nome completo"
+      placeholder="Digite o nome completo do aluno"
+    />
+    <app-input label="RG" placeholder="xx.xxx.xxx-x" />
+    <app-input
+      label="Número da Matrícula"
+      placeholder="Digite o número da matrícula"
+    />
+    <app-select [options]="options" label="Turma" placeholder="6º ano B" />
+    <app-input label="CPF do responsável" placeholder="123.456.789-00" />
+    <app-button type="submit" label="Cadastrar" />
+  </form>
+</section>

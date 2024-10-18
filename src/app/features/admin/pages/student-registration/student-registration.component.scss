@@ -1,0 +1,24 @@
+:host {
+  display: grid;
+  margin: 0 auto;
+  // TODO: configurar uma largura máxima para o conteúdo no estilo global
+  max-width: 1020px;
+  padding: 10px;
+  place-items: center;
+  height: 100vh;
+  height: 100dvh;
+}
+
+section {
+  align-self: start;
+  width: 100%;
+  max-width: 550px;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+  }
+}
