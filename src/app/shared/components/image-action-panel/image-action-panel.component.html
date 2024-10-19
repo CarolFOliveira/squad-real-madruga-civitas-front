@@ -1,0 +1,10 @@
+<img class="image" [src]="imageUrl" [alt]="imageDescription" />
+
+<section class="section">
+  <hgroup>
+    <h2 class="section__title">Seja bem-vindo!</h2>
+    <ng-content></ng-content>
+  </hgroup>
+
+  <ng-content select="[panel]"></ng-content>
+</section>
