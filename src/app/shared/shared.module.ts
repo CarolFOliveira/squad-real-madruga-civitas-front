@@ -14,8 +14,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ButtonComponent } from './components/button/button.component';
 import { ImageActionPanelComponent } from './components/image-action-panel/image-action-panel.component';
 import { InputComponent } from './components/input/input.component';
+import { ReturnButtonComponent } from './components/return-button/return-button.component';
 
-const COMPONENTS = [ButtonComponent, ImageActionPanelComponent, InputComponent];
+const COMPONENTS = [
+  ButtonComponent,
+  ImageActionPanelComponent,
+  InputComponent,
+  ReturnButtonComponent,
+];
 
 @NgModule({
   declarations: [...COMPONENTS],
