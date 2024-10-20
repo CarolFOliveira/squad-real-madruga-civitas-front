@@ -1,12 +1,18 @@
-<app-login
-  img="assets/loginProf.svg"
-  alt="Professora em uma sala de aula"
-  h4Text1="Olá, professor(a)!"
-  h4Text2="Aproveite a nossa ferramenta para aprimorar o desenvolvimento pessoal dos seus estudantes!"
-  placeholder="Número da matrícula do professor"
-  inputId="matriculaProf"
-  btnId="btnFormProf"
-  errorText="O número de matrícula está incorreto."
-  professorRoute=""
-  userType="professor"
-/>
+<app-image-action-panel
+  imageUrl="/assets/teacher-image.webp"
+  imageDescription=""
+>
+  <p class="description">
+    Olá, professor(a)! <br />
+    Aproveite a nossa ferramenta para aprimorar o desenvolvimento pessoal dos
+    seus estudantes!
+  </p>
+
+  <form [formGroup]="form" (submit)="onSubmit($event)" panel>
+    <app-input
+      [control]="form.controls.teacherAdmissionId"
+      placeholder="Número da matrícula do professor"
+    />
+    <app-button type="submit" label="Entrar" />
+  </form>
+</app-image-action-panel>

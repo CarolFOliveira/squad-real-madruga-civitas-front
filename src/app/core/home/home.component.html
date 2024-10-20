@@ -1,1 +1,11 @@
-<p>homer-works</p>
+<app-image-action-panel imageUrl="/assets/home-image.webp" imageDescription="">
+  <p class="description">
+    Para acessar a plataforma, selecione o seu tipo de perfil.
+  </p>
+
+  <div panel>
+    <app-button routerLink="/auth/professor" label="Sou professor(a)" />
+    <app-button routerLink="/auth/responsavel" label="Sou responsável" />
+    <a class="link" routerLink="/auth/administrador">Sou administrador</a>
+  </div>
+</app-image-action-panel>
