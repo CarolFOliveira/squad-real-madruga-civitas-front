@@ -28,8 +28,7 @@
   }
 
   &__title {
-    font-size: clamp(35px, (1rem + 5vw), 45px);
-    line-height: 52px;
+    letter-spacing: 1px;
   }
 
   &__description {
