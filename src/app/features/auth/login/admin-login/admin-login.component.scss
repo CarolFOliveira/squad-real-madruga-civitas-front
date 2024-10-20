@@ -1,13 +1,14 @@
+@import "variables";
+
 :host {
-  // TODO: configurar essas cores de forma global no tema, remover isso posteriormente
-  background-color: rgba($color: #65558f, $alpha: 0.65);
+  background-color: rgba($color: $primary-color, $alpha: 0.65);
   display: grid;
   place-items: center;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 50px 10px;
+  padding: 5rem 1rem;
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: $breakpoint-mobile) {
     padding: 0;
   }
 }
@@ -15,47 +16,40 @@
 .section {
   background: #fff;
   box-sizing: border-box;
-  max-width: 500px;
+  max-width: 50rem;
   text-align: center;
-  padding: 50px 25px;
+  padding: 5rem 2.5rem;
 
-  @media screen and (min-width: 480px) {
-    padding: 50px;
+  @media screen and (min-width: $breakpoint-mobile) {
+    padding: 5rem;
   }
 
   &__header {
-    margin-bottom: 35px;
+    margin-bottom: 3.5rem;
   }
 
   &__title {
-    font-size: clamp(35px, (1rem + 5vw), 45px);
-    line-height: 52px;
-  }
-
-  &__description {
-    font-size: 16px;
-    line-height: 24px;
+    letter-spacing: 0.5px;
   }
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
 
   &__input {
-    font-size: 1rem;
-    padding: 10px;
+    padding: 1rem;
   }
 
   a {
-    border-radius: 99px;
+    border-radius: 9rem;
   }
 }
 
 .failed-message {
-  transform: translateY(-100%);
+  color: $error-color;
   font-weight: 500;
-  color: #d63a32;
   text-align: left;
+  transform: translateY(-100%);
 }
