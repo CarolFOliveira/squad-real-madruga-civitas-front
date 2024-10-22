@@ -78,7 +78,7 @@ export class AdminLoginComponent {
     const { token } = response;
     if (token) {
       this.storageService.saveItem('jwtToken', token);
-      this.router.navigate(['/']);
+      this.router.navigate(['/administrador']);
     }
   }
 
@@ -100,6 +100,7 @@ export class AdminLoginComponent {
     this.loginForm.updateValueAndValidity();
 
     switch (error.status) {
+      case 400:
       case 401:
         this.loginForm.setErrors({ unauthorized: true });
         break;
