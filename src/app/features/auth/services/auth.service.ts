@@ -1,7 +1,7 @@
 // Libs
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, firstValueFrom, tap } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable, tap } from 'rxjs';
 
 // Interfaces
 import { ILoginRequest } from '../interfaces/ILoginRequest';
@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
   /**
-   * Será utilizado em toda a aplicação (source of true) para saber se o usuário está ou não autenticado.
+   * Será utilizado em toda a aplicação como um broadcast para monitorar o status de autenticação do usuário.
    */
   isAuthenticated$ = new BehaviorSubject(false);
 
@@ -58,5 +58,23 @@ export class AuthService {
           })
         )
     );
+  }
+
+  /**
+   * checkAuthenticationStatus
+   *
+   * Verifica o status de autenticação do usuário atual fazendo uma requisição para o backend.
+   * Atualiza o observable<boolean> `isAuthenticated$` com base na resposta.
+   *
+   * @returns Um Observable que emite o objeto de resposta contendo o status:
+   * * authenticated: `true` para autenticado
+   * * authenticated: `false` para não autenticado
+   */
+  public checkAuthenticationStatus(): Observable<{ authenticated: boolean }> {
+    return this.http
+      .get<{ authenticated: boolean }>(`${environment.apiUrl}/membros/status`)
+      .pipe(
+        tap(({ authenticated }) => this.isAuthenticated$.next(authenticated))
+      );
   }
 }

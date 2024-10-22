@@ -1,5 +1,6 @@
 //Libs
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 // Services
 import { AuthService } from './features/auth/services/auth.service';
@@ -9,14 +10,10 @@ import { AuthService } from './features/auth/services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  isAuthenticated = false;
+export class AppComponent {
+  isAuthenticated$: BehaviorSubject<boolean>;
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
-    this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
-      this.isAuthenticated = isAuthenticated;
-    });
+  constructor(private authService: AuthService) {
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
   }
 }
