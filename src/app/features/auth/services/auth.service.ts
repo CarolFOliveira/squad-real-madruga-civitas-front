@@ -7,6 +7,9 @@ import { firstValueFrom } from 'rxjs';
 import { ILoginRequest } from '../interfaces/ILoginRequest';
 import { ILoginResponse } from '../interfaces/ILoginResponse';
 
+// Env variables
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,7 +39,10 @@ export class AuthService {
    */
   public login(credentials: ILoginRequest): Promise<ILoginResponse> {
     return firstValueFrom(
-      this.http.post<ILoginResponse>('/api/login', credentials)
+      this.http.post<ILoginResponse>(`${environment.apiUrl}/admin/login`, {
+        email: credentials.email,
+        senha: credentials.password,
+      })
     );
   }
 }
