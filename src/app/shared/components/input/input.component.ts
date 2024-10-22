@@ -64,13 +64,13 @@ export class InputComponent {
    *
    * @remarks
    * A função retorna `true` e exibe o erro quando:
-   * - O controle estiver inválido e o usuário tiver modificado o valor inicial (dirty).
+   * - O controle estiver inválido e o usuário já tiver interagido com o campo (touched)
    * - A propriedade `showErrors` estiver definida como `true`, indicando que o erro deve ser exibido na tela mesmo que o campo esteja válido (utilizado quando acontece falha no login, por exemplo).
    *
    * @returns retorna `true` se houver um erro no input, `false` caso contrário.
    */
   hasControlError(): boolean {
-    return (this.control.invalid && this.control.dirty) || this.showErrors;
+    return (this.control.invalid && this.control.touched) || this.showErrors;
   }
 
   /**

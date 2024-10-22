@@ -40,18 +40,17 @@ export class AdminLoginComponent {
     private authService: AuthService,
     private storageService: StorageService,
     private router: Router
-  ) {
-    this.loginForm.valueChanges.subscribe(() => {
-      this.loginFailed = false;
-    });
-  }
+  ) {}
 
   public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
-    if (this.loginForm.invalid) return;
+
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
 
     this.loginForm.markAsPending();
-
     const credentials = this.loginForm.value as ILoginRequest;
 
     try {
@@ -59,6 +58,8 @@ export class AdminLoginComponent {
       this.handleLoginSuccess(response);
     } catch (error) {
       this.handleLoginError(error as HttpErrorResponse);
+    } finally {
+      this.loginFailed = false;
     }
   }
 
