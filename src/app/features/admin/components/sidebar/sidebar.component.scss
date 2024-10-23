@@ -1,0 +1,39 @@
+.sidebar-container {
+  position: relative;
+  background: transparent;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .sidebar {
+    position: fixed;
+    background: #dbd5e9;
+    text-align: center;
+    width: 140px;
+  }
+
+  .list {
+    margin-block-start: 90px;
+
+    &__link {
+      height: 105px !important;
+    }
+
+    &__icon {
+      display: block;
+      font-size: 50px;
+      height: 50px;
+      width: 100%;
+    }
+  }
+  .logout {
+    font-size: 1rem;
+    padding: 2rem;
+    margin-block: auto 4rem;
+  }
+}
+
+::ng-deep .mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+}

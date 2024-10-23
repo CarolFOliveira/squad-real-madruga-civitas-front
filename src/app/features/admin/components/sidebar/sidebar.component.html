@@ -1,0 +1,23 @@
+<mat-sidenav-container class="sidebar-container">
+  <mat-sidenav class="sidebar" mode="side" [opened]="isSidenavOpen">
+    <app-brand-link />
+
+    <mat-nav-list class="list">
+      <mat-list-item
+        class="list__link"
+        routerLinkActive="active"
+        routerLink="/administrador"
+      >
+        <mat-icon class="list__icon material-icons-outlined">
+          contact_page
+        </mat-icon>
+        Alunos
+      </mat-list-item>
+    </mat-nav-list>
+
+    <button mat-button class="logout">Sair</button>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
