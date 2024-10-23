@@ -3,10 +3,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Components
-import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { StudentRegistrationComponent } from './components/student-registration/student-registration.component';
 
 const routes: Routes = [
   { path: 'registrar/aluno', component: StudentRegistrationComponent },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [{ path: '', component: DashboardComponent }],
+  },
 ];
 
 @NgModule({
