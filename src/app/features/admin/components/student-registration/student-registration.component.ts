@@ -8,7 +8,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { StudentService } from '../../services/student.service';
 
 // Interfaces
-import { IStudentData } from '../interfaces/IStudentData';
+import { IStudentData } from '../../interfaces/IStudentData';
 
 @Component({
   selector: 'app-student-registration',
@@ -21,7 +21,7 @@ export class StudentRegistrationComponent {
     private snackbarService: SnackbarService
   ) {}
 
-  // TODO: remover valores de exemplo
+  // TODO: remover valores de exemplo e utilizar valores do backend
   options = [
     { value: '6A', viewValue: '6ª ano A' },
     { value: '6B', viewValue: '6ª ano B' },

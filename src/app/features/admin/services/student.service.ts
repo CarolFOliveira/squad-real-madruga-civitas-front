@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 // Interfaces
-import { IStudentData } from '../pages/interfaces/IStudentData';
+import { IStudentData } from '../interfaces/IStudentData';
 
 @Injectable({
   providedIn: 'root',
