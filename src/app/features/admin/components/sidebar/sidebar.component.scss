@@ -14,22 +14,47 @@
 
   .list {
     margin-block-start: 90px;
+    user-select: none;
 
-    &__link {
-      height: 105px !important;
+    .item {
+      height: 105px;
+
+      &.active {
+        // TODO: colocar essas cores no tema global
+        $active-color: #9354bc;
+        position: relative;
+        background: mix($active-color, transparent, 10%);
+
+        .item__icon,
+        .item__label {
+          color: $active-color;
+        }
+
+        &::after {
+          position: absolute;
+          content: "";
+          background: $active-color;
+          border-radius: 3px 0 0 3px;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 3px;
+        }
+      }
     }
 
-    &__icon {
+    .item__icon {
       display: block;
-      font-size: 50px;
-      height: 50px;
+      font-size: 47px;
+      height: 47px;
       width: 100%;
     }
   }
+
   .logout {
     font-size: 1rem;
     padding: 2rem;
-    margin-block: auto 4rem;
+    margin-block: auto 3rem;
   }
 }
 

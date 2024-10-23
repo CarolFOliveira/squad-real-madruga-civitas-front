@@ -3,18 +3,21 @@
     <app-brand-link />
 
     <mat-nav-list class="list">
-      <mat-list-item
-        class="list__link"
-        routerLinkActive="active"
-        routerLink="/administrador"
-      >
-        <mat-icon class="list__icon material-icons-outlined">
-          contact_page
-        </mat-icon>
-        Alunos
-      </mat-list-item>
+      <ng-container *ngFor="let item of items">
+        <mat-list-item
+          class="item"
+          [routerLink]="item.link"
+          routerLinkActive="active"
+        >
+          <mat-icon class="item__icon material-icons-outlined">
+            {{ item.icon }}
+          </mat-icon>
+          <span class="item__label">
+            {{ item.label }}
+          </span>
+        </mat-list-item>
+      </ng-container>
     </mat-nav-list>
-
     <button mat-button class="logout">Sair</button>
   </mat-sidenav>
   <mat-sidenav-content>

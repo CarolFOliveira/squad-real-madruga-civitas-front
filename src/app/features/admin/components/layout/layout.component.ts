@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, DestroyRef, ElementRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -12,13 +12,21 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   `,
 })
 export class LayoutComponent implements OnInit {
+  /**
+   * Indica se a aplicação está sendo exibida em uma viewport menor que 598px.
+   * @defaultValue `false`
+   */
   isMobile = false;
+
+  /**
+   * Indica se a barra lateral está aberta ou fechada.
+   * @defaultValue `true`
+   */
   isSidenavOpen = true;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private destroyRef: DestroyRef,
-    private elementRef: ElementRef
+    private destroyRef: DestroyRef
   ) {}
 
   ngOnInit(): void {
