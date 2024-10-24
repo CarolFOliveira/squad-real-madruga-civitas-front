@@ -16,6 +16,7 @@ import { Component } from '@angular/core';
       .toolbar {
         background: #dbd5e9;
         height: 65px;
+        padding-inline-start: 25px;
 
         &__spacer {
           flex: 1 1 auto;

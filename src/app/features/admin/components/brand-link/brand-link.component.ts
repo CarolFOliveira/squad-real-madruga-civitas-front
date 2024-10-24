@@ -15,13 +15,13 @@ import { Component } from '@angular/core';
     `
       .brand {
         &__link {
-          color: inherit;
-          display: block;
-          margin: 0 auto;
           background-color: #fff;
           border-radius: 99px;
+          color: inherit;
+          display: block;
           font-size: 65px;
           height: 65px;
+          margin: 0 auto;
           text-align: center;
           transform: translateY(50%);
           width: 71px;
@@ -32,10 +32,6 @@ import { Component } from '@angular/core';
           height: 65px;
           text-align: center;
           width: 71px;
-        }
-        // TODO: criar breakpoints de forma global...
-        @media screen and (min-width: 598px) {
-          background-color: #fff;
         }
       }
     `,
