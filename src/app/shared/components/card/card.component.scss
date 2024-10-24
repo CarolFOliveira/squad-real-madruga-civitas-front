@@ -1,9 +1,14 @@
+:host {
+  max-width: 300px;
+}
+
 .card {
+  display: inline-block;
   background-color: #6650a462;
   border-radius: 12px;
   margin-bottom: 1rem;
-  max-width: 300px;
   padding: 10px 15px 10px;
+  max-width: 300px;
 
   &__image {
     object-fit: cover;
