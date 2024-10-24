@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <mat-toolbar class="toolbar">
       <app-brand-link />
       <span class="toolbar__spacer"></span>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="menuClick.emit()">
         <mat-icon>menu</mat-icon>
       </button>
     </mat-toolbar>
@@ -25,4 +25,9 @@ import { Component } from '@angular/core';
     `,
   ],
 })
-export class ToolbarComponent {}
+export class ToolbarComponent {
+  /**
+   * Emite um evento chamado `menuClick` quando o botão de menu é clicado.
+   */
+  @Output() menuClick = new EventEmitter<void>();
+}

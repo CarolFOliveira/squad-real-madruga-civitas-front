@@ -1,9 +1,14 @@
 <mat-sidenav-container class="sidebar-container">
-  <mat-sidenav class="sidebar" mode="side" [opened]="isSidenavOpen">
+  <mat-sidenav
+    class="sidebar"
+    [mode]="mode"
+    [(opened)]="isSidenavOpen"
+    (openedChange)="onOpenedChange($event)"
+  >
     <app-brand-link class="sidebar__brand" />
 
     <mat-nav-list class="list">
-      <ng-container *ngFor="let item of items">
+      <ng-container *ngFor="let item of menuItems">
         <mat-list-item
           class="item"
           [routerLink]="item.link"
