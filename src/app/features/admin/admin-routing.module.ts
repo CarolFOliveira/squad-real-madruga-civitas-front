@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Components
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { StudentRegistrationComponent } from './components/student-registration/student-registration.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
 
 const routes: Routes = [
   { path: 'registrar/aluno', component: StudentRegistrationComponent },

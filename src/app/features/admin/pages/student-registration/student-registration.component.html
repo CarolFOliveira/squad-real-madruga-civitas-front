@@ -1,5 +1,5 @@
 <!-- TODO: foi criado um componente para esse botão em outra branch, utilizar <app-return-button> -->
-<a class="btn" routerLink="/administrador">
+<a class="return-button" routerLink="/administrador">
   <button mat-icon-button>
     <mat-icon>arrow_back</mat-icon>
   </button>
@@ -42,8 +42,8 @@
       placeholder="123.456.789-00"
     />
     <app-button
-      [attr.class]="'form__btn'"
       [isLoading]="form.pending"
+      class="form__btn"
       label="Cadastrar"
       type="submit"
     />

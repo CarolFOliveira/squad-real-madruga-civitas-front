@@ -20,11 +20,11 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 // Components
 import { BrandLinkComponent } from './components/brand-link/brand-link.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { StudentRegistrationComponent } from './components/student-registration/student-registration.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
 
 const COMPONENTS = [
   BrandLinkComponent,
