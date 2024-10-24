@@ -1,0 +1,16 @@
+.section {
+  max-width: 1200px;
+  padding-inline: 20px;
+
+  @media screen and (min-width: 768px) {
+    padding-inline: 80px;
+  }
+
+  &__header {
+    margin-block-start: 80px;
+  }
+
+  &__description {
+    max-width: 620px;
+  }
+}

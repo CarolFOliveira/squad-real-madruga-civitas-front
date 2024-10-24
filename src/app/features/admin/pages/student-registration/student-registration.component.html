@@ -1,0 +1,51 @@
+<!-- TODO: foi criado um componente para esse botão em outra branch, utilizar <app-return-button> -->
+<a class="return-button" routerLink="/administrador">
+  <button mat-icon-button>
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</a>
+
+<section class="section">
+  <hgroup>
+    <h2 class="section__title">Cadastro de aluno</h2>
+    <p class="section__description">Preencha as informações do aluno</p>
+  </hgroup>
+
+  <form class="form" [formGroup]="form" (submit)="onSubmit($event)">
+    <app-input
+      [control]="form.controls.studentName"
+      label="Nome completo"
+      placeholder="Digite o nome completo do aluno"
+    />
+    <app-input
+      [control]="form.controls.studentRG"
+      label="RG"
+      mask="00.000.000-0"
+      placeholder="xx.xxx.xxx-x"
+    />
+    <app-input
+      [control]="form.controls.enrollmentNumber"
+      label="Número da Matrícula"
+      placeholder="Digite o número da matrícula"
+      type="number"
+    />
+    <app-select
+      [control]="form.controls.studentClass"
+      [options]="options"
+      label="Turma"
+      placeholder="6º ano B"
+    />
+    <app-input
+      [control]="form.controls.guardianCPF"
+      label="CPF do responsável"
+      mask="000.000.000-00"
+      placeholder="123.456.789-00"
+    />
+    <app-button
+      [isLoading]="form.pending"
+      class="form__btn"
+      label="Cadastrar"
+      type="submit"
+    />
+  </form>
+</section>

@@ -9,6 +9,25 @@ import { FormControl } from '@angular/forms';
 })
 export class InputComponent {
   /**
+   * Máscara de entrada que define o formato aceito no campo de input.
+   *
+   * Padrões suportados:
+   * - `0`: dígitos (como números de 0 a 9)
+   * - `9`: dígitos (como números de 0 a 9), mas opcional
+   * - `A`: letras (maiúsculas ou minúsculas) e dígitos
+   * - `S`: apenas letras (maiúsculas ou minúsculas)
+   * - `U`: apenas letras maiúsculas
+   * - `L`: apenas letras minúsculas
+   *
+   * @example
+   * Para definir uma máscara que aceite apenas números e letras:
+   * ```html
+   * <app-input mask="000-AAA" />
+   * ```
+   */
+  @Input() mask = '';
+
+  /**
    * Referência ao `FormControl` associado ao input.
    *
    * @example
@@ -57,6 +76,9 @@ export class InputComponent {
    */
   @Input() type = 'text';
 
+  /** Texto que será exibido na label, valor opcional.  */
+  @Input() label = '';
+
   /**
    * hasControlError
    *
@@ -70,7 +92,7 @@ export class InputComponent {
    * @returns retorna `true` se houver um erro no input, `false` caso contrário.
    */
   hasControlError(): boolean {
-    return (this.control.invalid && this.control.dirty) || this.showErrors;
+    return (this.control?.invalid && this.control?.dirty) || this.showErrors;
   }
 
   /**
@@ -90,16 +112,18 @@ export class InputComponent {
       required: 'Este campo é obrigatório.',
       email: 'Por favor, digite um e-mail válido.',
       minlength: `O valor deve ter pelo menos ${
-        this.control.getError('minlength')?.requiredLength
+        this.control?.getError('minlength')?.requiredLength
       } caracteres.`,
       maxlength: `O valor deve ter no máximo ${
-        this.control.getError('maxlength')?.requiredLength
+        this.control?.getError('maxlength')?.requiredLength
       } caracteres.`,
-      // ....
+      mask: `O valor deve estar no formato  ${
+        this.control?.getError('mask')?.requiredMask
+      }`,
     };
 
     for (const [key, message] of Object.entries(errorMessages))
-      if (this.control.hasError(key)) return message;
+      if (this.control?.hasError(key)) return message;
 
     return '';
   }

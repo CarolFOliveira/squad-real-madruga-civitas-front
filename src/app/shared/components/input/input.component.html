@@ -1,12 +1,22 @@
-<mat-form-field appearance="outline" class="material-input__field">
+<mat-form-field
+  floatLabel="always"
+  appearance="outline"
+  class="material-input__field"
+>
   <input
     matInput
     [autocomplete]="autocomplete"
     [formControl]="control"
     [placeholder]="placeholder"
     [type]="type"
-    [ngClass]="{ 'material-input__error': hasControlError() }"
+    [mask]="mask"
+    [ngClass]="{
+      'material-input__error': hasControlError(),
+      'material-input__custom-placeholder': label
+    }"
   />
+
+  <mat-label class="label" *ngIf="label">{{ label }}</mat-label>
 
   <mat-icon matSuffix class="material-input__error" *ngIf="hasControlError()">
     highlight_off

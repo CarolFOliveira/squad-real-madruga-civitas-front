@@ -1,0 +1,23 @@
+:host {
+  max-width: 300px;
+}
+
+.card {
+  display: inline-block;
+  background-color: #6650a462;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  padding: 10px 15px 10px;
+  max-width: 300px;
+
+  &__image {
+    object-fit: cover;
+  }
+
+  &__button {
+    background: #fff;
+    border-radius: 99px;
+    flex: 1;
+    margin-inline: 8px;
+  }
+}
