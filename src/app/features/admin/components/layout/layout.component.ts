@@ -1,5 +1,6 @@
 // Libs
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
 // Services
 import { LayoutService } from '../../services/layout.service';
@@ -17,7 +18,13 @@ import { LayoutService } from '../../services/layout.service';
     </app-sidebar>
   `,
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnDestroy {
+  /**
+   * Observable utilizado apenas para controlar o ciclo de vida
+   * dos outros observables ao destruir o componente.
+   */
+  private destroy$ = new Subject<void>();
+
   /**
    * Indica se a aplicação está sendo exibida em uma viewport menor que 598px.
    *
@@ -35,13 +42,22 @@ export class LayoutComponent implements OnInit {
   constructor(private layoutService: LayoutService) {}
 
   ngOnInit(): void {
-    this.layoutService.isMobile$.subscribe((isMobile) => {
-      this.isMobile = isMobile;
-    });
+    this.layoutService.isMobile$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isMobile) => {
+        this.isMobile = isMobile;
+      });
 
-    this.layoutService.isSidenavOpen$.subscribe((isOpen) => {
-      this.isSidenavOpen = isOpen;
-    });
+    this.layoutService.isSidenavOpen$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isOpen) => {
+        this.isSidenavOpen = isOpen;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**

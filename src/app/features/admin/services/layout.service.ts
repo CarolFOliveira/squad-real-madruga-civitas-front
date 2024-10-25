@@ -1,6 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { DestroyRef, Injectable } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -22,14 +21,10 @@ export class LayoutService {
    */
   isSidenavOpen$ = this.isSidenavOpen.asObservable();
 
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private destroyRef: DestroyRef
-  ) {
+  constructor(private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver
       // TODO: utilizar breakpoint global
       .observe(`(max-width: 598px)`)
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ matches }) => {
         this.isMobile.next(matches);
         this.isSidenavOpen.next(!matches);
