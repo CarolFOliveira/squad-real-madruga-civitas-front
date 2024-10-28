@@ -35,20 +35,22 @@ const COMPONENTS = [
   ToolbarComponent,
 ];
 
+const MODULES = [
+  CommonModule,
+  ReactiveFormsModule,
+  AdminRoutingModule,
+  SharedModule,
+  MatButtonModule,
+  MatIconModule,
+  MatListModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatToolbarModule,
+];
+
 @NgModule({
   declarations: [...COMPONENTS],
   providers: [SnackbarService],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    MatButtonModule,
-    MatIconModule,
-    MatListModule,
-    MatSidenavModule,
-    MatSnackBarModule,
-    MatToolbarModule,
-    ReactiveFormsModule,
-    SharedModule,
-  ],
+  imports: [...MODULES],
 })
 export class AdminModule {}
