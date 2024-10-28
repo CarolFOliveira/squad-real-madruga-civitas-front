@@ -7,57 +7,60 @@ import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-layout',
-  template: `
-    <app-toolbar *ngIf="isMobile" (menuClick)="toggleSidenav()" />
-    <app-sidebar
-      [mode]="isMobile ? 'over' : 'side'"
-      [isSidenavOpen]="isSidenavOpen"
-      (closeSidenav)="handleSidenavClose()"
-    >
-      <router-outlet></router-outlet>
-    </app-sidebar>
-  `,
+  templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   /**
    * Observable utilizado apenas para controlar o ciclo de vida
    * dos outros observables ao destruir o componente.
    */
-  private destroy$ = new Subject<void>();
+  private _destroy$ = new Subject<void>();
 
   /**
    * Indica se a aplicação está sendo exibida em uma viewport menor que 598px.
    *
    * @defaultValue `false`
    */
-  isMobile = false;
+  public isMobile = false;
 
   /**
    * Indica se a barra lateral está aberta ou fechada.
    *
    * @defaultValue `true`
    */
-  isSidenavOpen = true;
+  public isSidenavOpen = true;
 
-  constructor(private layoutService: LayoutService) {}
+  constructor(private _layoutService: LayoutService) {}
 
-  ngOnInit(): void {
-    this.layoutService.isMobile$
-      .pipe(takeUntil(this.destroy$))
+  /**
+   * Esse método é executado durante a inicialização do componente.
+   * Estamos criando duas inscrições para observar se estamos no modo mobile ou se a sidebar está ou não aberta.
+   *
+   * Os valores recebidos são armazenados nas propriedades `isMobile` e `isSidenavOpen`.
+   */
+  public ngOnInit(): void {
+    this._layoutService.isMobile$
+      .pipe(takeUntil(this._destroy$))
       .subscribe((isMobile) => {
         this.isMobile = isMobile;
       });
 
-    this.layoutService.isSidenavOpen$
-      .pipe(takeUntil(this.destroy$))
+    this._layoutService.isSidenavOpen$
+      .pipe(takeUntil(this._destroy$))
       .subscribe((isOpen) => {
         this.isSidenavOpen = isOpen;
       });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  /**
+   * Esse método é chamado antes de destruir o componente.
+   *
+   * Envia um valor de finalização `next` e completa o Subject, garantindo
+   * que todas as subscrições baseadas em `takeUntil` sejam encerradas, evitando memory leaks.
+   */
+  public ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   /**
@@ -66,7 +69,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
    * Inverte o valor de abertura da sidenav. Se era `false` fica `true` e vice-versa.
    */
   public toggleSidenav(): void {
-    this.layoutService.toggleSidenav();
+    this._layoutService.toggleSidenav();
   }
 
   /**
@@ -75,6 +78,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
    * Responsável por fechar a sidenav quando estiver no modo mobile.
    */
   public handleSidenavClose(): void {
-    if (this.isMobile) this.layoutService.closeSidenav();
+    if (this.isMobile) this._layoutService.closeSidenav();
   }
 }
