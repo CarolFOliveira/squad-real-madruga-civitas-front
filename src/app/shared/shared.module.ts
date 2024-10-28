@@ -23,17 +23,18 @@ const COMPONENTS = [
   ReturnButtonComponent,
 ];
 
+const MODULES = [
+  CommonModule,
+  MatIconModule,
+  MatInputModule,
+  MatButtonModule,
+  MatProgressSpinnerModule,
+  ReactiveFormsModule,
+];
+
 @NgModule({
   declarations: [...COMPONENTS],
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    ReactiveFormsModule,
-    RouterLink,
-  ],
+  imports: [...MODULES, RouterLink],
   exports: [...COMPONENTS],
 })
 export class SharedModule {}
