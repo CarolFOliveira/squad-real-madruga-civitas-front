@@ -17,26 +17,26 @@ export class SidebarComponent {
    *
    * @defaultValue `side`
    */
-  @Input() mode: 'over' | 'side' | 'push' = 'side';
+  @Input() public mode: 'over' | 'side' | 'push' = 'side';
 
   /**
    * Define se a sidenav está aberta ou fechada.
    *
    * @defaultValue `true`
    */
-  @Input() isSidenavOpen = true;
+  @Input() public isSidenavOpen = true;
 
   /**
    * Emite um evento chamado `closeSidenav` quando a barra lateral deve ser fechada.
    */
-  @Output() closeSidenav = new EventEmitter<void>();
+  @Output() public closeSidenav = new EventEmitter<void>();
 
   /**
    * Lista de itens de navegação exibidos na sidenav.
    *
    * Cada item contém uma `label`, um `link` de navegação e um `icon`.
    */
-  menuItems: IMenuItem[] = [
+  public menuItems: IMenuItem[] = [
     {
       label: 'Alunos',
       link: '/administrador/alunos',
@@ -50,7 +50,6 @@ export class SidebarComponent {
    * É chamado sempre que o estado de abertura da sidenav é alterado.
    *
    * @param opened - Valor `boolean` que indica se a sidenav está aberta ou fechada.
-   *
    *
    * @remarks
    * Se a sidenav estiver fechada (`opened` é `false`) e estiver no modo `over`,
