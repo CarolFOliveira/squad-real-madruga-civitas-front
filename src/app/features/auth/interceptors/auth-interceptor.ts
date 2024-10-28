@@ -13,13 +13,13 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private storageService: StorageService) {}
+  constructor(private _storageService: StorageService) {}
 
   intercept(
     req: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const token = this.storageService.getItem('jwtToken');
+    const token = this._storageService.getItem('jwtToken');
     const request = req.clone({
       setHeaders: {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),

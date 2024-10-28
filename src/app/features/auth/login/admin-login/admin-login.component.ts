@@ -37,9 +37,9 @@ export class AdminLoginComponent {
   );
 
   constructor(
-    private authService: AuthService,
-    private storageService: StorageService,
-    private router: Router
+    private _authService: AuthService,
+    private _storageService: StorageService,
+    private _router: Router
   ) {}
 
   public async onSubmit($event: SubmitEvent): Promise<void> {
@@ -54,12 +54,10 @@ export class AdminLoginComponent {
     const credentials = this.loginForm.value as ILoginRequest;
 
     try {
-      const response = await this.authService.login(credentials);
+      const response = await this._authService.login(credentials);
       this.handleLoginSuccess(response);
     } catch (error) {
       this.handleLoginError(error as HttpErrorResponse);
-    } finally {
-      this.loginFailed = false;
     }
   }
 
@@ -77,8 +75,8 @@ export class AdminLoginComponent {
   private handleLoginSuccess(response: ILoginResponse): void {
     const { token } = response;
     if (token) {
-      this.storageService.saveItem('jwtToken', token);
-      this.router.navigate(['/administrador']);
+      this._storageService.saveItem('jwtToken', token);
+      this._router.navigate(['/administrador']);
     }
   }
 
