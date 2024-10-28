@@ -3,38 +3,23 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-return-button',
-  template: `
-    <button
-      mat-icon-button
-      [routerLink]="routerLink"
-      [ngClass]="{ hidden: isHomePage }"
-    >
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-  `,
-  styles: [
-    `
-      button {
-        height: 65px;
-
-        &.hidden {
-          visibility: hidden;
-        }
-      }
-    `,
-  ],
+  templateUrl: './return-button.component.html',
+  styleUrls: ['./return-button.component.scss'],
 })
 export class ReturnButtonComponent implements OnInit {
-  @Input() routerLink = '..';
+  @Input() public routerLink = '..';
 
   /**
    * Se for a pagina inicial, não deve mostrar o botão.
    */
-  isHomePage = false;
+  public isHomePage = false;
 
-  constructor(private router: Router) {}
+  constructor(private _router: Router) {}
 
-  ngOnInit() {
+  /**
+   * Invoca o método para verificar se estamos ou não na Homepage quando o componente é inicializado.
+   */
+  public ngOnInit(): void {
     this.checkHomePage();
   }
 
@@ -42,6 +27,6 @@ export class ReturnButtonComponent implements OnInit {
    * Verifica se a rota atual é a pagina inicial.
    */
   private checkHomePage(): void {
-    this.isHomePage = this.router.url === '/';
+    this.isHomePage = this._router.url === '/';
   }
 }
