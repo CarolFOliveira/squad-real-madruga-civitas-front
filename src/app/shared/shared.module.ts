@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
 // Components
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CardComponent } from './components/card/card.component';
 import { ImageActionPanelComponent } from './components/image-action-panel/image-action-panel.component';
@@ -38,6 +39,21 @@ const MODULES = [
   MatInputModule,
   MatProgressSpinnerModule,
   MatSelectModule,
+  ReactiveFormsModule,
+];
+
+const COMPONENTS = [
+  BreadcrumbsComponent,
+  ButtonComponent, 
+  InputComponent,
+];
+
+const MODULES = [
+  CommonModule,
+  MatIconModule,
+  MatInputModule,
+  MatButtonModule,
+  MatProgressSpinnerModule,
   ReactiveFormsModule,
 ];
 
