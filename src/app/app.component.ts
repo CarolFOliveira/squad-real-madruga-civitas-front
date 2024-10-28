@@ -11,9 +11,12 @@ import { AuthService } from './features/auth/services/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  isAuthenticated$: BehaviorSubject<boolean>;
+  /**
+   * Indica se o usuário está autenticado ou não.
+   */
+  public isAuthenticated$: BehaviorSubject<boolean>;
 
-  constructor(private authService: AuthService) {
-    this.isAuthenticated$ = this.authService.isAuthenticated$;
+  constructor(private _authService: AuthService) {
+    this.isAuthenticated$ = this._authService.isAuthenticated$;
   }
 }
