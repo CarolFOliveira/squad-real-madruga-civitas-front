@@ -1,4 +1,8 @@
+// Libs
 import { Component } from '@angular/core';
+
+// Interfaces
+import { IBreadCrumbs } from '../../interfaces/IBreadCrumbs';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -6,5 +10,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./breadcrumbs.component.scss'],
 })
 export class BreadcrumbsComponent {
-  public breadcrumbs: { label: string; url: string }[] = [];
+  public breadcrumbs: IBreadCrumbs[] = [];
 }
