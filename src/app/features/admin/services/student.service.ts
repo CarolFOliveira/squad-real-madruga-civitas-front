@@ -17,12 +17,7 @@ export class StudentService {
    *
    * Registra um aluno enviando suas informações para o backend.
    *
-   * @param student - Os dados do aluno a ser cadastrado
-   * @param student.studentName - Nome do aluno
-   * @param student.studentRG - RG do aluno
-   * @param student.enrollmentNumber - Número da matrícula
-   * @param student.studentClass - Turma do aluno
-   * @param student.guardianCPF - CPF do responsável pelo o aluno
+   * @param student - objeto do tipo {@link IStudentData}
    *
    * @returns Uma `Promise` contendo a resposta do backend.
    */
