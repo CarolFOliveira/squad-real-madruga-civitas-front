@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 /**
  * Componente para exibir uma imagem à esquerda e um painel de ações à direita.
  *
- *
  * @example
  * ```html
  * <app-image-action-panel
@@ -30,12 +29,12 @@ export class ImageActionPanelComponent {
   /**
    * Caminho ou URL da imagem que será utilizada no atributo `src` do elemento `<img />`.
    */
-  @Input() imageUrl = '';
+  @Input() public imageUrl = '';
 
   /**
    * Descrição da imagem que será utilizada no atributo `alt` do elemento `<img />`.
    *
    * Esta descrição melhora a acessibilidade e é exibida quando a imagem não pode ser carregada.
    */
-  @Input() imageDescription = '';
+  @Input() public imageDescription = '';
 }
