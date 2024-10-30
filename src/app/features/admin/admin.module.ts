@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // Angular Material Modules
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -23,6 +24,7 @@ import { BrandLinkComponent } from './components/brand-link/brand-link.component
 import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
 
@@ -33,6 +35,7 @@ const COMPONENTS = [
   SidebarComponent,
   StudentRegistrationComponent,
   ToolbarComponent,
+  VideoDialogComponent,
 ];
 
 const MODULES = [
@@ -41,6 +44,7 @@ const MODULES = [
   AdminRoutingModule,
   SharedModule,
   MatButtonModule,
+  MatDialogModule,
   MatIconModule,
   MatListModule,
   MatSidenavModule,
