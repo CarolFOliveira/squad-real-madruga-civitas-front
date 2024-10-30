@@ -11,7 +11,7 @@ import { VideoDialogComponent } from '../../components/video-dialog/video-dialog
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  constructor(public _dialog: MatDialog) {}
+  constructor(private _dialog: MatDialog) {}
 
   /**
    * openDialog
