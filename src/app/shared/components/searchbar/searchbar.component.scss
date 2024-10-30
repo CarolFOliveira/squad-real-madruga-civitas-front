@@ -1,0 +1,46 @@
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #6650a425;
+  border-radius: 99px;
+  margin-inline-start: auto;
+  overflow: hidden;
+  height: 47px;
+  width: 47px;
+  transition: width 0.25s linear;
+
+  &__input {
+    all: unset;
+    width: 0;
+  }
+
+  &.active,
+  &.search--desktop {
+    width: 100%;
+
+    .search__input {
+      text-align: left;
+      width: 100%;
+    }
+  }
+}
+
+.search--desktop {
+  max-width: 300px;
+  display: none;
+
+  .search__input {
+    padding-inline: 25px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .search--mobile {
+    display: none;
+  }
+
+  .search--desktop {
+    display: flex;
+  }
+}

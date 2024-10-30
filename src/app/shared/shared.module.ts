@@ -1,7 +1,7 @@
 // Libs
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
@@ -22,6 +22,7 @@ import { ImageActionPanelComponent } from './components/image-action-panel/image
 import { InputComponent } from './components/input/input.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ReturnButtonComponent } from './components/return-button/return-button.component';
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { SelectComponent } from './components/select/select.component';
 
 const COMPONENTS = [
@@ -32,11 +33,13 @@ const COMPONENTS = [
   InputComponent,
   PaginationComponent,
   ReturnButtonComponent,
+  SearchbarComponent,
   SelectComponent,
 ];
 
 const MODULES = [
   CommonModule,
+  FormsModule,
   MatButtonModule,
   MatCardModule,
   MatIconModule,
