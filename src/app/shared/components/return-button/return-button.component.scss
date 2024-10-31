@@ -1,0 +1,7 @@
+button {
+  height: 65px;
+
+  &.hidden {
+    visibility: hidden;
+  }
+}

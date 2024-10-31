@@ -2,6 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 // Angular Material Modules
 import { MatButtonModule } from '@angular/material/button';
@@ -11,18 +12,29 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Components
 import { ButtonComponent } from './components/button/button.component';
+import { ImageActionPanelComponent } from './components/image-action-panel/image-action-panel.component';
 import { InputComponent } from './components/input/input.component';
+import { ReturnButtonComponent } from './components/return-button/return-button.component';
+
+const COMPONENTS = [
+  ButtonComponent,
+  ImageActionPanelComponent,
+  InputComponent,
+  ReturnButtonComponent,
+];
+
+const MODULES = [
+  CommonModule,
+  MatIconModule,
+  MatInputModule,
+  MatButtonModule,
+  MatProgressSpinnerModule,
+  ReactiveFormsModule,
+];
 
 @NgModule({
-  declarations: [InputComponent, ButtonComponent],
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    ReactiveFormsModule,
-  ],
-  exports: [InputComponent, ButtonComponent],
+  declarations: [...COMPONENTS],
+  imports: [...MODULES, RouterLink],
+  exports: [...COMPONENTS],
 })
 export class SharedModule {}

@@ -1,3 +1,5 @@
+@import "variables";
+
 .material-input__field {
   width: 100%;
 
@@ -7,15 +9,14 @@
       .mdc-notched-outline__leading,
     .mdc-text-field--outlined:not(.mdc-text-field--disabled)
       .mdc-notched-outline__trailing {
-      border-color: #d63a32 !important;
+      border-color: $error-color !important;
     }
   }
 
   .material-input__error {
     &,
     &::placeholder {
-      // TODO: configurar cor de erro dos inputs no tema global
-      color: #d63a32 !important;
+      color: $error-color !important;
       opacity: 1;
     }
   }

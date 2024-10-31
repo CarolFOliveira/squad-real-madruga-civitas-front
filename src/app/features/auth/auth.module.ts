@@ -13,7 +13,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
 
 // Components
-import { LoginComponent } from './components/login/login.component';
 import { AdminLoginComponent } from './login/admin-login/admin-login.component';
 import { ParentsLoginComponent } from './login/parents-login/parents-login.component';
 import { TeacherLoginComponent } from './login/teacher-login/teacher-login.component';
@@ -22,7 +21,6 @@ const COMPONENTS = [
   AdminLoginComponent,
   ParentsLoginComponent,
   TeacherLoginComponent,
-  LoginComponent,
 ];
 
 @NgModule({
