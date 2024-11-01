@@ -1,25 +1,23 @@
-// TODO: utilizar mixins e variáveis definidos globalmente da outra branch
+@import "variables";
+@import "mixins";
+
 .nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include center-flex;
 
   &__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
+    @include center-flex;
+    font-size: 1.5rem;
   }
 
   &__link {
-    color: #1d6bfb;
+    color: $link-color;
     cursor: pointer;
     text-decoration: none;
     text-transform: capitalize;
     transition: color 0.2s ease-in-out;
 
     &:hover {
-      color: #b41eda;
+      color: $link-hover-color;
     }
   }
 }

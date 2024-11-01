@@ -1,13 +1,14 @@
+@import "mixins";
+@import "variables";
+
 .search {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #6650a425;
-  border-radius: 99px;
+  @include center-flex($justify: space-between);
+  background-color: $primary-color-200;
+  border-radius: 9rem;
   margin-inline-start: auto;
   overflow: hidden;
-  height: 47px;
-  width: 47px;
+  height: 4.5rem;
+  width: 4.5rem;
   transition: width 0.25s linear;
 
   &__input {
@@ -27,15 +28,15 @@
 }
 
 .search--desktop {
-  max-width: 300px;
+  max-width: 30rem;
   display: none;
 
   .search__input {
-    padding-inline: 25px;
+    padding-inline: 2.5rem;
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: $breakpoint-tablet) {
   .search--mobile {
     display: none;
   }

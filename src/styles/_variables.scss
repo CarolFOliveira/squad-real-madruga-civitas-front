@@ -6,6 +6,7 @@ $breakpoint-large-desktop: 1200px;
 
 /* Cores */
 $primary-color: #65558f;
+$primary-color-200: rgba($primary-color, 0.15);
 $error-color: #d63a32;
 
 /* Inputs */
@@ -18,3 +19,7 @@ $sidebar-active-color: #9354bc;
 
 /* Card */
 $card-bg-color: #b8add4;
+
+/* Links */
+$link-color: #2c75fb;
+$link-hover-color: darken($link-color, 10%);
