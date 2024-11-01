@@ -6,12 +6,34 @@ import { filter } from 'rxjs';
 // Interfaces
 import { IBreadCrumbs } from '../interfaces/IBreadCrumbs';
 
+/**
+ * BreadcrumbsService
+ *
+ * Serviço que gera a lista de breadcrumbs com base nas rotas da aplicação.
+ *
+ * @remarks
+ * Esse serviço utiliza o evento `NavigationEnd` do `Router` para rastrear alterações
+ * nas rotas e construir a lista de breadcrumbs usando os dados das rotas ativadas.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class BreadcrumbsService {
+  /**
+   * Lista de breadcrumbs que representa o caminho atual da navegação.
+   */
   public breadcrumbs: IBreadCrumbs[] = [];
 
+  /**
+   * Inicializa o serviço e se inscreve para receber eventos de navegação para atualizar os breadcrumbs.
+   *
+   * @param _router - Instância do `Router` para monitorar eventos de navegação.
+   * @param _activatedRoute - Instância do `ActivatedRoute` para acessar as rotas ativas.
+   *
+   * @remarks
+   * Estamos filtrando os eventos de navegação somente para usar o `NavigationEnd` que indica que
+   * é um evento disparado somente quando a navegação termina com sucesso.
+   */
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute
@@ -23,6 +45,16 @@ export class BreadcrumbsService {
       });
   }
 
+  /**
+   * createBreadcrumbs
+   *
+   * Cria a lista de breadcrumbs recursivamente com base nas rotas ativadas.
+   *
+   * @param activatedRoute - A rota ativada atual para processar.
+   * @param breadcrumbs - Lista de breadcrumbs que será incrementada a cada chamada.
+   * @param url - Uma `string` que representa a URL que será incrementada a cada chamada.
+   * @returns Array atualizado de `IBreadCrumbs` representando todos os links para navegação do usuário.
+   */
   private createBreadcrumbs(
     activatedRoute: ActivatedRoute,
     breadcrumbs: IBreadCrumbs[] = [],
@@ -39,7 +71,7 @@ export class BreadcrumbsService {
       if (urlSegments) {
         url += `/${urlSegments}`;
         breadcrumbs.push({
-          label: childRoute.snapshot.data['breadcrumb'],
+          label: childRoute.snapshot.data['breadcrumbs'],
           url,
         });
       }
