@@ -43,6 +43,8 @@ export class BreadcrumbsService {
       .subscribe(() => {
         this.breadcrumbs = this.createBreadcrumbs(this._activatedRoute.root);
       });
+
+    this.breadcrumbs = this.createBreadcrumbs(this._activatedRoute.root);
   }
 
   /**
@@ -75,6 +77,7 @@ export class BreadcrumbsService {
           url,
         });
       }
+
       this.createBreadcrumbs(childRoute, breadcrumbs, url);
     }
 

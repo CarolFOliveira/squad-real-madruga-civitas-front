@@ -14,6 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'administrador',
+    data: { breadcrumbs: 'Tela Inicial' },
     loadChildren: () =>
       import('./features/admin/admin.module').then((m) => m.AdminModule),
   },
