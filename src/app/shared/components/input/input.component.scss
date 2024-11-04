@@ -1,9 +1,16 @@
 @import "variables";
 
+.label {
+  background-color: $input-label-color;
+}
+
+.material-input__custom-placeholder::placeholder {
+  color: $input-placeholder-color !important;
+}
+
 .material-input__field {
   width: 100%;
 
-  // Alterando cor padrão do campo de input, quando tem a classe de erro ativada
   &:has(.material-input__error) {
     .mdc-text-field--outlined:not(.mdc-text-field--disabled)
       .mdc-notched-outline__leading,

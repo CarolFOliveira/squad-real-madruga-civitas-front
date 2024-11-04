@@ -18,7 +18,10 @@ export class TeacherLoginComponent {
 
   public onSubmit($event: SubmitEvent): void {
     $event.preventDefault();
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     console.log(this.form.value);
   }
