@@ -38,7 +38,7 @@ export class StudentRegistrationComponent {
         Validators.required,
         Validators.maxLength(12),
       ]),
-      enrollmentNumber: new FormControl(null, [
+      enrollmentNumber: new FormControl('', [
         Validators.required,
         Validators.min(1),
         Validators.maxLength(6),
@@ -71,12 +71,8 @@ export class StudentRegistrationComponent {
 
     this.form.markAsPending();
 
-    const student = {
-      ...this.form.value,
-      enrollmentNumber: Number(this.form.value.enrollmentNumber),
-    } as IStudentData;
-
     try {
+      const student = this.form.value as IStudentData;
       const response = await this.studentService.register(student);
       this.handleRegisterSuccess(response);
     } catch (error) {

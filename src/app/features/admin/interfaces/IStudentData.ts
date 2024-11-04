@@ -15,7 +15,7 @@ export interface IStudentData {
   /**
    * O número de matrícula do estudante.
    */
-  enrollmentNumber: number;
+  enrollmentNumber: string;
 
   /**
    * A turma do estudante.
