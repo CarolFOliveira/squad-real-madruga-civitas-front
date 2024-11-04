@@ -3,4 +3,5 @@
  */
 export interface IStudentDataResponse {
   status: number;
+  message: string;
 }

@@ -1,7 +1,9 @@
+@import "variables";
+
 .toolbar {
-  background: #dbd5e9;
-  height: 65px;
-  padding-inline-start: 25px;
+  background: $sidebar-bg-color;
+  height: 6.5rem;
+  padding-inline-start: 2.5rem;
 
   &__spacer {
     flex: 1 1 auto;

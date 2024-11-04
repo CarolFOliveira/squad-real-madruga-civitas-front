@@ -9,6 +9,7 @@ import { StudentService } from '../../services/student.service';
 
 // Interfaces
 import { IStudentData } from '../../interfaces/IStudentData';
+import { IStudentDataResponse } from '../../interfaces/IStudentDataResponse';
 
 @Component({
   selector: 'app-student-registration',
@@ -49,7 +50,7 @@ export class StudentRegistrationComponent {
         Validators.maxLength(14),
       ]),
     },
-    { updateOn: 'submit' }
+    { updateOn: 'blur' }
   );
 
   /**
@@ -67,12 +68,16 @@ export class StudentRegistrationComponent {
    */
   public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
-    if (this.form.invalid) return;
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     this.form.markAsPending();
+    const student = this.form.value as IStudentData;
 
     try {
-      const student = this.form.value as IStudentData;
       const response = await this.studentService.register(student);
       this.handleRegisterSuccess(response);
     } catch (error) {
@@ -92,7 +97,7 @@ export class StudentRegistrationComponent {
    * - Mostra uma mensagem de sucesso para o usuário admin que fecha automaticamente após 1 segundo
    * - Redireciona o usuário admin para sua página principal
    */
-  private handleRegisterSuccess(response: any): void {
+  private handleRegisterSuccess(response: IStudentDataResponse): void {
     // TODO: remover any da resposta e fazer o redirecionamento
     this.form.updateValueAndValidity();
     this.snackbarService.openSnackBar(response.message);

@@ -1,31 +1,29 @@
+@import "variables";
+
 .label {
-  // TODO: colocar essas cores no tema global do material angular
-  background-color: #fef7ff;
+  background-color: $input-label-color;
 }
 
 .material-input__custom-placeholder::placeholder {
-  // TODO: colocar essas cores no tema global do material angular
-  color: #cac4d0 !important;
+  color: $input-placeholder-color !important;
 }
 
 .material-input__field {
   width: 100%;
 
-  // Alterando cor padrão do campo de input, quando tem a classe de erro ativada
   &:has(.material-input__error) {
     .mdc-text-field--outlined:not(.mdc-text-field--disabled)
       .mdc-notched-outline__leading,
     .mdc-text-field--outlined:not(.mdc-text-field--disabled)
       .mdc-notched-outline__trailing {
-      border-color: #d63a32 !important;
+      border-color: $error-color !important;
     }
   }
 
   .material-input__error {
     &,
     &::placeholder {
-      // TODO: configurar cor de erro dos inputs no tema global
-      color: #d63a32 !important;
+      color: $error-color !important;
       opacity: 1;
     }
   }

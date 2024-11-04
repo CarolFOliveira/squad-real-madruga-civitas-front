@@ -1,27 +1,26 @@
+@import "variables";
+
 .section {
   &__header {
-    margin-block-start: 80px;
-
-    h2 {
-      font-size: clamp(25px, 1rem + 2vw, 45px);
-    }
+    margin-block-start: 8rem;
   }
 
   &__description {
-    max-width: 620px;
+    max-width: 70rem;
   }
 
   &__button {
     display: block;
     background: #6650a425;
-    border-radius: 99px;
+    background: mix($primary-color, transparent, 20%);
+    border-radius: 99rem;
     color: #222;
-    font-size: 11px;
+    font-size: 1.2rem;
     font-weight: 400;
-    margin-block-end: 70px;
+    margin-block-end: 7rem;
 
     strong {
-      color: #6650a4;
+      color: $primary-color;
     }
   }
 }

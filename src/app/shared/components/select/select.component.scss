@@ -1,12 +1,13 @@
+@import "variables";
+
 .material-select__field {
   width: 100%;
 }
 
 .label {
-  // TODO: colocar essas cores no tema global do material angular
-  background-color: #fef7ff;
+  background-color: $input-label-color;
 }
 
 .mat-mdc-select-trigger .mat-mdc-select-value .mat-mdc-select-placeholder {
-  color: #cac4d0;
+  color: $input-placeholder-color;
 }

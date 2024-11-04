@@ -36,7 +36,7 @@ export class InputComponent {
    * <app-input [control]="form.get('name')"></app-input>
    * ```
    */
-  @Input() control!: FormControl;
+  @Input() public control!: FormControl;
 
   /**
    * Valor Opcional, `autocomplete` ajuda no preenchimento automático do campo de input.
@@ -52,13 +52,13 @@ export class InputComponent {
    *
    * @defaultValue  `off` (desativado)
    * */
-  @Input() autocomplete = 'off';
+  @Input() public autocomplete = 'off';
 
   /** Texto que será exibido no input.  */
-  @Input() placeholder = '';
+  @Input() public placeholder = '';
 
   /** Indica se os estilos de erro deve ser exibido, mesmo que o valor do input seja válido. */
-  @Input() showErrors = false;
+  @Input() public showErrors = false;
 
   /**
    * Define o tipo do input.
@@ -74,7 +74,7 @@ export class InputComponent {
    *
    * @defaultValue `text`
    */
-  @Input() type = 'text';
+  @Input() public type = 'text';
 
   /** Texto que será exibido na label, valor opcional.  */
   @Input() label = '';
@@ -86,13 +86,13 @@ export class InputComponent {
    *
    * @remarks
    * A função retorna `true` e exibe o erro quando:
-   * - O controle estiver inválido e o usuário tiver modificado o valor inicial (dirty).
+   * - O controle estiver inválido e o usuário já tiver interagido com o campo (touched)
    * - A propriedade `showErrors` estiver definida como `true`, indicando que o erro deve ser exibido na tela mesmo que o campo esteja válido (utilizado quando acontece falha no login, por exemplo).
    *
    * @returns retorna `true` se houver um erro no input, `false` caso contrário.
    */
-  hasControlError(): boolean {
-    return (this.control?.invalid && this.control?.dirty) || this.showErrors;
+  public hasControlError(): boolean {
+    return (this.control.invalid && this.control.touched) || this.showErrors;
   }
 
   /**
@@ -107,7 +107,7 @@ export class InputComponent {
    *
    * @returns Retorna uma `string` correspondente ao primeiro erro encontrado no input.
    */
-  getErrorMessage(): string {
+  public getErrorMessage(): string {
     const errorMessages = {
       required: 'Este campo é obrigatório.',
       email: 'Por favor, digite um e-mail válido.',

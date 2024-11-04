@@ -1,3 +1,5 @@
+@import "variables";
+
 .sidebar-container {
   position: relative;
   background: transparent;
@@ -7,9 +9,9 @@
 
   .sidebar {
     position: fixed;
-    background: #dbd5e9;
+    background: $sidebar-bg-color;
     text-align: center;
-    width: 140px;
+    width: 14rem;
 
     &__brand {
       background-color: #fff;
@@ -17,27 +19,25 @@
   }
 
   .list {
-    margin-block-start: 90px;
+    margin-block-start: 9rem;
     user-select: none;
 
     .item {
-      height: 105px;
+      height: 10.5rem;
 
       &.active {
-        // TODO: colocar essas cores no tema global
-        $active-color: #9354bc;
         position: relative;
-        background: mix($active-color, transparent, 10%);
+        background: mix($sidebar-active-color, transparent, 10%);
 
         .item__icon,
         .item__label {
-          color: $active-color;
+          color: $sidebar-active-color;
         }
 
         &::after {
           position: absolute;
           content: "";
-          background: $active-color;
+          background: $sidebar-active-color;
           border-radius: 3px 0 0 3px;
           right: 0;
           top: 0;
@@ -49,16 +49,16 @@
 
     .item__icon {
       display: block;
-      font-size: 47px;
-      height: 47px;
+      font-size: 4.7rem;
+      height: 4.7rem;
       width: 100%;
     }
   }
 
   .logout {
-    font-size: 1rem;
-    padding: 2rem;
-    margin-block: auto 3rem;
+    font-size: 1.7rem;
+    padding: 3rem;
+    margin-block: auto 5rem;
   }
 }
 
