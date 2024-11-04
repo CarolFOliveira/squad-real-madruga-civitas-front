@@ -1,5 +1,5 @@
 // Libs
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,6 +11,9 @@ import { CoreModule } from './core/core.module';
 // Components
 import { AppComponent } from './app.component';
 
+// Interceptors
+import { AuthInterceptor } from './features/auth/interceptors/auth-interceptor';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -20,7 +23,13 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     CoreModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

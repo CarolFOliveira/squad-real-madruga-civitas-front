@@ -37,25 +37,24 @@ export class AdminLoginComponent {
   );
 
   constructor(
-    private authService: AuthService,
-    private storageService: StorageService,
-    private router: Router
-  ) {
-    this.loginForm.valueChanges.subscribe(() => {
-      this.loginFailed = false;
-    });
-  }
+    private _authService: AuthService,
+    private _storageService: StorageService,
+    private _router: Router
+  ) {}
 
   public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
-    if (this.loginForm.invalid) return;
+
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
 
     this.loginForm.markAsPending();
-
     const credentials = this.loginForm.value as ILoginRequest;
 
     try {
-      const response = await this.authService.login(credentials);
+      const response = await this._authService.login(credentials);
       this.handleLoginSuccess(response);
     } catch (error) {
       this.handleLoginError(error as HttpErrorResponse);
@@ -76,8 +75,8 @@ export class AdminLoginComponent {
   private handleLoginSuccess(response: ILoginResponse): void {
     const { token } = response;
     if (token) {
-      this.storageService.saveItem('jwtToken', token);
-      this.router.navigate(['/']);
+      this._storageService.saveItem('jwtToken', token);
+      this._router.navigate(['/administrador']);
     }
   }
 
@@ -99,6 +98,7 @@ export class AdminLoginComponent {
     this.loginForm.updateValueAndValidity();
 
     switch (error.status) {
+      case 400:
       case 401:
         this.loginForm.setErrors({ unauthorized: true });
         break;
