@@ -23,6 +23,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 // Components
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
 import { BrandLinkComponent } from './components/brand-link/brand-link.component';
+import { EntityListComponent } from './components/entity-list/entity-list.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -34,6 +35,7 @@ const COMPONENTS = [
   ActionMenuComponent,
   BrandLinkComponent,
   DashboardComponent,
+  EntityListComponent,
   LayoutComponent,
   SidebarComponent,
   StudentRegistrationComponent,
