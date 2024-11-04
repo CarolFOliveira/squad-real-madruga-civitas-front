@@ -21,6 +21,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 // Components
+import { ActionDialogComponent } from './components/action-dialog/action-dialog.component';
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
 import { BrandLinkComponent } from './components/brand-link/brand-link.component';
 import { EntityListComponent } from './components/entity-list/entity-list.component';
@@ -33,6 +34,7 @@ import { StudentListComponent } from './pages/student-list/student-list.componen
 import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
 
 const COMPONENTS = [
+  ActionDialogComponent,
   ActionMenuComponent,
   BrandLinkComponent,
   DashboardComponent,
