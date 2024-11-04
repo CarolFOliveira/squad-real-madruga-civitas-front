@@ -39,9 +39,9 @@ export class PaginationComponent {
   /**
    * Quantidade de itens exibido por página.
    *
-   * * @defaultValue `6`
+   * * @defaultValue `5`
    */
-  @Input() public pageSize = 6;
+  @Input() public pageSize = 5;
 
   /**
    * Índice da página atual (baseado em zero).
