@@ -5,6 +5,7 @@ import { firstValueFrom } from 'rxjs';
 
 // Interfaces
 import { IStudentData } from '../interfaces/IStudentData';
+import { IStudentDataResponse } from '../interfaces/IStudentDataResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +20,12 @@ export class StudentService {
    *
    * @param student - objeto do tipo {@link IStudentData}
    *
-   * @returns Uma `Promise` contendo a resposta do backend.
+   * @returns Uma `Promise` contendo a resposta do backend do tipo {@link IStudentDataResponse}.
    */
-  register(student: IStudentData): Promise<unknown> {
+  public register(student: IStudentData): Promise<IStudentDataResponse> {
     // TODO: conectar corretamente com o endpoint do back e ver como sera a resposta
-    return firstValueFrom(this.http.post('/api/url', student));
+    return firstValueFrom(
+      this.http.post<IStudentDataResponse>('/alunos', student)
+    );
   }
 }
