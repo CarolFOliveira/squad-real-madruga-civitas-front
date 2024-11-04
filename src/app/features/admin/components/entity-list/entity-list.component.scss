@@ -13,6 +13,7 @@
 
   &__title {
     text-wrap: nowrap;
+    margin: 0;
   }
 
   .section__footer {
@@ -28,7 +29,6 @@
       flex-wrap: wrap;
       gap: 1rem;
       justify-content: flex-end;
-      margin-block-end: 0;
 
       .section__title {
         flex-basis: 100%;
