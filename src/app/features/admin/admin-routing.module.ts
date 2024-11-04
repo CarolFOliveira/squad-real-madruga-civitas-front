@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 // Components
 import { LayoutComponent } from './components/layout/layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { StudentListComponent } from './pages/student-list/student-list.component';
 import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
 
 const routes: Routes = [
@@ -12,7 +13,14 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    children: [{ path: '', component: DashboardComponent }],
+    children: [
+      { path: '', component: DashboardComponent },
+      {
+        path: 'alunos',
+        component: StudentListComponent,
+        data: { breadcrumbs: 'Lista de Alunos' },
+      },
+    ],
   },
 ];
 

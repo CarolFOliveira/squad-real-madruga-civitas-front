@@ -29,6 +29,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { StudentListComponent } from './pages/student-list/student-list.component';
 import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
 
 const COMPONENTS = [
@@ -38,6 +39,7 @@ const COMPONENTS = [
   EntityListComponent,
   LayoutComponent,
   SidebarComponent,
+  StudentListComponent,
   StudentRegistrationComponent,
   ToolbarComponent,
   VideoDialogComponent,
