@@ -5,25 +5,22 @@
   </div>
 
   <header class="section__header">
-    <h2 class="section__title">Alunos Cadastrados</h2>
-    <app-searchbar></app-searchbar>
+    <h2 class="section__title">{{ sectionTitle }}</h2>
+    <app-searchbar />
   </header>
 
-  <ng-container *ngFor="let item of paginatedItems; index as i">
+  <ng-container *ngFor="let item of items; index as i">
     <div [ngClass]="{ even: i % 2 === 0 }" class="card">
       <p class="card__description">
-        <strong>{{ item.title }}</strong>
-        <small>{{ item.subtitle }}</small>
+        <strong>{{ item.name }}</strong>
+        <small>{{ item.registrationNumber }}</small>
       </p>
 
-      <app-action-menu [itemId]="item.id"></app-action-menu>
+      <app-action-menu [itemId]="item.id" />
     </div>
   </ng-container>
 
   <footer class="section__footer">
-    <app-pagination
-      [length]="items.length"
-      (pageChange)="onPageChange($event)"
-    ></app-pagination>
+    <app-pagination [length]="totalItems" (pageChange)="onPageChange($event)" />
   </footer>
 </section>
