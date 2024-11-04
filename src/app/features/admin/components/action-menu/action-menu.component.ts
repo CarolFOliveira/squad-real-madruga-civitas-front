@@ -1,16 +1,13 @@
 // Libs
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Output,
-} from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 // Components
-import { Subscription } from 'rxjs';
 import { ActionDialogComponent } from '../action-dialog/action-dialog.component';
+
+// Services
+import { Subscription } from 'rxjs';
+import { ActionMenuService } from '../../services/action-menu.service';
 
 @Component({
   selector: 'app-action-menu',
@@ -20,29 +17,31 @@ import { ActionDialogComponent } from '../action-dialog/action-dialog.component'
 export class ActionMenuComponent implements OnDestroy {
   private _dialogSubscription!: Subscription;
   @Input() public itemId = -1;
-  @Output() public editEvent = new EventEmitter<void>();
-  @Output() public deleteEvent = new EventEmitter<number>();
 
-  constructor(private _dialogRef: MatDialog) {}
+  constructor(
+    private _dialogRef: MatDialog,
+    private _actionMenuService: ActionMenuService
+  ) {}
 
   public onEdit(): void {
-    console.log('onEdit', this.itemId);
-    this.editEvent.emit();
+    this._actionMenuService.emitEdit(this.itemId);
   }
 
   public onDelete(): void {
-    const dialogRef = this._dialogRef.open(ActionDialogComponent);
-
-    dialogRef.afterClosed().subscribe((confirmed) => {
-      if (confirmed) {
-        console.log('Item excluído', this.itemId);
-      }
+    const dialogRef = this._dialogRef.open(ActionDialogComponent, {
+      autoFocus: false,
     });
+
+    this._dialogSubscription = dialogRef
+      .afterClosed()
+      .subscribe((confirmed) => {
+        if (confirmed) {
+          this._actionMenuService.emitDelete(this.itemId);
+        }
+      });
   }
 
   public ngOnDestroy(): void {
-    if (this._dialogSubscription) {
-      this._dialogSubscription.unsubscribe();
-    }
+    if (this._dialogSubscription) this._dialogSubscription.unsubscribe();
   }
 }
