@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
  * ```html
  * <app-card
  *   buttonLabel="Cadastrar aluno"
- *   routeUrl="/administrador/registrar/aluno"
+ *   routeUrl="/administrador/cadastrar-aluno"
  * />
  * ```
  */

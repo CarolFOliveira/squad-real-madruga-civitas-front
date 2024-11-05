@@ -9,7 +9,10 @@ import { StudentListComponent } from './pages/student-list/student-list.componen
 import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
 
 const routes: Routes = [
-  { path: 'registrar/aluno', component: StudentRegistrationComponent },
+  {
+    path: 'cadastrar-aluno',
+    component: StudentRegistrationComponent,
+  },
   {
     path: '',
     component: LayoutComponent,
