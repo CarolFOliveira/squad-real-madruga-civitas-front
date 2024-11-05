@@ -12,8 +12,8 @@
   <ng-container *ngFor="let item of items; index as i">
     <div [ngClass]="{ even: i % 2 === 0 }" class="card">
       <p class="card__description">
-        <strong>{{ item.name }}</strong>
-        <small>{{ item.registrationNumber }}</small>
+        <strong>{{ item.title }}</strong>
+        <small>{{ item.subtitle }}</small>
       </p>
 
       <app-action-menu [itemId]="item.id" />

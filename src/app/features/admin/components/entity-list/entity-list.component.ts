@@ -12,7 +12,6 @@ import { IPaginatedItems } from '../../interfaces/IPaginatedItems';
 })
 export class EntityListComponent {
   @Input() public sectionTitle = '';
-  @Input() public pageIndex = 0;
   @Input() public totalItems = 0;
   @Input() public items: IPaginatedItems[] = [];
   @Output() public pageChangeEvent = new EventEmitter<PageEvent>();
