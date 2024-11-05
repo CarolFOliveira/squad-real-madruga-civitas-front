@@ -1,12 +1,12 @@
 // Libs
 import { Component, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 // Components
 import { ActionDialogComponent } from '../action-dialog/action-dialog.component';
 
 // Services
-import { Subscription } from 'rxjs';
 import { ActionMenuService } from '../../services/action-menu.service';
 
 @Component({

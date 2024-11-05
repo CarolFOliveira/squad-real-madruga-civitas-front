@@ -16,7 +16,7 @@ export class StudentListComponent {
     return {
       id: student.id,
       title: student.name,
-      subtitle: student.enrollmentNumber,
+      subtitle: `Número de matrícula: ${student.enrollmentNumber}`,
     };
   }
 }

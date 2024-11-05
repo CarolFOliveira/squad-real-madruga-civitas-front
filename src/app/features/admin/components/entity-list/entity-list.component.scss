@@ -55,7 +55,6 @@
   &__description {
     @include center-flex(column);
     align-items: flex-start;
-    text-transform: capitalize;
     margin: 0;
 
     strong {
