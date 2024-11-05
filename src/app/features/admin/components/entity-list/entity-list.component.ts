@@ -1,10 +1,10 @@
 // Libs
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 // Services
+import { PaginationService } from 'src/app/shared/services/pagination.service';
 import { ActionMenuService } from '../../services/action-menu.service';
 import { EntityService } from '../../services/entity.service';
 
@@ -31,17 +31,13 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     private _entityService: EntityService,
     private _actionMenuService: ActionMenuService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _paginationService: PaginationService
   ) {}
 
   public ngOnInit(): void {
-    this.getEntityPage();
     this.subscribeToEditEvent();
     this.subscribeToDeleteEvent();
-  }
-
-  public onPageChange($event: PageEvent): void {
-    this.currentPage = $event.pageIndex + 1;
+    this.subscribeToPagination();
     this.getEntityPage();
   }
 
@@ -81,6 +77,17 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
           console.error('Erro:', error);
           // TODO: mostrar snackbar de erro
         }
+      })
+    );
+  }
+
+  private subscribeToPagination(): void {
+    this.currentPage = this._paginationService.getCurrentPage();
+
+    this._subscriptions.add(
+      this._paginationService.currentPage$.subscribe((page) => {
+        this.currentPage = page;
+        this.getEntityPage();
       })
     );
   }

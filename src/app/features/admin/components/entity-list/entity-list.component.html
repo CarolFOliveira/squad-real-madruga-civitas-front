@@ -21,10 +21,6 @@
   </ng-container>
 
   <footer class="section__footer">
-    <app-pagination
-      [pageIndex]="currentPage"
-      [length]="totalItems"
-      (pageChange)="onPageChange($event)"
-    />
+    <app-pagination [length]="totalItems" />
   </footer>
 </section>

@@ -1,22 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+// Libs
+import { Component, Input, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+
+// Services
+import { PaginationService } from '../../services/pagination.service';
 
 /**
  * PaginationComponent
  *
  * Componente que gerencia a paginação de uma lista de items.
  *
- * @remarks
- * Recebe informações sobre o tamanho total de páginas, o tamanho de cada página e
- * o índice atual da página, e emite eventos de mudança de página.
- *
  * @example
  * ```html
  * <app-pagination
  *   [length]="totalItems"
  *   [pageSize]="itemsPerPage"
- *   [pageIndex]="currentPage"
- *   (pageChange)="onPageChange($event)"
  * ></app-pagination>
  * ```
  */
@@ -25,7 +23,9 @@ import { PageEvent } from '@angular/material/paginator';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent {
+export class PaginationComponent implements OnInit {
+  constructor(private _paginationService: PaginationService) {}
+
   /**
    * Tamanho total dos itens a ser exibido.
    *
@@ -44,28 +44,31 @@ export class PaginationComponent {
   @Input() public pageSize = 5;
 
   /**
-   * Índice da página atual (baseado em zero).
+   * Índice da página atual (baseado em zero por conta do componente do Angular Material).
    *
    * @defaultValue `0`
    */
   @Input() public pageIndex = 0;
 
   /**
-   * Evento emitido toda vez que há uma mudança de página.
+   * ngOnInit
    *
-   * Emite um `PageEvent` contendo informações sobre a página atual, tamanho da página e outros dados.
+   * Este método define a página atual com base no valor do PaginationService
+   * e se inscreve para observar as mudanças
+   * O índice da página é ajustado para ser baseado em zero, compatível com o componente paginator.
    */
-  @Output() public pageChange: EventEmitter<PageEvent> =
-    new EventEmitter<PageEvent>();
+  public ngOnInit(): void {
+    this.pageIndex = this._paginationService.getCurrentPage() - 1;
+  }
 
   /**
    * onPageChange
    *
-   * Responsável por emitir o evento `pageChange` com as informações do evento de paginação.
+   * Responsável por trocar a página no serviço de paginação.
    *
-   * @param event - O evento de paginação contendo o novo índice da página e o tamanho da página.
+   * @param event - O evento de paginação contendo o novo índice da página.
    */
-  public onPageChange(event: PageEvent): void {
-    this.pageChange.emit(event);
+  public onPageChange($event: PageEvent): void {
+    this._paginationService.setCurrentPage($event.pageIndex + 1);
   }
 }
