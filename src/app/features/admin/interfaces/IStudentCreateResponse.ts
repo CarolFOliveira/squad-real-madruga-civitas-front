@@ -1,7 +1,7 @@
 /**
  * TODO: implementar corretamente os dados de acordo o backend
  */
-export interface IStudentDataResponse {
+export interface IStudentCreateResponse {
   status: number;
   message: string;
 }

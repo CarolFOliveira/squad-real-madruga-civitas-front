@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 // Interfaces
-import { IStudentData } from '../interfaces/IStudentData';
-import { IStudentDataResponse } from '../interfaces/IStudentDataResponse';
+import { IStudentCreateRequest } from '../interfaces/IStudentCreateRequest';
+import { IStudentCreateResponse } from '../interfaces/IStudentCreateResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -18,14 +18,16 @@ export class StudentService {
    *
    * Registra um aluno enviando suas informações para o backend.
    *
-   * @param student - objeto do tipo {@link IStudentData}
+   * @param student - objeto do tipo {@link IStudentCreateRequest}
    *
-   * @returns Uma `Promise` contendo a resposta do backend do tipo {@link IStudentDataResponse}.
+   * @returns Uma `Promise` contendo a resposta do backend do tipo {@link IStudentCreateResponse}.
    */
-  public register(student: IStudentData): Promise<IStudentDataResponse> {
+  public register(
+    student: IStudentCreateRequest
+  ): Promise<IStudentCreateResponse> {
     // TODO: conectar corretamente com o endpoint do back e ver como sera a resposta
     return firstValueFrom(
-      this.http.post<IStudentDataResponse>('/alunos', student)
+      this.http.post<IStudentCreateResponse>('/alunos', student)
     );
   }
 }

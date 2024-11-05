@@ -8,8 +8,8 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { StudentService } from '../../services/student.service';
 
 // Interfaces
-import { IStudentData } from '../../interfaces/IStudentData';
-import { IStudentDataResponse } from '../../interfaces/IStudentDataResponse';
+import { IStudentCreateRequest } from '../../interfaces/IStudentCreateRequest';
+import { IStudentCreateResponse } from '../../interfaces/IStudentCreateResponse';
 
 @Component({
   selector: 'app-student-registration',
@@ -75,7 +75,7 @@ export class StudentRegistrationComponent {
     }
 
     this.form.markAsPending();
-    const student = this.form.value as IStudentData;
+    const student = this.form.value as IStudentCreateRequest;
 
     try {
       const response = await this.studentService.register(student);
@@ -97,7 +97,7 @@ export class StudentRegistrationComponent {
    * - Mostra uma mensagem de sucesso para o usuário admin que fecha automaticamente após 1 segundo
    * - Redireciona o usuário admin para sua página principal
    */
-  private handleRegisterSuccess(response: IStudentDataResponse): void {
+  private handleRegisterSuccess(response: IStudentCreateResponse): void {
     // TODO: remover any da resposta e fazer o redirecionamento
     this.form.updateValueAndValidity();
     this.snackbarService.openSnackBar(response.message);
