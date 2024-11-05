@@ -73,6 +73,7 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
         try {
           await this._entityService.deleteEntity(id, this.endpoint);
           // TODO: mostrar snackbar de sucesso
+          this.getEntityPage();
         } catch (error) {
           console.error('Erro:', error);
           // TODO: mostrar snackbar de erro
