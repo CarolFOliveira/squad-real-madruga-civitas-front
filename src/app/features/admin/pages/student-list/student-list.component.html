@@ -1,6 +1,5 @@
 <app-entity-list
   sectionTitle="Alunos Cadastrados"
-  [items]="paginatedItems"
-  [totalItems]="totalItems"
-  (pageChangeEvent)="onPageChange($event)"
+  [endpoint]="endpoint"
+  [mapItem]="mapStudentToPaginatedItems"
 />

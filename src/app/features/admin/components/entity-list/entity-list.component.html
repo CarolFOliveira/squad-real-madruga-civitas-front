@@ -9,7 +9,7 @@
     <app-searchbar />
   </header>
 
-  <ng-container *ngFor="let item of items; index as i">
+  <ng-container *ngFor="let item of paginatedItems; index as i">
     <div [ngClass]="{ even: i % 2 === 0 }" class="card">
       <p class="card__description">
         <strong>{{ item.title }}</strong>
@@ -21,6 +21,10 @@
   </ng-container>
 
   <footer class="section__footer">
-    <app-pagination [length]="totalItems" (pageChange)="onPageChange($event)" />
+    <app-pagination
+      [pageIndex]="currentPage"
+      [length]="totalItems"
+      (pageChange)="onPageChange($event)"
+    />
   </footer>
 </section>
