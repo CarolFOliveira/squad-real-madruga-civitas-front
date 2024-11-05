@@ -27,7 +27,7 @@ export class EntityService {
     return await firstValueFrom(
       this._http.get<IEntityList<T>>(`${environment.apiUrl}/${endpoint}`, {
         params: {
-          pagina: page.toString(),
+          page: page.toString(),
         },
       })
     );

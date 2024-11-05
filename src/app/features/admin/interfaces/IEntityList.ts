@@ -21,11 +21,6 @@ export interface IEntityList<T> {
   total: number;
 
   /**
-   * Total de páginas calculadas
-   */
-  totalPages: number;
-
-  /**
    * Array de entidades do tipo especificado
    */
   data: Array<T>;
