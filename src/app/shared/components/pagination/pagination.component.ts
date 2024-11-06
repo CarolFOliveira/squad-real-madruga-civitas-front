@@ -1,6 +1,7 @@
 // Libs
 import { Component, Input, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Subject, takeUntil } from 'rxjs';
 
 // Services
 import { PaginationService } from '../../services/pagination.service';
@@ -24,6 +25,11 @@ import { PaginationService } from '../../services/pagination.service';
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
+  /**
+   * Utilizado com o operador `takeUntil` para cancelar a inscrição no observable.
+   */
+  private _destroy$ = new Subject<void>();
+
   constructor(private _paginationService: PaginationService) {}
 
   /**
@@ -59,6 +65,12 @@ export class PaginationComponent implements OnInit {
    */
   public ngOnInit(): void {
     this.pageIndex = this._paginationService.getCurrentPage() - 1;
+
+    this._paginationService.currentPage$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((page) => {
+        this.pageIndex = page - 1;
+      });
   }
 
   /**

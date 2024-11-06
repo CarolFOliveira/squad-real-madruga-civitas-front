@@ -104,8 +104,9 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
    * @param searchTerm - `string` que representa o termo de pesquisa inserido pelo usuário.
    */
   public onSearch(searchTerm: string): void {
-    this.searchTerm = searchTerm;
     this.currentPage = 1;
+    this._paginationService.setCurrentPage(this.currentPage);
+    this.searchTerm = searchTerm;
 
     this._router.navigate([], {
       queryParams: { searchTerm },
