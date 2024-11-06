@@ -109,7 +109,7 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     this.searchTerm = searchTerm;
 
     this._router.navigate([], {
-      queryParams: { searchTerm },
+      queryParams: { page: 1, searchTerm },
       queryParamsHandling: 'merge',
     });
     this._getEntityPage();
