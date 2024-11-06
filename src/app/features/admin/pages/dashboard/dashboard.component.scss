@@ -4,6 +4,7 @@
   max-width: $breakpoint-small-desktop;
 
   &__title {
+    font-size: clamp(2.8rem, (1rem + 3vw), 4.5rem);
     line-height: 1.2;
   }
 

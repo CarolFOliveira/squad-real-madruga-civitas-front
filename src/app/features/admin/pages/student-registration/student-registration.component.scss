@@ -7,8 +7,12 @@
   max-width: $breakpoint-small-desktop;
   padding: 1rem;
   place-items: center;
-  height: 100vh;
-  height: 100dvh;
+  min-height: calc(100vh - 13rem);
+  min-height: calc(100dvh - 13rem);
+
+  @media screen and (min-width: $breakpoint-large-desktop) {
+    margin: 0 calc((100vw - #{$breakpoint-small-desktop}) / 2 - 14rem) 0 auto;
+  }
 }
 
 app-return-button {
@@ -56,7 +60,7 @@ app-return-button {
 
   .mat-mdc-simple-snack-bar {
     flex-direction: column;
-    padding-block-end: 1.4rem;
+    padding-block: 1.4rem;
   }
 
   .mdc-button__label {
