@@ -135,8 +135,8 @@ export class StudentRegistrationComponent implements OnInit {
    */
   private _handleRegisterSuccess(response: IStudentCreateResponse): void {
     this.form.updateValueAndValidity();
-    this._snackbarService.openSnackBar(response.message, '', 1200);
-    this._router.navigate(['administrador/alunos']);
+    this._snackbarService.openSnackBar(response.message, '', 1500);
+    this._router.navigate(['administrador']);
   }
 
   /**
