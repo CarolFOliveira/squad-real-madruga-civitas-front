@@ -1,4 +1,8 @@
+// Libs
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+// Services
+import { AuthService } from 'src/app/features/auth/services/auth.service';
 
 interface IMenuItem {
   label: string;
@@ -17,6 +21,8 @@ interface IMenuItem {
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
+  constructor(private _authService: AuthService) {}
+
   /**
    * Define o modo da sidenav, podendo ser `over`, `push` ou `side`.
    *
@@ -61,5 +67,15 @@ export class SidebarComponent {
    */
   public onOpenedChange(opened: boolean): void {
     if (!opened && this.mode === 'over') this.closeSidenav.emit();
+  }
+
+  /**
+   * logout
+   *
+   * Realiza o logout do usuário, removendo o token de autenticação e recarregando a página.
+   */
+  public logout(): void {
+    this._authService.purgeAuth();
+    window.location.reload();
   }
 }

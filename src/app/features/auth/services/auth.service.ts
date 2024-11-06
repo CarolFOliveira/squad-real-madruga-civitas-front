@@ -10,6 +10,9 @@ import { ILoginResponse } from '../interfaces/ILoginResponse';
 // Env variables
 import { environment } from 'src/environments/environment';
 
+// Services
+import { StorageService } from 'src/app/shared/services/storage.service';
+
 /**
  * AuthService
  *
@@ -24,7 +27,10 @@ export class AuthService {
    */
   public isAuthenticated$ = new BehaviorSubject(false);
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _storageService: StorageService
+  ) {}
 
   /**
    * login
@@ -68,5 +74,18 @@ export class AuthService {
       .pipe(
         tap(({ authenticated }) => this.isAuthenticated$.next(authenticated))
       );
+  }
+
+  /**
+   * purgeAuth
+   *
+   * Remove o token JWT do localStorage e redefine o estado de autenticação do usuário.
+   *
+   * @remarks
+   * Utilizado para realizar o processo de logout do usuário.
+   */
+  public purgeAuth(): void {
+    this._storageService.removeItem('jwtToken');
+    this.isAuthenticated$.next(false);
   }
 }
