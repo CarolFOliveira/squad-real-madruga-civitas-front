@@ -14,7 +14,6 @@ import { BreadcrumbsService } from '../../services/breadcrumbs.service';
  *
  * @remarks
  * Utiliza o `BreadcrumbsService` para obter os dados de breadcrumbs durante a inicialização.
- *
  * @example
  * ```html
  * <app-breadcrumbs></app-breadcrumbs>

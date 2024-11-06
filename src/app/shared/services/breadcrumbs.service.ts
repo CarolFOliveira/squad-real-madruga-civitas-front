@@ -41,14 +41,14 @@ export class BreadcrumbsService {
     this._router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.breadcrumbs = this.createBreadcrumbs(this._activatedRoute.root);
+        this.breadcrumbs = this._createBreadcrumbs(this._activatedRoute.root);
       });
 
-    this.breadcrumbs = this.createBreadcrumbs(this._activatedRoute.root);
+    this.breadcrumbs = this._createBreadcrumbs(this._activatedRoute.root);
   }
 
   /**
-   * createBreadcrumbs
+   * _createBreadcrumbs
    *
    * Cria a lista de breadcrumbs recursivamente com base nas rotas ativadas.
    *
@@ -57,7 +57,7 @@ export class BreadcrumbsService {
    * @param url - Uma `string` que representa a URL que será incrementada a cada chamada.
    * @returns Array atualizado de `IBreadCrumbs` representando todos os links para navegação do usuário.
    */
-  private createBreadcrumbs(
+  private _createBreadcrumbs(
     activatedRoute: ActivatedRoute,
     breadcrumbs: IBreadCrumbs[] = [],
     url = ''
@@ -78,7 +78,7 @@ export class BreadcrumbsService {
         });
       }
 
-      this.createBreadcrumbs(childRoute, breadcrumbs, url);
+      this._createBreadcrumbs(childRoute, breadcrumbs, url);
     }
 
     return breadcrumbs;

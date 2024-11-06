@@ -3,7 +3,6 @@
  *
  * @typeParam T - Tipo da entidade incluída no array de dados.
  */
-
 export interface IEntityList<T> {
   /**
    * Número da página atual

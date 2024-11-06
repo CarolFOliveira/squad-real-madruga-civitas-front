@@ -19,7 +19,6 @@ export class StudentService {
    * Registra um aluno enviando suas informações para o backend.
    *
    * @param student - objeto do tipo {@link IStudentCreateRequest}
-   *
    * @returns Uma `Promise` contendo a resposta do backend do tipo {@link IStudentCreateResponse}.
    */
   public register(

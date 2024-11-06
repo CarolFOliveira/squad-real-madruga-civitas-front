@@ -6,6 +6,11 @@ interface IMenuItem {
   icon: string;
 }
 
+/**
+ * SidebarComponent
+ *
+ * Componente que controla a sidebar da aplicação.
+ */
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -50,7 +55,6 @@ export class SidebarComponent {
    * É chamado sempre que o estado de abertura da sidenav é alterado.
    *
    * @param opened - Valor `boolean` que indica se a sidenav está aberta ou fechada.
-   *
    * @remarks
    * Se a sidenav estiver fechada (`opened` é `false`) e estiver no modo `over`,
    * então emitimos um evento para notificar o componente pai sobre o fechamento da sidenav.

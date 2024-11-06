@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 /**
+ * CardComponent
+ *
  * Componente que representa um card com imagem e um botão.
  *
  * @example

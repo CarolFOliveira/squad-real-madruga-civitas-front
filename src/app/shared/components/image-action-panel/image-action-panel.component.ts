@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 /**
+ * ImageActionPanelComponent
+ *
  * Componente para exibir uma imagem à esquerda e um painel de ações à direita.
  *
  * @example

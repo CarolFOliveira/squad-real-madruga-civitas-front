@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
+/**
+ * ToolbarComponent
+ *
+ * Componente que representa uma navbar que exibe um botão de menu e uma logo.
+ */
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
