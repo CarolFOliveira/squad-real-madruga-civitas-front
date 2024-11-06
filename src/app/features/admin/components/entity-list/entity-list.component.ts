@@ -1,6 +1,6 @@
 // Libs
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 // Services
@@ -72,11 +72,14 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
    */
   public isLoading = false;
 
+  public searchTerm = '';
+
   constructor(
-    private _entityService: EntityService,
     private _actionMenuService: ActionMenuService,
-    private _router: Router,
-    private _paginationService: PaginationService
+    private _activatedRoute: ActivatedRoute,
+    private _entityService: EntityService,
+    private _paginationService: PaginationService,
+    private _router: Router
   ) {}
 
   /**
@@ -89,6 +92,25 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     this._subscribeToEditEvent();
     this._subscribeToDeleteEvent();
     this._subscribeToPagination();
+    this._subscribeToSearch();
+    this._getEntityPage();
+  }
+
+  /**
+   * onSearch
+   *
+   * Realiza a pesquisa com o termo fornecido e atualiza a URL com o parâmetro de pesquisa.
+   *
+   * @param searchTerm - `string` que representa o termo de pesquisa inserido pelo usuário.
+   */
+  public onSearch(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    this.currentPage = 1;
+
+    this._router.navigate([], {
+      queryParams: { searchTerm },
+      queryParamsHandling: 'merge',
+    });
     this._getEntityPage();
   }
 
@@ -104,6 +126,7 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
       const { total, data } = await this._entityService.getEntities<T>({
         endpoint: this.endpoint,
         page: this.currentPage,
+        searchTerm: this.searchTerm,
       });
 
       this.totalItems = total;
@@ -159,6 +182,20 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     this._subscriptions.add(
       this._paginationService.currentPage$.subscribe((page) => {
         this.currentPage = page;
+        this._getEntityPage();
+      })
+    );
+  }
+
+  /**
+   * _subscribeToSearch
+   *
+   * Inscrição aos parâmetros de pesquisa na url para atualizar a lista quando a busca é realizada.
+   */
+  private _subscribeToSearch(): void {
+    this._subscriptions.add(
+      this._activatedRoute.queryParams.subscribe((params) => {
+        this.searchTerm = params['searchTerm'];
         this._getEntityPage();
       })
     );

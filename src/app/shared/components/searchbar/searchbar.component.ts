@@ -60,10 +60,9 @@ export class SearchbarComponent {
   /**
    * onSearch
    *
-   * Emite o termo de pesquisa se não estiver vazio.
+   * Emite o termo de pesquisa.
    */
   public onSearch(): void {
-    const term = this.searchTerm.trim();
-    if (term) this.search.emit(term);
+    this.search.emit(this.searchTerm.trim());
   }
 }

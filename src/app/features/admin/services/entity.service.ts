@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 interface IEntityListParams {
   endpoint: string;
   page: number;
+  searchTerm: string;
 }
 
 /**
@@ -35,11 +36,13 @@ export class EntityService {
   public async getEntities<T>({
     endpoint,
     page,
+    searchTerm,
   }: IEntityListParams): Promise<IEntityList<T>> {
     return await firstValueFrom(
       this._http.get<IEntityList<T>>(`${environment.apiUrl}/${endpoint}`, {
         params: {
           page: page.toString(),
+          searchTerm: searchTerm,
         },
       })
     );
