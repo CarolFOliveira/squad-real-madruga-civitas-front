@@ -42,7 +42,7 @@ export class EntityService {
       this._http.get<IEntityList<T>>(`${environment.apiUrl}/${endpoint}`, {
         params: {
           page: page.toString(),
-          searchTerm: searchTerm,
+          searchTerm: searchTerm || '',
         },
       })
     );
