@@ -64,6 +64,18 @@ export class StudentRegistrationComponent implements OnInit {
     { updateOn: 'blur' }
   );
 
+  /**
+   * ngOnInit
+   *
+   * Inicializa o componente buscando as turmas no serviço de estudantes.
+   *
+   * @returns `Promise<void>` que é resolvida quando o processo de inicialização é concluído.
+   * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado.
+   * @remarks
+   * Se a requisição for bem-sucedida e retornar turmas, elas são processadas
+   * em um formato adequado para a lista de opções. Se não houver turmas retornadas
+   * ou ocorrer um erro, uma mensagem de erro é exibida em uma snackbar.
+   */
   public async ngOnInit(): Promise<void> {
     try {
       const response = await this._studentService.getClasses();

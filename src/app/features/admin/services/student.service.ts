@@ -11,6 +11,12 @@ import { IStudentCreateResponse } from '../interfaces/IStudentCreateResponse';
 // Environment Variables
 import { environment } from 'src/environments/environment';
 
+/**
+ * StudentService
+ *
+ * Serviço responsável por gerenciar as operações relacionadas aos estudantes,
+ * incluindo o acesso à lista de turmas.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -39,6 +45,13 @@ export class StudentService {
     );
   }
 
+  /**
+   * getClasses
+   *
+   * Realiza uma requisição HTTP `GET` à API para obter os dados das turmas.
+   *
+   * @returns `Promise` que resolve para um array contendo objetos do tipo {@link IClassesResponse}
+   */
   public getClasses(): Promise<IClassesResponse[]> {
     return firstValueFrom(
       this._http.get<IClassesResponse[]>(`${environment.apiUrl}/turmas`)
