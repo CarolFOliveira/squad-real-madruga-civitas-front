@@ -10,19 +10,20 @@ import { StudentRegistrationComponent } from './pages/student-registration/stude
 
 const routes: Routes = [
   {
-    path: 'cadastrar-aluno',
-    component: StudentRegistrationComponent,
-  },
-  {
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', component: DashboardComponent },
+      {
+        path: 'cadastrar-aluno',
+        component: StudentRegistrationComponent,
+        data: { breadcrumbs: 'Cadastro de Aluno' },
+      },
       {
         path: 'alunos',
         component: StudentListComponent,
-        data: { breadcrumbs: 'Lista de Alunos' },
+        data: { breadcrumbs: 'Alunos Cadastrados' },
       },
+      { path: '', component: DashboardComponent },
     ],
   },
 ];

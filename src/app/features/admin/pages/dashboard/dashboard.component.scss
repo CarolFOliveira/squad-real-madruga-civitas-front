@@ -3,10 +3,6 @@
 .section {
   max-width: $breakpoint-small-desktop;
 
-  &__header {
-    margin-block-start: 8rem;
-  }
-
   &__title {
     line-height: 1.2;
   }

@@ -1,5 +1,5 @@
 <mat-paginator
-  *ngIf="length; else noItemsTemplate"
+  *ngIf="length"
   [length]="length"
   [pageSize]="pageSize"
   [pageIndex]="pageIndex"
@@ -8,6 +8,3 @@
   hidePageSize
 >
 </mat-paginator>
-<ng-template #noItemsTemplate>
-  Não há nenhum item para ser exibido.
-</ng-template>

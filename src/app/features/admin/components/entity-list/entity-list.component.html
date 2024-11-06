@@ -1,7 +1,7 @@
 <section class="section">
   <div class="section__nav-container">
-    <app-breadcrumbs />
     <app-return-button routerLink="/administrador" />
+    <app-breadcrumbs />
   </div>
 
   <header class="section__header">
@@ -19,6 +19,8 @@
       <app-action-menu [itemId]="item.id" />
     </div>
   </ng-container>
+
+  <p *ngIf="totalItems === 0">Não há nenhum item para ser exibido.</p>
 
   <footer class="section__footer">
     <app-pagination [length]="totalItems" />
