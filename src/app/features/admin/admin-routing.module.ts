@@ -8,10 +8,14 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { StudentListComponent } from './pages/student-list/student-list.component';
 import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
 
+// Guards
+import { adminGuard } from './guards/admin.guard';
+
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [adminGuard],
     children: [
       {
         path: 'cadastrar-aluno',
