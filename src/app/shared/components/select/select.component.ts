@@ -1,10 +1,9 @@
+// Libs
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-interface IOptions {
-  value: string;
-  viewValue: string;
-}
+// Interfaces
+import { ISelectOptions } from '../../interfaces/ISelectOptions';
 
 @Component({
   selector: 'app-select',
@@ -26,7 +25,7 @@ export class SelectComponent {
   /** Texto que será exibido na label, valor opcional.  */
   @Input() label = '';
   /** Opções que serão mostradas dentro de cada elemento de `select`.  */
-  @Input() options: IOptions[] = [];
+  @Input() options: ISelectOptions[] = [];
   /** Texto que será exibido no Select como placeholder.  */
   @Input() placeholder = '';
 
