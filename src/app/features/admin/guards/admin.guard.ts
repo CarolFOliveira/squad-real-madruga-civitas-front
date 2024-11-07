@@ -6,6 +6,9 @@ import { jwtDecode } from 'jwt-decode';
 // Services
 import { StorageService } from 'src/app/shared/services/storage.service';
 
+// Enum
+import { EnumRoles } from 'src/app/shared/enums/EnumRoles';
+
 interface IJwtPayload {
   tipoConta: string;
 }
@@ -27,7 +30,7 @@ export const adminGuard: CanActivateFn = () => {
   if (token) {
     try {
       const user = jwtDecode<IJwtPayload>(token);
-      if (user.tipoConta === 'admin') return true;
+      if (user.tipoConta === EnumRoles.ADMIN) return true;
     } catch (error) {
       console.error(error);
     }
