@@ -67,29 +67,10 @@ export class StudentRegistrationComponent implements OnInit {
   /**
    * ngOnInit
    *
-   * Inicializa o componente buscando as turmas no serviço de estudantes.
-   *
-   * @returns `Promise<void>` que é resolvida quando o processo de inicialização é concluído.
-   * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado.
-   * @remarks
-   * Se a requisição for bem-sucedida e retornar turmas, elas são processadas
-   * em um formato adequado para a lista de opções. Se não houver turmas retornadas
-   * ou ocorrer um erro, uma mensagem de erro é exibida em uma snackbar.
+   * Inicializa o componente e chama o método para fazer o fetch das turmas no serviço de estudantes.
    */
-  public async ngOnInit(): Promise<void> {
-    try {
-      const response = await this._studentService.getClasses();
-      if (!response.length) throw new Error();
-
-      this.options = response.map((studentClass) => ({
-        value: studentClass.id,
-        viewValue: studentClass.turmaApelido,
-      }));
-    } catch (error) {
-      this._snackbarService.openSnackBar(
-        'Não foi possível carregar as turmas, tente recarregar a página.'
-      );
-    }
+  public ngOnInit(): void {
+    this.getClasses()
   }
 
   /**
@@ -175,6 +156,31 @@ export class StudentRegistrationComponent implements OnInit {
           'Ocorreu um erro no servidor. Tente novamente mais tarde.',
           'Fechar'
         );
+    }
+  }
+
+  /**
+   * getClasses
+   * 
+   * Método responsável por buscar as turmas do serviço de estudantes e alterar o formato
+   * para a lista de opções exibida no select da interface. 
+   * 
+   * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
+   * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado e uma snackbar será exibida.
+   */
+  private async getClasses(): Promise<void> {
+    try {
+      const studentClasses = await this._studentService.getClasses();
+      if (!studentClasses.length) throw new Error();
+
+      this.options = studentClasses.map((studentClass) => ({
+        value: studentClass.id,
+        viewValue: studentClass.turmaApelido,
+      }));
+    } catch (error) {
+      this._snackbarService.openSnackBar(
+        'Não foi possível carregar as turmas, tente recarregar a página.'
+      );
     }
   }
 }
