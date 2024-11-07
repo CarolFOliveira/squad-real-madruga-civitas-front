@@ -26,7 +26,7 @@ export class ActionMenuComponent implements OnDestroy {
   /**
    * Utilizada para cancelar a inscrição quando o componente for destruído.
    */
-  private _dialogSubscription!: Subscription;
+  private _dialogSubscription: Subscription = Subscription.EMPTY;
 
   /**
    * ID do item associado a este menu.
@@ -78,6 +78,6 @@ export class ActionMenuComponent implements OnDestroy {
    * Limpa as inscrições para evitar vazamentos de memória quando o componente for destruído.
    */
   public ngOnDestroy(): void {
-    if (this._dialogSubscription) this._dialogSubscription.unsubscribe();
+    this._dialogSubscription.unsubscribe();
   }
 }
