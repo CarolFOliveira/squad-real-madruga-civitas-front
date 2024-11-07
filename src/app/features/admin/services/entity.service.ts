@@ -33,12 +33,12 @@ export class EntityService {
    * @param params - Objeto do tipo {@link IEntityListParams}
    * @returns Um `Promise` com a lista de entidades paginadas.
    */
-  public async getEntities<T>({
+  public getEntities<T>({
     endpoint,
     page,
     searchTerm,
   }: IEntityListParams): Promise<IEntityList<T>> {
-    return await firstValueFrom(
+    return firstValueFrom(
       this._http.get<IEntityList<T>>(`${environment.apiUrl}/${endpoint}`, {
         params: {
           page: page.toString(),
@@ -55,10 +55,10 @@ export class EntityService {
    *
    * @param id - Um `number` que representa o ID da entidade a ser excluído.
    * @param endpoint - `string` que representa o endpoint onde a entidade será excluída.
-   * @returns Uma `Promise` que não retorna nada.
+   * @returns Uma `Promise` com o objeto da resposta.
    */
-  public async deleteEntity(id: number, endpoint: string): Promise<void> {
-    await firstValueFrom(
+  public deleteEntity(id: number, endpoint: string): Promise<unknown> {
+    return firstValueFrom(
       this._http.delete(`${environment.apiUrl}/${endpoint}/${id}`)
     );
   }
