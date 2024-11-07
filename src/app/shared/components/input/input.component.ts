@@ -1,6 +1,21 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
+/**
+ * InputComponent
+ *
+ * Componente personalizado de um input.
+ *
+ * @example
+ * ```html
+ * <app-input
+ *    [control]="form.controls.RG"
+ *    label="RG"
+ *    mask="00.000.000-0"
+ *    placeholder="xx.xxx.xxx-x"
+ * />
+ * ```
+ */
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
@@ -51,7 +66,7 @@ export class InputComponent {
    * @see {@link https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute}
    *
    * @defaultValue  `off` (desativado)
-   * */
+   */
   @Input() public autocomplete = 'off';
 
   /** Texto que será exibido no input.  */
@@ -88,7 +103,6 @@ export class InputComponent {
    * A função retorna `true` e exibe o erro quando:
    * - O controle estiver inválido e o usuário já tiver interagido com o campo (touched)
    * - A propriedade `showErrors` estiver definida como `true`, indicando que o erro deve ser exibido na tela mesmo que o campo esteja válido (utilizado quando acontece falha no login, por exemplo).
-   *
    * @returns retorna `true` se houver um erro no input, `false` caso contrário.
    */
   public hasControlError(): boolean {
@@ -104,7 +118,6 @@ export class InputComponent {
    * As mensagens são genéricas, pois este input será reutilizado em toda a aplicação.
    * Se houver um erro, esta função deve retornar a mensagem de erro correspondente para o usuário.
    * Apenas um erro é exibido por vez.
-   *
    * @returns Retorna uma `string` correspondente ao primeiro erro encontrado no input.
    */
   public getErrorMessage(): string {

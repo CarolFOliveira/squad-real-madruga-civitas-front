@@ -1,5 +1,10 @@
 import { Component, Input } from '@angular/core';
 
+/**
+ * ButtonComponent
+ *
+ * Componente personalizado de botão.
+ */
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',

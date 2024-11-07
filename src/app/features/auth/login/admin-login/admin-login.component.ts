@@ -12,6 +12,13 @@ import { AuthService } from '../../services/auth.service';
 import { ILoginRequest } from '../../interfaces/ILoginRequest';
 import { ILoginResponse } from '../../interfaces/ILoginResponse';
 
+/**
+ * AdminLoginComponent
+ *
+ * Componente que representa a página que exibe o login para administradores.
+ *
+ * Este componente gerencia a interface e a lógica de autenticação de administradores.
+ */
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
@@ -23,9 +30,12 @@ export class AdminLoginComponent {
    *
    * Utilizada para controlar a exibição de mensagens de erro para o usuário.
    */
-  loginFailed = false;
+  public loginFailed = false;
 
-  loginForm = new FormGroup(
+  /**
+   * Formulário de login do administrador com as devidas validações.
+   */
+  public loginForm = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -49,9 +59,7 @@ export class AdminLoginComponent {
    * Lida com o evento de submissão do formulário de login do administrador.
    *
    * @param $event - Evento do tipo `SubmitEvent` de envio de um formulário no browser
-   *
    * @returns Uma `Promise` vazia que é resolvida após o processo de login ser concluído.
-   *
    * @remarks
    * Responsável por todo o processo de login, incluindo validação do formulário,
    * envio das credenciais para autenticação e tratamento de respostas de sucesso ou erro.
@@ -69,26 +77,25 @@ export class AdminLoginComponent {
 
     try {
       const response = await this._authService.login(credentials);
-      this.handleLoginSuccess(response);
+      this._handleLoginSuccess(response);
     } catch (error) {
-      this.handleLoginError(error as HttpErrorResponse);
+      this._handleLoginError(error as HttpErrorResponse);
     }
   }
 
   /**
-   * handleLoginSuccess
+   * _handleLoginSuccess
    *
    * Trata o sucesso do login
    *
    * Realiza as ações necessárias, como salvar o token de autenticação e redirecionar o usuário.
    *
    * @param response - A resposta do servidor contendo o token de autenticação.
-   *
    * @remarks
    * - Utiliza o serviço do token para armazenar ele no localStorage.
    * - Redireciona o usuário para a página inicial após o login bem-sucedido.
    */
-  private handleLoginSuccess(response: ILoginResponse): void {
+  private _handleLoginSuccess(response: ILoginResponse): void {
     const { token } = response;
     if (token) {
       this._storageService.saveItem('jwtToken', token);
@@ -97,19 +104,18 @@ export class AdminLoginComponent {
   }
 
   /**
-   * handleLoginError
+   * _handleLoginError
    *
    * Trata erros ocorridos durante o processo de login.
    *
    * @param error - Objeto de resposta do erro HTTP `HttpErrorResponse`
-   *
    * @remarks
    * Marca que o login como falhou e define erros apropriados no formulário de login com base no status do erro.
    * - Se o status do erro for `401` (Não autorizado) - define um erro de "não autorizado" no formulário
    * - Se o status do erro for `0` (Sem conexão), define um erro de "sem conexão" no formulário
    * - Para outros status de erro,define um erro genérico de "erro do servidor" no formulário
    */
-  private handleLoginError(error: HttpErrorResponse): void {
+  private _handleLoginError(error: HttpErrorResponse): void {
     this.loginFailed = true;
     this.loginForm.updateValueAndValidity();
 

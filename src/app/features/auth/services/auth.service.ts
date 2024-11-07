@@ -10,6 +10,14 @@ import { ILoginResponse } from '../interfaces/ILoginResponse';
 // Env variables
 import { environment } from 'src/environments/environment';
 
+// Services
+import { StorageService } from 'src/app/shared/services/storage.service';
+
+/**
+ * AuthService
+ *
+ * Serviço de autenticação da aplicação.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -17,37 +25,27 @@ export class AuthService {
   /**
    * Será utilizado em toda a aplicação como um broadcast para monitorar o status de autenticação do usuário.
    */
-  isAuthenticated$ = new BehaviorSubject(false);
+  public isAuthenticated$ = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _storageService: StorageService
+  ) {}
 
   /**
    * login
    *
    * Autentica um usuário enviando suas credenciais de login para o backend.
    *
-   * Após a autenticação com o back, marca `isAuthenticated$` como `true` para indicar que o usuário está autenticado.
-   *
-   *
-   * @param credentials - As credenciais de login do usuário
-   * @param credentials.email - O endereço de e-mail do usuário
-   * @param credentials.password - A senha do usuário
-   * @returns Uma `Promise` contendo a resposta, que inclui um `token` se a autenticação for bem-sucedida.
-   *
-   * @example
-   * ```ts
-   * const credentials: ILoginRequest = { email: 'user@example.com', password: 'password123' };
-   * try {
-   *    const response = await this.authService.login(credentials);
-   *    //...
-   * } catch (error) {
-   *    //...
-   * }
-   * ```
+   * @param credentials - Objeto do tipo {@link ILoginRequest}
+   * @remarks Após a autenticação com o back, marca `isAuthenticated$` como `true`
+   * para indicar que o usuário está autenticado.
+   * @returns Uma `Promise` contendo a resposta, que inclui um `token` se a autenticação
+   * for bem-sucedida.
    */
   public login(credentials: ILoginRequest): Promise<ILoginResponse> {
     return firstValueFrom(
-      this.http
+      this._http
         .post<ILoginResponse>(`${environment.apiUrl}/admin/login`, {
           email: credentials.email,
           senha: credentials.password,
@@ -71,10 +69,23 @@ export class AuthService {
    * * authenticated: `false` para não autenticado
    */
   public checkAuthenticationStatus(): Observable<{ authenticated: boolean }> {
-    return this.http
+    return this._http
       .get<{ authenticated: boolean }>(`${environment.apiUrl}/membros/status`)
       .pipe(
         tap(({ authenticated }) => this.isAuthenticated$.next(authenticated))
       );
+  }
+
+  /**
+   * purgeAuth
+   *
+   * Remove o token JWT do localStorage e redefine o estado de autenticação do usuário.
+   *
+   * @remarks
+   * Utilizado para realizar o processo de logout do usuário.
+   */
+  public purgeAuth(): void {
+    this._storageService.removeItem('jwtToken');
+    this.isAuthenticated$.next(false);
   }
 }

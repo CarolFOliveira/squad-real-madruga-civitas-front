@@ -1,8 +1,10 @@
 @import "variables";
 
 .section {
-  &__header {
-    margin-block-start: 8rem;
+  max-width: $breakpoint-small-desktop;
+
+  &__title {
+    line-height: 1.2;
   }
 
   &__description {

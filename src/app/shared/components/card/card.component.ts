@@ -1,13 +1,15 @@
 import { Component, Input } from '@angular/core';
 
 /**
+ * CardComponent
+ *
  * Componente que representa um card com imagem e um botão.
  *
  * @example
  * ```html
  * <app-card
  *   buttonLabel="Cadastrar aluno"
- *   routeUrl="/administrador/registrar/aluno"
+ *   routeUrl="/administrador/cadastrar-aluno"
  * />
  * ```
  */

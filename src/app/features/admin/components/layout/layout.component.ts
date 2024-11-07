@@ -5,6 +5,13 @@ import { Subject, takeUntil } from 'rxjs';
 // Services
 import { LayoutService } from '../../services/layout.service';
 
+/**
+ * LayoutComponent
+ *
+ * Componente de layout principal da tela do administrador.
+ *
+ * Controla o layout e algumas configurações responsivas, como detecção do modo mobile.
+ */
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
