@@ -1,13 +1,15 @@
 // Libs
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // Services
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { StudentService } from '../../services/student.service';
 
 // Interfaces
+import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
 import { IStudentCreateRequest } from '../../interfaces/IStudentCreateRequest';
 import { IStudentCreateResponse } from '../../interfaces/IStudentCreateResponse';
 
@@ -23,18 +25,17 @@ import { IStudentCreateResponse } from '../../interfaces/IStudentCreateResponse'
   templateUrl: './student-registration.component.html',
   styleUrls: ['./student-registration.component.scss'],
 })
-export class StudentRegistrationComponent {
+export class StudentRegistrationComponent implements OnInit {
   constructor(
-    private _studentService: StudentService,
-    private _snackbarService: SnackbarService
+    private _router: Router,
+    private _snackbarService: SnackbarService,
+    private _studentService: StudentService
   ) {}
 
-  // TODO: remover valores de exemplo e utilizar valores do backend
-  options = [
-    { value: '6A', viewValue: '6ª ano A' },
-    { value: '6B', viewValue: '6ª ano B' },
-    { value: '6C', viewValue: '6ª ano C' },
-  ];
+  /**
+   * Opções que serão mostradas no dropdown de turmas.
+   */
+  public options: ISelectOptions[] = [];
 
   /**
    * Formulário de registro de estudante com as devidas validações.
@@ -62,6 +63,15 @@ export class StudentRegistrationComponent {
     },
     { updateOn: 'blur' }
   );
+
+  /**
+   * ngOnInit
+   *
+   * Inicializa o componente e chama o método para fazer o fetch das turmas no serviço de estudantes.
+   */
+  public ngOnInit(): void {
+    this.getClasses()
+  }
 
   /**
    * onSubmit
@@ -105,9 +115,9 @@ export class StudentRegistrationComponent {
    * - Redireciona o usuário admin para sua página principal
    */
   private _handleRegisterSuccess(response: IStudentCreateResponse): void {
-    // TODO: remover any da resposta e fazer o redirecionamento
     this.form.updateValueAndValidity();
-    this._snackbarService.openSnackBar(response.message);
+    this._snackbarService.openSnackBar(response.message, '', 1500);
+    this._router.navigate(['administrador']);
   }
 
   /**
@@ -124,6 +134,7 @@ export class StudentRegistrationComponent {
    */
   private _handleRegisterError(error: HttpErrorResponse): void {
     this.form.setErrors({});
+    this.form.updateValueAndValidity();
 
     switch (error.status) {
       case 409:
@@ -145,6 +156,31 @@ export class StudentRegistrationComponent {
           'Ocorreu um erro no servidor. Tente novamente mais tarde.',
           'Fechar'
         );
+    }
+  }
+
+  /**
+   * getClasses
+   * 
+   * Método responsável por buscar as turmas do serviço de estudantes e alterar o formato
+   * para a lista de opções exibida no select da interface. 
+   * 
+   * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
+   * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado e uma snackbar será exibida.
+   */
+  private async getClasses(): Promise<void> {
+    try {
+      const studentClasses = await this._studentService.getClasses();
+      if (!studentClasses.length) throw new Error();
+
+      this.options = studentClasses.map((studentClass) => ({
+        value: studentClass.id,
+        viewValue: studentClass.turmaApelido,
+      }));
+    } catch (error) {
+      this._snackbarService.openSnackBar(
+        'Não foi possível carregar as turmas, tente recarregar a página.'
+      );
     }
   }
 }
