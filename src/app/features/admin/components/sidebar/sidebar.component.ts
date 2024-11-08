@@ -54,6 +54,16 @@ export class SidebarComponent {
       link: '/administrador/alunos',
       icon: 'contact_page',
     },
+    {
+      label: 'Professores',
+      link: '/administrador/professores',
+      icon: 'assignment_ind',
+    },
+    {
+      label: 'Turmas',
+      link: '/administrador/turmas',
+      icon: 'groups',
+    },
   ];
 
   /**

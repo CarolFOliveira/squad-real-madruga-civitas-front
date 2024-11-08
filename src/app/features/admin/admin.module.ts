@@ -29,20 +29,24 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
+import { ClassListComponent } from './pages/class-list/class-list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { StudentListComponent } from './pages/student-list/student-list.component';
 import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
+import { TeacherListComponent } from './pages/teacher-list/teacher-list.component';
 
 const COMPONENTS = [
   ActionDialogComponent,
   ActionMenuComponent,
   BrandLinkComponent,
+  ClassListComponent,
   DashboardComponent,
   EntityListComponent,
   LayoutComponent,
   SidebarComponent,
   StudentListComponent,
   StudentRegistrationComponent,
+  TeacherListComponent,
   ToolbarComponent,
   VideoDialogComponent,
 ];
