@@ -2,10 +2,15 @@
 
 .main {
   padding-inline: 2rem;
-  margin-block: 6.5rem;
+  margin-block-start: 6.5rem;
   min-height: calc(100vh - 16rem);
 
   @media screen and (min-width: $breakpoint-tablet) {
     padding-inline: 8rem;
   }
+}
+
+.content {
+  max-width: $breakpoint-large-desktop;
+  margin: 0 auto 5rem auto;
 }

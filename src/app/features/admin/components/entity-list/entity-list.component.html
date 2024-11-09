@@ -1,9 +1,7 @@
-<section class="section">
-  <div class="section__nav-container">
-    <app-return-button routerLink="/administrador" />
-    <app-breadcrumbs />
-  </div>
+<app-return-button routerLink="/administrador" />
+<app-breadcrumbs />
 
+<section class="section">
   <header class="section__header">
     <h2 class="section__title">{{ sectionTitle }}</h2>
     <app-searchbar (search)="onSearch($event)" />
@@ -20,7 +18,7 @@
     </div>
   </ng-container>
 
-  <p *ngIf="totalItems === 0">Não há nenhum item para ser exibido.</p>
+  <p *ngIf="!totalItems">Não há nenhum item para ser exibido.</p>
 
   <footer class="section__footer">
     <app-pagination [length]="totalItems" />
