@@ -1,10 +1,12 @@
 // Libs
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 // Services
 import { PaginationService } from 'src/app/shared/services/pagination.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ActionMenuService } from '../../services/action-menu.service';
 import { EntityService } from '../../services/entity.service';
 
@@ -79,7 +81,8 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _entityService: EntityService,
     private _paginationService: PaginationService,
-    private _router: Router
+    private _router: Router,
+    private _toastService: ToastService
   ) {}
 
   /**
@@ -133,7 +136,8 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
       this.totalItems = total;
       this.paginatedItems = data.map(this.mapItem);
     } catch (error) {
-      // TODO: mostrar snackbar de erro
+      if (error instanceof HttpErrorResponse)
+        this._toastService.error(error.message);
     } finally {
       this.isLoading = false;
     }
@@ -162,11 +166,11 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
       this._actionMenuService.deleteEvent$.subscribe(async (id: number) => {
         try {
           await this._entityService.deleteEntity(id, this.endpoint);
-          // TODO: mostrar snackbar de sucesso
+          this._toastService.success('Registro removido com sucesso!');
           this._getEntityPage();
         } catch (error) {
-          console.error('Erro:', error);
-          // TODO: mostrar snackbar de erro
+          if (error instanceof HttpErrorResponse)
+            this._toastService.error('Falha ao remover o registro.');
         }
       })
     );

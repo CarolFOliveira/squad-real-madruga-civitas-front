@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 // Services
-import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { StudentService } from '../../services/student.service';
 
 // Interfaces
@@ -28,8 +28,8 @@ import { IStudentCreateResponse } from '../../interfaces/IStudentCreateResponse'
 export class StudentRegistrationComponent implements OnInit {
   constructor(
     private _router: Router,
-    private _snackbarService: SnackbarService,
-    private _studentService: StudentService
+    private _studentService: StudentService,
+    private _toastService: ToastService
   ) {}
 
   /**
@@ -70,7 +70,7 @@ export class StudentRegistrationComponent implements OnInit {
    * Inicializa o componente e chama o método para fazer o fetch das turmas no serviço de estudantes.
    */
   public ngOnInit(): void {
-    this.getClasses()
+    this.getClasses();
   }
 
   /**
@@ -116,7 +116,7 @@ export class StudentRegistrationComponent implements OnInit {
    */
   private _handleRegisterSuccess(response: IStudentCreateResponse): void {
     this.form.updateValueAndValidity();
-    this._snackbarService.openSnackBar(response.message, '', 1500);
+    this._toastService.success(response.message);
     this._router.navigate(['administrador']);
   }
 
@@ -138,48 +138,40 @@ export class StudentRegistrationComponent implements OnInit {
 
     switch (error.status) {
       case 409:
-        this._snackbarService.openSnackBar(
-          `Estudante já existe nos cadastros. \nVerifique as informações digitadas ou digite novas informações.`,
-          'Entendi'
-        );
+        this._toastService.info('Aluno já existe nos cadastros. ');
         break;
 
       case 0 && error.error instanceof ProgressEvent:
-        this._snackbarService.openSnackBar(
-          'Não foi possível conectar ao servidor. \nVerifique sua conexão com a internet.',
-          'Fechar'
-        );
+        this._toastService.error('Não foi possível conectar ao servidor.');
         break;
 
       default:
-        this._snackbarService.openSnackBar(
-          'Ocorreu um erro no servidor. Tente novamente mais tarde.',
-          'Fechar'
-        );
+        this._toastService.error(error.error.message);
     }
   }
 
   /**
    * getClasses
-   * 
+   *
    * Método responsável por buscar as turmas do serviço de estudantes e alterar o formato
-   * para a lista de opções exibida no select da interface. 
-   * 
+   * para a lista de opções exibida no select da interface.
+   *
    * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
    * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado e uma snackbar será exibida.
    */
   private async getClasses(): Promise<void> {
     try {
       const studentClasses = await this._studentService.getClasses();
-      if (!studentClasses.length) throw new Error();
+      if (!studentClasses.length)
+        this._toastService.info('Nenhuma turma cadastrada.');
 
       this.options = studentClasses.map((studentClass) => ({
         value: studentClass.id,
         viewValue: studentClass.turmaApelido,
       }));
     } catch (error) {
-      this._snackbarService.openSnackBar(
-        'Não foi possível carregar as turmas, tente recarregar a página.'
+      this._toastService.error(
+        'Erro ao carregar as turmas. Tente recarregar a página.'
       );
     }
   }
