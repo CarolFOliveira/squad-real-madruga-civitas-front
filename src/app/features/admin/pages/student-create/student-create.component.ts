@@ -14,18 +14,18 @@ import { IStudentCreateRequest } from '../../interfaces/IStudentCreateRequest';
 import { IStudentCreateResponse } from '../../interfaces/IStudentCreateResponse';
 
 /**
- * StudentRegistrationComponent
+ * StudentCreateComponent
  *
  * Componente que representa a página de cadastro dos estudantes.
  *
  * Este componente gerencia a lógica e a interface para registrar novos estudantes na aplicação.
  */
 @Component({
-  selector: 'app-student-registration',
-  templateUrl: './student-registration.component.html',
-  styleUrls: ['./student-registration.component.scss'],
+  selector: 'app-student-create',
+  templateUrl: './student-create.component.html',
+  styleUrls: ['./student-create.component.scss'],
 })
-export class StudentRegistrationComponent implements OnInit {
+export class StudentCreateComponent implements OnInit {
   constructor(
     private _router: Router,
     private _studentService: StudentService,
@@ -171,7 +171,7 @@ export class StudentRegistrationComponent implements OnInit {
       }));
     } catch (error) {
       this._toastService.error(
-        'Erro ao carregar as turmas. Tente recarregar a página.'
+        'Erro ao carregar as turmas. Atualize a página novamente.'
       );
     }
   }

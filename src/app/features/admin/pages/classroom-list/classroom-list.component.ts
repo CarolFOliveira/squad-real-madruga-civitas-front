@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-class-list',
-  templateUrl: './class-list.component.html',
+  selector: 'app-classroom-list',
+  templateUrl: './classroom-list.component.html',
 })
-export class ClassListComponent {
+export class ClassroomListComponent {
   /**
    * Endpoint para buscar dados das turmas.
    */
