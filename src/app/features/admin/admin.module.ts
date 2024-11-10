@@ -10,15 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 // App Modules
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
-
-// Services
-import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 // Components
 import { ActionDialogComponent } from './components/action-dialog/action-dialog.component';
@@ -62,13 +58,12 @@ const MODULES = [
   MatListModule,
   MatMenuModule,
   MatSidenavModule,
-  MatSnackBarModule,
   MatToolbarModule,
 ];
 
 @NgModule({
   declarations: [...COMPONENTS],
-  providers: [SnackbarService],
+  providers: [],
   imports: [...MODULES],
 })
 export class AdminModule {}
