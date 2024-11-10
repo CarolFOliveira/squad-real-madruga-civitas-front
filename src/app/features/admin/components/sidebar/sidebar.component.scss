@@ -70,3 +70,7 @@
 ::ng-deep .mat-drawer.mat-drawer-side {
   border-width: 0;
 }
+
+::ng-deep .mat-mdc-list-base {
+  --mdc-list-list-item-focus-state-layer-color: transparent;
+}
