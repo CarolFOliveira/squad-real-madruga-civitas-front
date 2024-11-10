@@ -25,33 +25,35 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
-import { ClassListComponent } from './pages/class-list/class-list.component';
+import { ClassroomCreateComponent } from './pages/classroom-create/classroom-create.component';
+import { ClassroomListComponent } from './pages/classroom-list/classroom-list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { StudentCreateComponent } from './pages/student-create/student-create.component';
 import { StudentListComponent } from './pages/student-list/student-list.component';
-import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
+import { TeacherCreateComponent } from './pages/teacher-create/teacher-create.component';
 import { TeacherListComponent } from './pages/teacher-list/teacher-list.component';
 
 const COMPONENTS = [
   ActionDialogComponent,
   ActionMenuComponent,
   BrandLinkComponent,
-  ClassListComponent,
+  ClassroomCreateComponent,
+  ClassroomListComponent,
   DashboardComponent,
   EntityListComponent,
   LayoutComponent,
   SidebarComponent,
+  StudentCreateComponent,
   StudentListComponent,
-  StudentRegistrationComponent,
+  TeacherCreateComponent,
   TeacherListComponent,
   ToolbarComponent,
   VideoDialogComponent,
 ];
 
 const MODULES = [
-  CommonModule,
-  ReactiveFormsModule,
   AdminRoutingModule,
-  SharedModule,
+  CommonModule,
   MatButtonModule,
   MatDialogModule,
   MatIconModule,
@@ -59,6 +61,8 @@ const MODULES = [
   MatMenuModule,
   MatSidenavModule,
   MatToolbarModule,
+  ReactiveFormsModule,
+  SharedModule,
 ];
 
 @NgModule({

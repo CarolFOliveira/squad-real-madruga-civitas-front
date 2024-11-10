@@ -4,10 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Components
 import { LayoutComponent } from './components/layout/layout.component';
-import { ClassListComponent } from './pages/class-list/class-list.component';
+import { ClassroomCreateComponent } from './pages/classroom-create/classroom-create.component';
+import { ClassroomListComponent } from './pages/classroom-list/classroom-list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { StudentCreateComponent } from './pages/student-create/student-create.component';
 import { StudentListComponent } from './pages/student-list/student-list.component';
-import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
+import { TeacherCreateComponent } from './pages/teacher-create/teacher-create.component';
 import { TeacherListComponent } from './pages/teacher-list/teacher-list.component';
 
 // Guards
@@ -21,7 +23,7 @@ const routes: Routes = [
     children: [
       {
         path: 'cadastrar-aluno',
-        component: StudentRegistrationComponent,
+        component: StudentCreateComponent,
         data: { breadcrumbs: 'Cadastrar Aluno' },
       },
       {
@@ -30,13 +32,23 @@ const routes: Routes = [
         data: { breadcrumbs: 'Alunos Cadastrados' },
       },
       {
+        path: 'cadastrar-professor',
+        component: TeacherCreateComponent,
+        data: { breadcrumbs: 'Cadastrar Professor' },
+      },
+      {
         path: 'professores',
         component: TeacherListComponent,
         data: { breadcrumbs: 'Professores Cadastrados' },
       },
       {
+        path: 'cadastrar-turma',
+        component: ClassroomCreateComponent,
+        data: { breadcrumbs: 'Cadastrar Turmas' },
+      },
+      {
         path: 'turmas',
-        component: ClassListComponent,
+        component: ClassroomListComponent,
         data: { breadcrumbs: 'Turmas Cadastradas' },
       },
       { path: '', component: DashboardComponent },
