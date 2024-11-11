@@ -27,6 +27,11 @@ const routes: Routes = [
         data: { breadcrumbs: 'Cadastrar Aluno' },
       },
       {
+        path: 'editar-alunos/:id',
+        component: StudentCreateComponent,
+        data: { breadcrumbs: 'Editar Aluno' },
+      },
+      {
         path: 'alunos',
         component: StudentListComponent,
         data: { breadcrumbs: 'Alunos Cadastrados' },

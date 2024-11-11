@@ -151,7 +151,7 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
   private _subscribeToEditEvent(): void {
     this._subscriptions.add(
       this._actionMenuService.editEvent$.subscribe((id: number) => {
-        this._router.navigate([`administrador/editar/${this.endpoint}`, id]);
+        this._router.navigate([`administrador/editar-${this.endpoint}`, id]);
       })
     );
   }
@@ -187,7 +187,6 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     this._subscriptions.add(
       this._paginationService.currentPage$.subscribe((page) => {
         this.currentPage = page;
-        this._getEntityPage();
       })
     );
   }
@@ -201,7 +200,6 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     this._subscriptions.add(
       this._activatedRoute.queryParams.subscribe((params) => {
         this.searchTerm = params['searchTerm'];
-        this._getEntityPage();
       })
     );
   }

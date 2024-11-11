@@ -3,7 +3,9 @@
 
 <section class="section">
   <header>
-    <h2 class="section__title">Cadastro de aluno</h2>
+    <h2 class="section__title">
+      {{ isEditMode ? "Editar cadastro de aluno" : "Cadastro de aluno" }}
+    </h2>
     <p class="section__description">Preencha as informações do aluno</p>
   </header>
 
@@ -40,7 +42,7 @@
     <app-button
       [isLoading]="form.pending"
       class="form__btn"
-      label="Cadastrar"
+      [label]="isEditMode ? 'Salvar' : 'Cadastrar'"
       type="submit"
     />
   </form>

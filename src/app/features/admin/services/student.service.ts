@@ -1,7 +1,7 @@
 // Libs
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, retry } from 'rxjs';
 
 // Interfaces
 import { IClassesResponse } from '../interfaces/IClassesResponse';
@@ -54,7 +54,29 @@ export class StudentService {
    */
   public getClasses(): Promise<IClassesResponse[]> {
     return firstValueFrom(
-      this._http.get<IClassesResponse[]>(`${environment.apiUrl}/turmas`)
+      this._http
+        .get<IClassesResponse[]>(`${environment.apiUrl}/turmas`)
+        .pipe(retry(2))
+    );
+  }
+
+  // TODO: trocar unknown para o tipo correto
+  public getStudent(id: number): Promise<unknown> {
+    return firstValueFrom(
+      this._http.get<unknown>(`${environment.apiUrl}/alunos/${id}`)
+    );
+  }
+
+  // TODO: trocar unknown para o tipo correto
+  public update(student: IStudentCreateRequest, id: number): Promise<unknown> {
+    return firstValueFrom(
+      this._http.put<unknown>(`${environment.apiUrl}/alunos/${id}`, {
+        nomeCompleto: student.studentName,
+        rg: student.studentRG,
+        numeroMatricula: student.enrollmentNumber,
+        turmaId: student.studentClass,
+        responsavelCpf: student.guardianCPF,
+      })
     );
   }
 }

@@ -2,7 +2,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // Services
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -27,10 +27,14 @@ import { IStudentCreateResponse } from '../../interfaces/IStudentCreateResponse'
 })
 export class StudentCreateComponent implements OnInit {
   constructor(
+    private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _studentService: StudentService,
     private _toastService: ToastService
   ) {}
+
+  isEditMode = false;
+  studentId: number | null = null;
 
   /**
    * Opções que serão mostradas no dropdown de turmas.
@@ -71,6 +75,7 @@ export class StudentCreateComponent implements OnInit {
    */
   public ngOnInit(): void {
     this.getClasses();
+    this.loadStudentData();
   }
 
   /**
@@ -96,10 +101,20 @@ export class StudentCreateComponent implements OnInit {
     const student = this.form.value as IStudentCreateRequest;
 
     try {
-      const response = await this._studentService.register(student);
-      this._handleRegisterSuccess(response);
+      if (this.isEditMode && this.studentId) {
+        const response = await this._studentService.update(
+          student,
+          this.studentId
+        );
+        this._handleUpdateSuccess(response);
+      } else {
+        const response = await this._studentService.register(student);
+        this._handleRegisterSuccess(response);
+      }
     } catch (error) {
-      this._handleRegisterError(error as HttpErrorResponse);
+      this._handleError(error as HttpErrorResponse);
+    } finally {
+      this.form.updateValueAndValidity();
     }
   }
 
@@ -115,13 +130,17 @@ export class StudentCreateComponent implements OnInit {
    * - Redireciona o usuário admin para sua página principal
    */
   private _handleRegisterSuccess(response: IStudentCreateResponse): void {
-    this.form.updateValueAndValidity();
+    this._toastService.success(response.message);
+    this._router.navigate(['administrador']);
+  }
+
+  private _handleUpdateSuccess(response: any): void {
     this._toastService.success(response.message);
     this._router.navigate(['administrador']);
   }
 
   /**
-   * _handleRegisterError
+   * _handleError
    *
    * Trata erros ocorridos durante o processo de registro de um aluno.
    *
@@ -132,10 +151,7 @@ export class StudentCreateComponent implements OnInit {
    * - Se o status do erro for `0` (Sem conexão) - mostra uma notificação que o usuário está sem internet.
    * - Para outros status de erro, mostra uma notificação com erro genérico de "Ocorreu um erro no servidor".
    */
-  private _handleRegisterError(error: HttpErrorResponse): void {
-    this.form.setErrors({});
-    this.form.updateValueAndValidity();
-
+  private _handleError(error: HttpErrorResponse): void {
     switch (error.status) {
       case 409:
         this._toastService.info('Aluno já existe nos cadastros. ');
@@ -173,6 +189,29 @@ export class StudentCreateComponent implements OnInit {
       this._toastService.error(
         'Erro ao carregar as turmas. Atualize a página novamente.'
       );
+    }
+  }
+
+  private async loadStudentData(): Promise<void> {
+    const id = this._activatedRoute.snapshot.paramMap.get('id');
+    if (!id) return;
+    console.log({ id });
+
+    const studentId = Number(id);
+    this.studentId = studentId;
+    this.isEditMode = true;
+
+    const student = (await this._studentService.getStudent(studentId)) as any;
+    console.log({ student });
+
+    if (student) {
+      this.form.patchValue({
+        studentName: student.membro.nomeCompleto,
+        studentRG: student.membro.rg,
+        enrollmentNumber: student.membro.numeroMatricula,
+        studentClass: student.turma.id,
+        guardianCPF: student.responsavel.membro.cpf,
+      });
     }
   }
 }
