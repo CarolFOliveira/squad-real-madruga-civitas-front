@@ -6,19 +6,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Services
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { StudentService } from '../../services/student.service';
+import { EntityService } from '../../services/entity.service';
 
 // Interfaces
 import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
-import { IStudentCreateRequest } from '../../interfaces/IStudentCreateRequest';
-import { IStudentCreateResponse } from '../../interfaces/IStudentCreateResponse';
+import { IClassroom } from '../../interfaces/IClassroom';
+import { IEntityResponse } from '../../interfaces/IEntityResponse';
+import { IStudent } from '../../interfaces/IStudent';
+import { IStudentFormValue } from '../../interfaces/IStudentFormValue';
+
+// Enum
+import { ApiEndpoints } from '../../interfaces/ApiEndpoints';
+
+// DTO
+import { StudentDTO } from '../../models/Student.dto';
 
 /**
  * StudentUpsertComponent
  *
- * Componente que representa a página de cadastro dos estudantes.
- *
- * Este componente gerencia a lógica e a interface para registrar novos estudantes na aplicação.
+ * Componente que representa a página de cadastro e edição dos estudantes.
  */
 @Component({
   selector: 'app-student-upsert',
@@ -28,18 +34,25 @@ import { IStudentCreateResponse } from '../../interfaces/IStudentCreateResponse'
 export class StudentUpsertComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
+    private _entityService: EntityService,
     private _router: Router,
-    private _studentService: StudentService,
     private _toastService: ToastService
   ) {}
 
+  /**
+   * Indica se o componente está no modo de edição ou de cadastro.
+   */
   isEditMode = false;
+
+  /**
+   * Id do aluno, se estiver em modo de edição, caso contrário será nulo.
+   */
   studentId: number | null = null;
 
   /**
-   * Opções que serão mostradas no dropdown de turmas.
+   * Opções que serão mostradas no select das turmas.
    */
-  public options: ISelectOptions[] = [];
+  public classrooms: ISelectOptions[] = [];
 
   /**
    * Formulário de registro de estudante com as devidas validações.
@@ -81,13 +94,15 @@ export class StudentUpsertComponent implements OnInit {
   /**
    * onSubmit
    *
-   * Lida com o evento de submissão do formulário de registro de um novo aluno.
+   * Lida com o evento de submissão do formulário de registro ou de edição de um novo aluno.
    *
    * @param $event - Evento do tipo `SubmitEvent` de envio de um formulário no browser
-   * @returns Uma `Promise` vazia que é resolvida após o processo de cadastro ser concluído.
+   * @returns Uma `Promise` vazia que é resolvida após o processo de cadastro ou edição ser concluído.
    * @remarks
-   * Responsável por todo o processo de cadastrado, incluindo validação do formulário,
-   * envio dos dados do aluno para cadastro e tratamento de respostas de sucesso ou erro.
+   * Responsável por todo o processo de cadastrado ou edição, incluindo:
+   * - Validação do formulário
+   * - Transformar os dados do formulário para ficar igual ao backend usando `StudentDTO`
+   * - Envio dos dados do aluno e tratamento de respostas de sucesso ou erro.
    */
   public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
@@ -98,19 +113,23 @@ export class StudentUpsertComponent implements OnInit {
     }
 
     this.form.markAsPending();
-    const student = this.form.value as IStudentCreateRequest;
 
+    const entity = StudentDTO.fromForm(this.form.value as IStudentFormValue);
     try {
-      if (this.isEditMode && this.studentId) {
-        const response = await this._studentService.update(
-          student,
-          this.studentId
-        );
-        this._handleUpdateSuccess(response);
-      } else {
-        const response = await this._studentService.register(student);
-        this._handleRegisterSuccess(response);
-      }
+      let response;
+      if (this.isEditMode && this.studentId)
+        response = await this._entityService.update<IStudent>({
+          id: this.studentId,
+          endpoint: ApiEndpoints.STUDENTS,
+          entity,
+        });
+      else
+        response = await this._entityService.register({
+          endpoint: ApiEndpoints.STUDENTS,
+          entity,
+        });
+
+      this._handleSuccess(response);
     } catch (error) {
       this._handleError(error as HttpErrorResponse);
     } finally {
@@ -119,22 +138,16 @@ export class StudentUpsertComponent implements OnInit {
   }
 
   /**
-   * _handleRegisterSuccess
+   * _handleSuccess
    *
-   * Trata o caso de sucesso do registro de um novo aluno.
+   * Trata o caso de sucesso do registro ou edição de um aluno.
    *
-   * @param response - A resposta do servidor contendo o status 201.
+   * @param response - Objeto contendo a mensagem de sucesso do tipo {@link IEntityResponse}.
    * @remarks
-   * - Remove o status pendente do form
-   * - Mostra uma mensagem de sucesso para o usuário admin que fecha automaticamente após 1 segundo
+   * - Mostra uma mensagem de sucesso para o usuário admin que fecha automaticamente após 3 segundos
    * - Redireciona o usuário admin para sua página principal
    */
-  private _handleRegisterSuccess(response: IStudentCreateResponse): void {
-    this._toastService.success(response.message);
-    this._router.navigate(['administrador']);
-  }
-
-  private _handleUpdateSuccess(response: any): void {
+  private _handleSuccess(response: IEntityResponse): void {
     this._toastService.success(response.message);
     this._router.navigate(['administrador']);
   }
@@ -149,12 +162,12 @@ export class StudentUpsertComponent implements OnInit {
    * Redefine os erros do formulário para tirar o status pending do form.
    * - Se o status do erro for `409` (Conflito) - mostra uma notificação que o aluno já existe.
    * - Se o status do erro for `0` (Sem conexão) - mostra uma notificação que o usuário está sem internet.
-   * - Para outros status de erro, mostra uma notificação com erro genérico de "Ocorreu um erro no servidor".
+   * - Para outros status de erro, mostra uma notificação com a mensagem de erro definida no backend.
    */
   private _handleError(error: HttpErrorResponse): void {
     switch (error.status) {
       case 409:
-        this._toastService.info('Aluno já existe nos cadastros. ');
+        this._toastService.info(error.message);
         break;
 
       case 0 && error.error instanceof ProgressEvent:
@@ -169,49 +182,55 @@ export class StudentUpsertComponent implements OnInit {
   /**
    * getClasses
    *
-   * Método responsável por buscar as turmas do serviço de estudantes e alterar o formato
-   * para a lista de opções exibida no select da interface.
+   * Método responsável por buscar as turmas no serviço e alterar o formato para a lista de opções.
    *
    * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
-   * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado e uma snackbar será exibida.
+   * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado e um toast será exibido.
    */
   private async getClasses(): Promise<void> {
     try {
-      const studentClasses = await this._studentService.getClasses();
-      if (!studentClasses.length)
-        this._toastService.info('Nenhuma turma cadastrada.');
+      const { data } = await this._entityService.getEntities<IClassroom>({
+        endpoint: ApiEndpoints.CLASSROOMS,
+      });
+      if (!data.length) this._toastService.info('Nenhuma turma cadastrada.');
 
-      this.options = studentClasses.map((studentClass) => ({
-        value: studentClass.id,
-        viewValue: studentClass.turmaApelido,
+      this.classrooms = data.map((classroom) => ({
+        value: classroom.id,
+        viewValue: classroom.turmaApelido,
       }));
     } catch (error) {
       this._toastService.error(
-        'Erro ao carregar as turmas. Atualize a página novamente.'
+        'Erro ao carregar as turmas. Atualize a página.'
       );
     }
   }
 
+  /**
+   * loadStudentData
+   *
+   * Responsável por verificar se a rota é de edição ou de cadastro.
+   * Se for de edição, busca os dados do Aluno no serviço e preenche o formulário.
+   *
+   * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
+   * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado e um toast será exibido.
+   */
   private async loadStudentData(): Promise<void> {
     const id = this._activatedRoute.snapshot.paramMap.get('id');
     if (!id) return;
-    console.log({ id });
 
     const studentId = Number(id);
     this.studentId = studentId;
     this.isEditMode = true;
 
-    const student = (await this._studentService.getStudent(studentId)) as any;
-    console.log({ student });
+    const student = await this._entityService.getEntity<IStudent>({
+      endpoint: ApiEndpoints.STUDENTS,
+      id: studentId,
+    });
+    if (!student)
+      this._toastService.error(
+        'Não foi possível carregar as informações. Atualize a página.'
+      );
 
-    if (student) {
-      this.form.patchValue({
-        studentName: student.membro.nomeCompleto,
-        studentRG: student.membro.rg,
-        enrollmentNumber: student.membro.numeroMatricula,
-        studentClass: student.turma.id,
-        guardianCPF: student.responsavel.membro.cpf,
-      });
-    }
+    this.form.patchValue(new StudentDTO(student).toFormValue());
   }
 }

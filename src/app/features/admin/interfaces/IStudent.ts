@@ -1,5 +1,8 @@
 export interface IStudent {
-  id: number;
-  name: string;
-  enrollmentNumber: string;
+  id?: number;
+  numeroMatricula: string;
+  nomeCompleto: string;
+  rg: string;
+  turmaId: string;
+  responsavelCpf: string;
 }

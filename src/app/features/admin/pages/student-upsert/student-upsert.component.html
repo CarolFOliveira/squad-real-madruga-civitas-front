@@ -29,7 +29,7 @@
     />
     <app-select
       [control]="form.controls.studentClass"
-      [options]="options"
+      [options]="classrooms"
       label="Turma"
       placeholder="6º ano B"
     />
@@ -41,8 +41,8 @@
     />
     <app-button
       [isLoading]="form.pending"
-      class="form__btn"
       [label]="isEditMode ? 'Salvar' : 'Cadastrar'"
+      class="form__btn"
       type="submit"
     />
   </form>

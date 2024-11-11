@@ -1,7 +1,7 @@
 /**
- * Representa os dados de um estudante para conseguir salvar ele no banco de dados.
+ * Representa os dados dos campos do formulário de estudante.
  */
-export interface IStudentCreateRequest {
+export interface IStudentFormValue {
   /**
    * O nome completo do estudante.
    */
