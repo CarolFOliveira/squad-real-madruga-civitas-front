@@ -3,7 +3,42 @@
 
 <section class="section">
   <header>
-    <h2 class="section__title">Cadastro de turma</h2>
+    <h2 class="section__title">
+      {{ isEditMode ? "Editar cadastro de turma" : "Cadastro de turma" }}
+    </h2>
     <p class="section__description">Preencha as informações da turma</p>
   </header>
+
+  <form class="form" [formGroup]="form" (submit)="onSubmit($event)">
+    <app-select
+      [control]="form.controls.academicYear"
+      [options]="academicYearOptions"
+      label="Ano letivo"
+      placeholder="6º ano"
+    />
+    <app-select
+      [control]="form.controls.classPeriod"
+      [options]="classPeriodOptions"
+      label="Período letivo"
+      placeholder="Manhã"
+    />
+    <app-select
+      [control]="form.controls.educationLevel"
+      [options]="educationLevelOptions"
+      label="Ensino"
+      placeholder="Fundamental"
+    />
+    <app-input
+      [control]="form.controls.alias"
+      label="Apelido da turma"
+      placeholder="6º ano B"
+    />
+    <app-button
+      [isLoading]="form.pending"
+      [label]="isEditMode ? 'Salvar' : 'Cadastrar'"
+      class="form__btn"
+      label="Cadastrar"
+      type="submit"
+    />
+  </form>
 </section>

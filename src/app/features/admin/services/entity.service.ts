@@ -15,6 +15,11 @@ interface IEntityListParams {
   searchTerm: string;
 }
 
+interface IEntityRequestParams {
+  endpoint: string;
+  id: number;
+}
+
 /**
  * Serviço responsável por realizar operações CRUD com as entidades.
  */
@@ -57,9 +62,20 @@ export class EntityService {
    * @param endpoint - `string` que representa o endpoint onde a entidade será excluída.
    * @returns Uma `Promise` com o objeto da resposta.
    */
-  public deleteEntity(id: number, endpoint: string): Promise<unknown> {
+  public deleteEntity(
+    id: number,
+    endpoint: string
+  ): Promise<{ message: string }> {
     return firstValueFrom(
-      this._http.delete(`${environment.apiUrl}/${endpoint}/${id}`)
+      this._http.delete<{ message: string }>(
+        `${environment.apiUrl}/${endpoint}/${id}`
+      )
+    );
+  }
+
+  public getEntity<T>({ endpoint, id }: IEntityRequestParams): Promise<T> {
+    return firstValueFrom(
+      this._http.get<T>(`${environment.apiUrl}/${endpoint}/${id}`)
     );
   }
 }
