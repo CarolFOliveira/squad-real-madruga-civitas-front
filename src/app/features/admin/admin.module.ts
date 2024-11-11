@@ -25,27 +25,27 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
-import { ClassroomCreateComponent } from './pages/classroom-create/classroom-create.component';
 import { ClassroomListComponent } from './pages/classroom-list/classroom-list.component';
+import { ClassroomUpsertComponent } from './pages/classroom-upsert/classroom-upsert.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { StudentCreateComponent } from './pages/student-create/student-create.component';
 import { StudentListComponent } from './pages/student-list/student-list.component';
-import { TeacherCreateComponent } from './pages/teacher-create/teacher-create.component';
+import { StudentUpsertComponent } from './pages/student-upsert/student-upsert.component';
 import { TeacherListComponent } from './pages/teacher-list/teacher-list.component';
+import { TeacherUpsertComponent } from './pages/teacher-upsert/teacher-upsert.component';
 
 const COMPONENTS = [
   ActionDialogComponent,
   ActionMenuComponent,
   BrandLinkComponent,
-  ClassroomCreateComponent,
+  ClassroomUpsertComponent,
   ClassroomListComponent,
   DashboardComponent,
   EntityListComponent,
   LayoutComponent,
   SidebarComponent,
-  StudentCreateComponent,
+  StudentUpsertComponent,
   StudentListComponent,
-  TeacherCreateComponent,
+  TeacherUpsertComponent,
   TeacherListComponent,
   ToolbarComponent,
   VideoDialogComponent,

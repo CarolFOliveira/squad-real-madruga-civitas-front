@@ -14,18 +14,18 @@ import { IStudentCreateRequest } from '../../interfaces/IStudentCreateRequest';
 import { IStudentCreateResponse } from '../../interfaces/IStudentCreateResponse';
 
 /**
- * StudentCreateComponent
+ * StudentUpsertComponent
  *
  * Componente que representa a página de cadastro dos estudantes.
  *
  * Este componente gerencia a lógica e a interface para registrar novos estudantes na aplicação.
  */
 @Component({
-  selector: 'app-student-create',
-  templateUrl: './student-create.component.html',
-  styleUrls: ['./student-create.component.scss'],
+  selector: 'app-student-upsert',
+  templateUrl: './student-upsert.component.html',
+  styleUrls: ['./student-upsert.component.scss'],
 })
-export class StudentCreateComponent implements OnInit {
+export class StudentUpsertComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,

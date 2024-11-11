@@ -4,13 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Components
 import { LayoutComponent } from './components/layout/layout.component';
-import { ClassroomCreateComponent } from './pages/classroom-create/classroom-create.component';
 import { ClassroomListComponent } from './pages/classroom-list/classroom-list.component';
+import { ClassroomUpsertComponent } from './pages/classroom-upsert/classroom-upsert.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { StudentCreateComponent } from './pages/student-create/student-create.component';
 import { StudentListComponent } from './pages/student-list/student-list.component';
-import { TeacherCreateComponent } from './pages/teacher-create/teacher-create.component';
+import { StudentUpsertComponent } from './pages/student-upsert/student-upsert.component';
 import { TeacherListComponent } from './pages/teacher-list/teacher-list.component';
+import { TeacherUpsertComponent } from './pages/teacher-upsert/teacher-upsert.component';
 
 // Guards
 import { adminGuard } from './guards/admin.guard';
@@ -23,12 +23,12 @@ const routes: Routes = [
     children: [
       {
         path: 'cadastrar-aluno',
-        component: StudentCreateComponent,
+        component: StudentUpsertComponent,
         data: { breadcrumbs: 'Cadastrar Aluno' },
       },
       {
         path: 'editar-alunos/:id',
-        component: StudentCreateComponent,
+        component: StudentUpsertComponent,
         data: { breadcrumbs: 'Editar Aluno' },
       },
       {
@@ -38,8 +38,13 @@ const routes: Routes = [
       },
       {
         path: 'cadastrar-professor',
-        component: TeacherCreateComponent,
+        component: TeacherUpsertComponent,
         data: { breadcrumbs: 'Cadastrar Professor' },
+      },
+      {
+        path: 'editar-professor/:id',
+        component: TeacherUpsertComponent,
+        data: { breadcrumbs: 'Editar Professor' },
       },
       {
         path: 'professores',
@@ -48,8 +53,13 @@ const routes: Routes = [
       },
       {
         path: 'cadastrar-turma',
-        component: ClassroomCreateComponent,
+        component: ClassroomUpsertComponent,
         data: { breadcrumbs: 'Cadastrar Turmas' },
+      },
+      {
+        path: 'editar-turma/:id',
+        component: TeacherUpsertComponent,
+        data: { breadcrumbs: 'Editar Turma' },
       },
       {
         path: 'turmas',

@@ -1,0 +1,21 @@
+@import "mixins";
+@import "variables";
+
+.section {
+  margin: 0 auto;
+  max-width: 55rem;
+
+  &__title {
+    font-size: 2rem;
+    line-height: 1.5;
+    margin-block: 2rem 0;
+  }
+
+  &__description {
+    margin-block-end: 2rem;
+  }
+}
+
+app-return-button {
+  margin-left: -1.5rem;
+}
