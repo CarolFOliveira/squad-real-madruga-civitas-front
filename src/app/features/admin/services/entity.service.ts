@@ -1,11 +1,18 @@
 // Libs
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 // Interfaces
+import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
+import { ApiEndpoints } from '../interfaces/ApiEndpoints';
+import { IClassroom } from '../interfaces/IClassroom';
 import { IEntityList } from '../interfaces/IEntityList';
 import { IEntityResponse } from '../interfaces/IEntityResponse';
+
+// Services
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 // Environment Variables
 import { environment } from 'src/environments/environment';
@@ -28,6 +35,13 @@ interface IEntityUpsertParams<T> {
   id?: number;
 }
 
+interface IUpsertParams<T> {
+  id: number | null;
+  entity: T;
+  endpoint: string;
+  isEditMode: boolean;
+}
+
 /**
  * Serviço responsável por realizar operações CRUD com as entidades.
  */
@@ -35,7 +49,11 @@ interface IEntityUpsertParams<T> {
   providedIn: 'root',
 })
 export class EntityService {
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _router: Router,
+    private _toastService: ToastService
+  ) {}
 
   /**
    * getEntities
@@ -142,5 +160,74 @@ export class EntityService {
     return firstValueFrom(
       this._http.get<T>(`${environment.apiUrl}/${endpoint}/${id}`)
     );
+  }
+
+  public async upsert<T>(upsertParams: IUpsertParams<T>): Promise<void> {
+    try {
+      let response;
+      if (upsertParams.isEditMode && upsertParams.id)
+        response = await this.update<T>({
+          id: upsertParams.id,
+          endpoint: upsertParams.endpoint,
+          entity: upsertParams.entity,
+        });
+      else
+        response = await this.register({
+          endpoint: upsertParams.endpoint,
+          entity: upsertParams.entity,
+        });
+
+      this._handleSuccess(response);
+    } catch (error) {
+      this._handleError(error as HttpErrorResponse);
+    }
+  }
+
+  private _handleSuccess(response: IEntityResponse): void {
+    this._toastService.success(response.message);
+    this._router.navigate(['administrador']);
+  }
+
+  private _handleError(error: HttpErrorResponse): void {
+    switch (error.status) {
+      case 409:
+        this._toastService.info(error.error.message);
+        break;
+
+      case 0 && error.error instanceof ProgressEvent:
+        this._toastService.error('Não foi possível conectar ao servidor.');
+        break;
+
+      default:
+        this._toastService.error(error.error.message);
+    }
+  }
+
+  /**
+   * getClasses
+   *
+   * Método responsável por buscar as turmas no serviço e alterar o formato para a lista de opções.
+   *
+   * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
+   * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado e um toast será exibido.
+   */
+  public async getClasses(): Promise<ISelectOptions[]> {
+    try {
+      const { data } = await this.getEntities<IClassroom>({
+        endpoint: ApiEndpoints.CLASSROOMS,
+      });
+      if (!data.length) this._toastService.info('Nenhuma turma cadastrada.');
+
+      return data.map((classroom: IClassroom) => ({
+        value: classroom.id as number,
+        viewValue: classroom.turmaApelido,
+      }));
+    } catch (error) {
+      this._toastService.error(
+        'Erro ao carregar as turmas. Atualize a página.'
+      );
+    }
+
+    return [];
   }
 }

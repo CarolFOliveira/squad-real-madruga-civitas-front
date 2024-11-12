@@ -1,8 +1,7 @@
 // Libs
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 // Services
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -10,8 +9,6 @@ import { EntityService } from '../../services/entity.service';
 
 // Interfaces
 import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
-import { IClassroom } from '../../interfaces/IClassroom';
-import { IEntityResponse } from '../../interfaces/IEntityResponse';
 import { ITeacher } from '../../interfaces/ITeacher';
 import { ITeacherFormValue } from '../../interfaces/ITeacherFormValue';
 
@@ -74,7 +71,6 @@ export class TeacherUpsertComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _entityService: EntityService,
-    private _router: Router,
     private _toastService: ToastService
   ) {}
 
@@ -84,102 +80,62 @@ export class TeacherUpsertComponent implements OnInit {
    * Inicializa o componente carregando as turmas e os dados do professor, se estiver em modo de edição.
    */
   public ngOnInit(): void {
-    this.getClasses();
-    this.loadTeacherData();
+    this._loadClassroomData();
+    this._loadTeacherData();
+  }
+
+  /**
+   * _loadClassroomData
+   *
+   * Inicializa as turmas no formulário no formato de array com objetos do tipo {@link ISelectOptions}.
+   *
+   * @returns Uma `Promise` vazia que é resolvida após carregar as turmas.
+   */
+  private async _loadClassroomData(): Promise<void> {
+    this.classrooms = await this._entityService.getClasses();
   }
 
   /**
    * onSubmit
+   *
+   * Lida com o evento de submissão do formulário para registrar ou editar um professor.
+   *
+   * @param $event - Evento do tipo `SubmitEvent` de envio de um formulário no navegador.
+   * @returns Uma `Promise` vazia, resolvida após o processamento do cadastro ou edição do professor.
+   * @remarks
+   * Esta função:
+   * - Previne a atualização automática da página no envio do formulário.
+   * - Marca todos os campos como inválidos se o formulário não estiver preenchido corretamente.
+   * - Se o formulário for válido, define o estado como `pending` até a conclusão com `updateValueAndValidity`.
    */
-  public async onSubmit($event: SubmitEvent) {
+  public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-
     this.form.markAsPending();
 
-    const entity = Teacher.fromForm(this.form.value as ITeacherFormValue);
-    try {
-      let response: IEntityResponse;
-      if (this.isEditMode && this.teacherId)
-        response = await this._entityService.update<ITeacher>({
-          id: this.teacherId,
-          endpoint: ApiEndpoints.TEACHERS,
-          entity,
-        });
-      else
-        response = await this._entityService.register<ITeacher>({
-          endpoint: ApiEndpoints.TEACHERS,
-          entity,
-        });
+    this._entityService.upsert({
+      endpoint: ApiEndpoints.TEACHERS,
+      entity: Teacher.fromForm(this.form.value as ITeacherFormValue),
+      id: this.teacherId,
+      isEditMode: this.isEditMode,
+    });
 
-      this._handleSuccess(response);
-    } catch (error) {
-      this._handleError(error as HttpErrorResponse);
-    } finally {
-      this.form.updateValueAndValidity();
-    }
-  }
-
-  // TODO: refatorar
-  private _handleSuccess(response: IEntityResponse): void {
-    this._toastService.success(response.message);
-    this._router.navigate(['administrador']);
-  }
-  // TODO: refatorar
-  private _handleError(error: HttpErrorResponse): void {
-    switch (error.status) {
-      case 409:
-        this._toastService.info(error.message);
-        break;
-
-      case 0 && error.error instanceof ProgressEvent:
-        this._toastService.error('Não foi possível conectar ao servidor.');
-        break;
-
-      default:
-        this._toastService.error(error.error.message);
-    }
+    this.form.updateValueAndValidity();
   }
 
   /**
-   * getClasses
-   *
-   * Método responsável por buscar as turmas do serviço e alterar o formato para a lista de opções.
-   *
-   * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
-   * @throws `Error` Se a resposta não for bem sucedida um toast será exibido.
-   */
-  private async getClasses(): Promise<void> {
-    try {
-      const { data } = await this._entityService.getEntities<IClassroom>({
-        endpoint: ApiEndpoints.CLASSROOMS,
-      });
-      if (!data.length) this._toastService.info('Nenhuma turma cadastrada.');
-
-      this.classrooms = data.map((classroom) => ({
-        value: classroom.id as number,
-        viewValue: classroom.turmaApelido,
-      }));
-    } catch (error) {
-      this._toastService.error(
-        'Erro ao carregar as turmas. Atualize a página.'
-      );
-    }
-  }
-
-  /**
-   * loadTeacherData
+   * _loadTeacherData
    *
    * Responsável por verificar se a rota é de edição ou de cadastro.
    * Se for de edição, busca os dados do Professor no serviço e preenche o formulário.
    *
    * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
    */
-  private async loadTeacherData(): Promise<void> {
+  private async _loadTeacherData(): Promise<void> {
     const id = this._activatedRoute.snapshot.paramMap.get('id');
     if (!id) return;
 
