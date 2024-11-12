@@ -20,7 +20,7 @@ import { IPaginatedItems } from '../../interfaces/IPaginatedItems';
  *
  * @remarks
  * Utiliza serviços para carregar entidades paginadas, e permite ações de edição e exclusão de itens.
- * @typeParam T - Tipo genérico para as entidades a serem listadas.
+ * @typeParam T Tipo genérico para as entidades a serem listadas.
  */
 @Component({
   selector: 'app-entity-list',
@@ -68,12 +68,20 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
   public currentPage = 1;
 
   /**
+   * Indica a quantidade de itens em uma página.
+   *
+   * @defaultValue `5`
+   */
+  public perPage = 5;
+
+  /**
    * Indica se os dados estão sendo carregados.
    *
    * @defaultValue `false`
    */
   public isLoading = false;
 
+  // TODO: mudar implementação do search...
   public searchTerm = '';
 
   constructor(
@@ -130,6 +138,7 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
       const { total, data } = await this._entityService.getEntities<T>({
         endpoint: this.endpoint,
         page: this.currentPage,
+        perPage: this.perPage,
         searchTerm: this.searchTerm,
       });
 
@@ -137,7 +146,7 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
       this.paginatedItems = data.map(this.mapItem);
     } catch (error) {
       if (error instanceof HttpErrorResponse)
-        this._toastService.error(error.message);
+        this._toastService.error(error.error.message);
     } finally {
       this.isLoading = false;
     }
@@ -165,12 +174,15 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     this._subscriptions.add(
       this._actionMenuService.deleteEvent$.subscribe(async (id: number) => {
         try {
-          await this._entityService.deleteEntity(id, this.endpoint);
-          this._toastService.success('Registro removido com sucesso!');
+          const response = await this._entityService.deleteEntity(
+            id,
+            this.endpoint
+          );
+          this._toastService.success(response.message);
           this._getEntityPage();
         } catch (error) {
           if (error instanceof HttpErrorResponse)
-            this._toastService.error('Falha ao remover o registro.');
+            this._toastService.error(error.error.message);
         }
       })
     );
@@ -187,6 +199,7 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     this._subscriptions.add(
       this._paginationService.currentPage$.subscribe((page) => {
         this.currentPage = page;
+        this._getEntityPage();
       })
     );
   }

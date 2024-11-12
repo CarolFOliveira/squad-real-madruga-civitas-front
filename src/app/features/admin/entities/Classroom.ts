@@ -2,8 +2,19 @@
 import { IClassroom } from '../interfaces/IClassroom';
 import { IClassroomFormValue } from '../interfaces/IClassroomFormValue';
 
+/**
+ * Classroom
+ *
+ * Responsável por realizar a conversão entre os modelos de dados utilizados pelo Back (em português)
+ * e os valores do formulário `IClassroomFormValue`, que estão em inglês.
+ *
+ * @remarks
+ * Possui métodos estáticos, portanto, não é necessário criar instâncias para utilizá-los.
+ */
 export class Classroom {
   /**
+   * toFormValue
+   *
    * Converte um objeto do tipo {@link IClassroom} para o formato do form {@link IClassroomFormValue}.
    *
    * @param classroom Objeto do tipo {@link IClassroom}.
@@ -21,6 +32,8 @@ export class Classroom {
   }
 
   /**
+   * fromForm
+   *
    * Converte um objeto do tipo {@link IClassroomFormValue} para o formato {@link IClassroom}.
    *
    * @param form Objeto do tipo {@link IClassroomFormValue}.
