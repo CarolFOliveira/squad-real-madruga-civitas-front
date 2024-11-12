@@ -3,7 +3,11 @@
 
 <section class="section">
   <header>
-    <h2 class="section__title">Cadastro de professor</h2>
+    <h2 class="section__title">
+      {{
+        isEditMode ? "Editar cadastro do professor" : "Cadastro de professor"
+      }}
+    </h2>
     <p class="section__description">Preencha as informações do professor</p>
   </header>
 

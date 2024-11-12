@@ -1,15 +1,25 @@
 // Libs
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // Services
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { EntityService } from '../../services/entity.service';
-import { StudentService } from '../../services/student.service';
 
 // Interfaces
 import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
+import { IClassroom } from '../../interfaces/IClassroom';
+import { IEntityResponse } from '../../interfaces/IEntityResponse';
+import { ITeacher } from '../../interfaces/ITeacher';
+import { ITeacherFormValue } from '../../interfaces/ITeacherFormValue';
+
+// Enum
 import { ApiEndpoints } from '../../interfaces/ApiEndpoints';
+
+// Entities
+import { Teacher } from '../../entities/Teacher';
 
 /**
  * TeacherUpsertComponent
@@ -25,18 +35,18 @@ export class TeacherUpsertComponent implements OnInit {
   /**
    * Lista de turmas disponíveis para seleção.
    */
-  classrooms: ISelectOptions[] = [];
+  public classrooms: ISelectOptions[] = [];
 
   /**
    * Indica se o componente está no modo de edição ou de cadastro.
    */
-  isEditMode = false;
+  public isEditMode = false;
 
   /**
    * ID do professor que está sendo editado.
    * Quando estiver em modo de cadastro, este valor é `null`.
    */
-  teacherId: number | null = null;
+  public teacherId: number | null = null;
 
   /**
    * Formulário utilizado para validar, cadastrar e editar as informações do professor.
@@ -56,7 +66,7 @@ export class TeacherUpsertComponent implements OnInit {
         Validators.min(1),
         Validators.maxLength(6),
       ]),
-      classrooms: new FormControl([], Validators.required),
+      classrooms: new FormControl<number[]>([], Validators.required),
     },
     { updateOn: 'blur' }
   );
@@ -64,7 +74,8 @@ export class TeacherUpsertComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _entityService: EntityService,
-    private _studentService: StudentService
+    private _router: Router,
+    private _toastService: ToastService
   ) {}
 
   /**
@@ -80,30 +91,94 @@ export class TeacherUpsertComponent implements OnInit {
   /**
    * onSubmit
    */
-  public onSubmit($event: SubmitEvent) {
+  public async onSubmit($event: SubmitEvent) {
     $event.preventDefault();
 
-    console.log(this.form.value);
-  }
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-  // TODO: refatorar metodo e excluir _studentService
-  private async getClasses(): Promise<void> {
+    this.form.markAsPending();
+
+    const entity = Teacher.fromForm(this.form.value as ITeacherFormValue);
     try {
-      const studentClasses = await this._studentService.getClasses();
+      let response: IEntityResponse;
+      if (this.isEditMode && this.teacherId)
+        response = await this._entityService.update<ITeacher>({
+          id: this.teacherId,
+          endpoint: ApiEndpoints.TEACHERS,
+          entity,
+        });
+      else
+        response = await this._entityService.register<ITeacher>({
+          endpoint: ApiEndpoints.TEACHERS,
+          entity,
+        });
 
-      if (studentClasses.length)
-        this.classrooms = studentClasses.map((studentClass: any) => ({
-          value: studentClass.id,
-          viewValue: studentClass.turmaApelido,
-        }));
-
-      console.log({ studentClasses: this.classrooms });
+      this._handleSuccess(response);
     } catch (error) {
-      // TODO: adicionar toast
+      this._handleError(error as HttpErrorResponse);
+    } finally {
+      this.form.updateValueAndValidity();
     }
   }
 
-  // TODO: refatorar metodo
+  // TODO: refatorar
+  private _handleSuccess(response: IEntityResponse): void {
+    this._toastService.success(response.message);
+    this._router.navigate(['administrador']);
+  }
+  // TODO: refatorar
+  private _handleError(error: HttpErrorResponse): void {
+    switch (error.status) {
+      case 409:
+        this._toastService.info(error.message);
+        break;
+
+      case 0 && error.error instanceof ProgressEvent:
+        this._toastService.error('Não foi possível conectar ao servidor.');
+        break;
+
+      default:
+        this._toastService.error(error.error.message);
+    }
+  }
+
+  /**
+   * getClasses
+   *
+   * Método responsável por buscar as turmas do serviço e alterar o formato para a lista de opções.
+   *
+   * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
+   * @throws `Error` Se a resposta não for bem sucedida um toast será exibido.
+   */
+  private async getClasses(): Promise<void> {
+    try {
+      const { data } = await this._entityService.getEntities<IClassroom>({
+        endpoint: ApiEndpoints.CLASSROOMS,
+      });
+      if (!data.length) this._toastService.info('Nenhuma turma cadastrada.');
+
+      this.classrooms = data.map((classroom) => ({
+        value: classroom.id as number,
+        viewValue: classroom.turmaApelido,
+      }));
+    } catch (error) {
+      this._toastService.error(
+        'Erro ao carregar as turmas. Atualize a página.'
+      );
+    }
+  }
+
+  /**
+   * loadTeacherData
+   *
+   * Responsável por verificar se a rota é de edição ou de cadastro.
+   * Se for de edição, busca os dados do Professor no serviço e preenche o formulário.
+   *
+   * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
+   */
   private async loadTeacherData(): Promise<void> {
     const id = this._activatedRoute.snapshot.paramMap.get('id');
     if (!id) return;
@@ -112,20 +187,16 @@ export class TeacherUpsertComponent implements OnInit {
     this.teacherId = teacherId;
     this.isEditMode = true;
 
-    try {
-      const teacher = (await this._entityService.getEntity({
-        endpoint: ApiEndpoints.TEACHERS,
-        id: teacherId,
-      })) as any; // TODO: remover any
+    const teacher = await this._entityService.getEntity<ITeacher>({
+      endpoint: ApiEndpoints.TEACHERS,
+      id: teacherId,
+    });
 
-      this.form.patchValue({
-        teacherName: teacher.membro.nomeCompleto,
-        enrollmentNumber: teacher.membro.numeroMatricula,
-        teacherCPF: teacher.membro.cpf,
-        classrooms: teacher.turmas?.map((c: any) => c?.id),
-      });
-    } catch (error) {
-      // TODO: adicionar toast
-    }
+    if (!teacher)
+      return this._toastService.error(
+        'Não foi possível carregar as informações. Atualize a página.'
+      );
+
+    this.form.patchValue(Teacher.toFormValue(teacher));
   }
 }
