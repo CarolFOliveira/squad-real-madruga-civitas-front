@@ -57,7 +57,7 @@ const routes: Routes = [
         data: { breadcrumbs: 'Cadastrar Turmas' },
       },
       {
-        path: 'editar-turma/:id',
+        path: 'editar-turmas/:id',
         component: ClassroomUpsertComponent,
         data: { breadcrumbs: 'Editar Turma' },
       },
