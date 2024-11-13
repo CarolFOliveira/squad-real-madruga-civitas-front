@@ -17,32 +17,33 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 // Environment Variables
 import { environment } from 'src/environments/environment';
 
-interface IEntityListParams {
+/**
+ * IEntityPaginationParams
+ *
+ * Interface que representa os parâmetros necessários buscar uma lista paginada de entidades.
+ */
+interface IEntityPaginationParams {
   endpoint: string;
   page?: number;
   perPage?: number;
   searchTerm?: string;
 }
 
-interface IEntityRequestParams {
+/**
+ * IEntityParams
+ *
+ * Interface que representa os parâmetros necessários para criar, atualizar ou buscar uma entidade.
+ */
+interface IEntityParams<T> {
   endpoint: string;
-  id: number;
-}
-
-interface IEntityUpsertParams<T> {
-  endpoint: string;
-  entity: T;
   id?: number;
-}
-
-interface IUpsertParams<T> {
-  id: number | null;
-  entity: T;
-  endpoint: string;
-  isEditMode: boolean;
+  entity?: T;
+  isEditMode?: boolean;
 }
 
 /**
+ * EntityService
+ *
  * Serviço responsável por realizar operações CRUD com as entidades.
  */
 @Injectable({
@@ -60,8 +61,8 @@ export class EntityService {
    *
    * Busca uma lista de uma determinada entidade paginada no endpoint especificado.
    *
-   * @typeParam T - Tipo da entidade.
-   * @param params - Objeto do tipo {@link IEntityListParams}
+   * @typeParam `T` Tipo da entidade.
+   * @param params - Objeto do tipo {@link IEntityPaginationParams}
    * @returns Um `Promise` com a lista de entidades paginadas.
    */
   public getEntities<T>({
@@ -69,7 +70,7 @@ export class EntityService {
     page,
     perPage,
     searchTerm,
-  }: IEntityListParams): Promise<IEntityList<T>> {
+  }: IEntityPaginationParams): Promise<IEntityList<T>> {
     return firstValueFrom(
       this._http.get<IEntityList<T>>(`${environment.apiUrl}/${endpoint}`, {
         params: {
@@ -86,14 +87,14 @@ export class EntityService {
    *
    * Registra uma nova entidade enviando suas informações para o backend via `POST`.
    *
-   * @typeParam T - Tipo da entidade.
-   * @param params - Parâmetros para criar a entidade, objeto do tipo {@link IEntityUpsertParams}
+   * @typeParam `T` Tipo da entidade.
+   * @param params - Parâmetros para criar a entidade, objeto do tipo {@link IEntityParams}
    * @returns Uma `Promise` com o objeto da resposta do tipo {@link IEntityResponse}
    */
   public register<T>({
     endpoint,
     entity,
-  }: IEntityUpsertParams<T>): Promise<IEntityResponse> {
+  }: IEntityParams<T>): Promise<IEntityResponse> {
     return firstValueFrom(
       this._http.post<IEntityResponse>(
         `${environment.apiUrl}/${endpoint}`,
@@ -107,17 +108,15 @@ export class EntityService {
    *
    * Atualiza uma entidade enviando suas informações para o backend via `PUT`.
    *
-   * @typeParam T - Tipo da entidade.
-   * @param params - Parâmetros para atualizar a entidade, objeto do tipo {@link IEntityUpsertParams}
+   * @typeParam `T` - Tipo da entidade.
+   * @param params - Parâmetros para atualizar a entidade, objeto do tipo {@link IEntityParams}
    * @returns Uma `Promise` com o objeto da resposta do tipo {@link IEntityResponse}
    */
   public update<T>({
     endpoint,
     entity,
     id,
-  }: IEntityUpsertParams<T>): Promise<IEntityResponse> {
-    if (!Number.isInteger(id)) throw new Error('ID inválido');
-
+  }: IEntityParams<T>): Promise<IEntityResponse> {
     return firstValueFrom(
       this._http.put<IEntityResponse>(
         `${environment.apiUrl}/${endpoint}/${id}`,
@@ -135,9 +134,10 @@ export class EntityService {
    * @param endpoint - `string` que representa o endpoint onde a entidade será excluída.
    * @returns Uma `Promise` com o objeto da resposta do tipo {@link IEntityResponse}.
    */
-  public deleteEntity(id: number, endpoint: string): Promise<IEntityResponse> {
-    if (!Number.isInteger(id)) throw new Error('ID inválido');
-
+  public deleteEntity<T>({
+    endpoint,
+    id,
+  }: IEntityParams<T>): Promise<IEntityResponse> {
     return firstValueFrom(
       this._http.delete<IEntityResponse>(
         `${environment.apiUrl}/${endpoint}/${id}`
@@ -150,19 +150,27 @@ export class EntityService {
    *
    * Busca uma determinada entidade pelo `id` no endpoint especificado.
    *
-   * @typeParam T Tipo da entidade.
-   * @param params - Parâmetros para buscar a entidade, objeto do tipo {@link IEntityRequestParams}
+   * @typeParam `T` Tipo da entidade.
+   * @param params - Parâmetros para buscar a entidade, objeto do tipo {@link IEntityParams}
    * @returns Uma `Promise` com o objeto da resposta, tipado como `T` que corresponde à entidade.
    */
-  public getEntity<T>({ endpoint, id }: IEntityRequestParams): Promise<T> {
-    if (!Number.isInteger(id)) throw new Error('ID inválido');
-
+  public getEntity<T>({ endpoint, id }: IEntityParams<T>): Promise<T> {
     return firstValueFrom(
       this._http.get<T>(`${environment.apiUrl}/${endpoint}/${id}`)
     );
   }
 
-  public async upsert<T>(upsertParams: IUpsertParams<T>): Promise<void> {
+  /**
+   * upsert
+   *
+   * Realiza uma operação de criação ou atualização (upsert) de uma entidade
+   * Se `isEditMode` for verdadeiro, a entidade será atualizada, caso contrário, será criada.
+   *
+   * @typeParam `T` Tipo da entidade.
+   * @param upsertParams - Parâmetros para upsert, objeto do tipo {@link IEntityParams}
+   * @returns Uma `Promise<void>` indicando a conclusão da operação.
+   */
+  public async upsert<T>(upsertParams: IEntityParams<T>): Promise<void> {
     try {
       let response;
       if (upsertParams.isEditMode && upsertParams.id)
@@ -183,11 +191,27 @@ export class EntityService {
     }
   }
 
+  /**
+   * _handleSuccess
+   *
+   * Responsável por lidar o caso de sucesso da operação de upsert.
+   * Exibe uma mensagem de sucesso e redireciona o usuário para a página de administrador.
+   *
+   * @param response - Objeto de resposta do tipo {@link IEntityResponse}
+   */
   private _handleSuccess(response: IEntityResponse): void {
     this._toastService.success(response.message);
     this._router.navigate(['administrador']);
   }
 
+  /**
+   * _handleError
+   *
+   * Responsável por lidar o caso de erro da operação de upsert.
+   * Exibe uma mensagem de erro para o usuário utilizando toast.
+   *
+   * @param error - Objeto de erro do tipo {@link HttpErrorResponse}.
+   */
   private _handleError(error: HttpErrorResponse): void {
     switch (error.status) {
       case 409:
@@ -209,7 +233,6 @@ export class EntityService {
    * Método responsável por buscar as turmas no serviço e alterar o formato para a lista de opções.
    *
    * @returns `Promise<void>` que é resolvida quando o processo de buscar as turmas é concluído.
-   * @throws `Error` Se a resposta não for bem sucedida, um erro será lançado e um toast será exibido.
    */
   public async getClasses(): Promise<ISelectOptions[]> {
     try {

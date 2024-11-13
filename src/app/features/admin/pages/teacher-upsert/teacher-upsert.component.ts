@@ -41,9 +41,9 @@ export class TeacherUpsertComponent implements OnInit {
 
   /**
    * ID do professor que está sendo editado.
-   * Quando estiver em modo de cadastro, este valor é `null`.
+   * Quando estiver em modo de cadastro, este valor é `undefined`.
    */
-  public teacherId: number | null = null;
+  public teacherId: number | undefined;
 
   /**
    * Formulário utilizado para validar, cadastrar e editar as informações do professor.

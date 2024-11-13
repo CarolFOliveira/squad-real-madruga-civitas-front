@@ -71,9 +71,10 @@ export class ClassroomUpsertComponent implements OnInit {
   public isEditMode = false;
 
   /**
-   * ID da turma, disponível quando o componente estiver em modo de edição; caso contrário, será `null`
+   * ID da turma, disponível quando o componente estiver em modo de edição.
+   * Quando estiver em modo de cadastro, este valor é `undefined`.
    */
-  public classroomId: number | null = null;
+  public classroomId: number | undefined;
 
   /**
    * Formulário de registro e edição da turma com as devidas validações.

@@ -1,29 +1,31 @@
 /**
- * Representa os dados dos campos do formulário de estudante.
+ * IStudentFormValue
+ *
+ * Interface que representa os dados dos campos do formulário de aluno.
  */
 export interface IStudentFormValue {
   /**
-   * O nome completo do estudante.
+   * O nome completo do aluno.
    */
   studentName: string;
 
   /**
-   * O RG do estudante.
+   * O RG do aluno.
    */
   studentRG: string;
 
   /**
-   * O número de matrícula do estudante.
+   * O número de matrícula do aluno.
    */
   enrollmentNumber: string;
 
   /**
-   * A turma do estudante.
+   * A turma do aluno.
    */
   studentClass: string;
 
   /**
-   * O CPF do responsável do estudante.
+   * O CPF do responsável do aluno.
    */
   guardianCPF: string;
 }

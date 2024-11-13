@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 // Services
-import { PaginationService } from 'src/app/shared/services/pagination.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ActionMenuService } from '../../services/action-menu.service';
 import { EntityService } from '../../services/entity.service';
@@ -90,7 +89,6 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     private _actionMenuService: ActionMenuService,
     private _activatedRoute: ActivatedRoute,
     private _entityService: EntityService,
-    private _paginationService: PaginationService,
     private _router: Router,
     private _toastService: ToastService
   ) {}

@@ -1,5 +1,7 @@
 /**
- * Representa os dados dos campos do formulário do professor.
+ * ITeacherFormValue
+ *
+ * Interface que representa os dados dos campos do formulário do professor.
  */
 export interface ITeacherFormValue {
   teacherName: string;

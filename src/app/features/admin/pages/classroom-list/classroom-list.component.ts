@@ -36,7 +36,7 @@ export class ClassroomListComponent {
     return {
       id: classroom.id as number,
       title: classroom.turmaApelido,
-      subtitle: `Ano letivo: ${classroom.anoLetivo} - Período: ${classroom.periodoLetivo}`,
+      subtitle: `${classroom.anoLetivo} letivo - ${classroom.periodoLetivo}`,
     };
   }
 }

@@ -1,7 +1,9 @@
 /**
+ * IEntityList
+ *
  * Interface genérica para listagem das entidades, contendo informações da página e um array de dados.
  *
- * @typeParam T - Tipo da entidade incluída no array de dados.
+ * @typeParam `T` Tipo da entidade incluída no array de dados.
  */
 export interface IEntityList<T> {
   /**

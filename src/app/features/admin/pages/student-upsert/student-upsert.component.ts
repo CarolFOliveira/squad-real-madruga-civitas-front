@@ -41,9 +41,10 @@ export class StudentUpsertComponent implements OnInit {
   public isEditMode = false;
 
   /**
-   * ID do aluno, disponível quando o componente estiver em modo de edição; caso contrário, será `null`
+   * ID do aluno, disponível quando o componente estiver em modo de edição.
+   * Quando estiver em modo de cadastro, este valor é `undefined`.
    */
-  public studentId: number | null = null;
+  public studentId: number | undefined;
 
   /**
    * Opções que serão mostradas no select das turmas.
