@@ -49,7 +49,7 @@ export class SearchbarComponent implements OnInit, OnDestroy {
    */
   public ngOnInit(): void {
     this._searchTermSubject$
-      .pipe(debounceTime(500), distinctUntilChanged())
+      .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe((searchTerm: string) => {
         this._router.navigate([], {
           queryParams: { page: 1, searchTerm },
