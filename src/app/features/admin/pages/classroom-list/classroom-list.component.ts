@@ -27,6 +27,8 @@ export class ClassroomListComponent {
   public endpoint = ApiEndpoints.CLASSROOMS;
 
   /**
+   * mapClassroomsToPaginatedItems
+   *
    * Mapeia um objeto do tipo {@link IClassroom} para o formato de itens paginados.
    *
    * @param classroom Um objeto do tipo {@link IClassroom}.

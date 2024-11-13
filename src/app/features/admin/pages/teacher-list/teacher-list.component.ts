@@ -27,6 +27,8 @@ export class TeacherListComponent {
   public endpoint = ApiEndpoints.TEACHERS;
 
   /**
+   * mapTeacherToPaginatedItems
+   *
    * Mapeia um objeto do tipo {@link ITeacher} para o formato de itens paginados.
    *
    * @param teacher Um objeto do tipo {@link ITeacher}.

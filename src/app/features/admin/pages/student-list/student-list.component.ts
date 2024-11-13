@@ -27,6 +27,8 @@ export class StudentListComponent {
   public endpoint = ApiEndpoints.STUDENTS;
 
   /**
+   * mapStudentToPaginatedItems
+   *
    * Mapeia um objeto `IStudent` para o formato de itens paginados.
    *
    * @param student Um objeto do tipo {@link IStudent} combinado com um `id` do tipo `number`.

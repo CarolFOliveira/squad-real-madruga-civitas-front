@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
 
+/**
+ * Enum representando os diferentes tipos de notificações toast.
+ */
 enum ToastType {
   SUCCESS = 'success',
   ERROR = 'error',
   INFO = 'info',
 }
 
+/**
+ * Interface para configurar as opções de exibição do toast.
+ */
 interface IShowToast {
   message: string;
   type: ToastType;
@@ -16,10 +22,18 @@ interface IShowToast {
   };
 }
 
+/**
+ * ToastService
+ *
+ * Serviço responsável por mostrar a notificação de Sucesso, erro ou de informação na tela.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class ToastService {
+  /**
+   * Cores para cada tipo de toast.
+   */
   private readonly colors = {
     success: '#65558f',
     error: '#d63a32',
@@ -29,10 +43,28 @@ export class ToastService {
 
   constructor(private _toast: HotToastService) {}
 
+  /**
+   * success
+   *
+   * Exibe um toast de sucesso.
+   *
+   * @param message `string` que representa a mensagem a ser exibida na tela
+   *  @remarks
+   * Esse botão fecha sozinho após 3 segundos.
+   */
   public success(message: string): void {
     this.showToast({ message, type: ToastType.SUCCESS });
   }
 
+  /**
+   * error
+   *
+   * Exibe um toast de erro.
+   *
+   * @param message `string` que representa a mensagem a ser exibida na tela
+   * @remarks
+   * Esse botão não fecha sozinho, depende de uma ação do usuário para ser fechado.
+   */
   public error(message: string): void {
     this.showToast({
       message,
@@ -41,6 +73,15 @@ export class ToastService {
     });
   }
 
+  /**
+   * info
+   *
+   * Exibe um toast de informação.
+   *
+   * @param message `string` que representa a mensagem a ser exibida na tela.
+   * @remarks
+   * Esse botão não fecha sozinho, depende de uma ação do usuário para ser fechado.
+   */
   public info(message: string): void {
     this.showToast({
       message,
@@ -49,6 +90,13 @@ export class ToastService {
     });
   }
 
+  /**
+   * showToast
+   *
+   * Configura e exibe o toast com as opções especificadas.
+   *
+   * @param IShowToast - Objeto contendo a mensagem, tipo e propriedades adicionais {@link IShowToast}
+   */
   private showToast({ message, type, props }: IShowToast): void {
     const color = this.colors[type];
 
