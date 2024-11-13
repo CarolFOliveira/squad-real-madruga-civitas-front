@@ -18,9 +18,9 @@ import { IPaginatedItems } from '../../interfaces/IPaginatedItems';
  *
  * Componente para exibir uma lista paginada de entidades com funcionalidades de edição e exclusão.
  *
+ * @typeParam `T` Tipo genérico para as entidades a serem listadas.
  * @remarks
  * Utiliza serviços para carregar entidades paginadas, e permite ações de edição e exclusão de itens.
- * @typeParam T Tipo genérico para as entidades a serem listadas.
  */
 @Component({
   selector: 'app-entity-list',
@@ -81,7 +81,9 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
    */
   public isLoading = false;
 
-  // TODO: mudar implementação do search...
+  /**
+   * Valor utilizado para enviar o termo de pesquisa para o backend realizar os filtros.
+   */
   public searchTerm = '';
 
   constructor(
@@ -102,28 +104,7 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this._subscribeToEditEvent();
     this._subscribeToDeleteEvent();
-    this._subscribeToPagination();
-    this._subscribeToSearch();
-    this._getEntityPage();
-  }
-
-  /**
-   * onSearch
-   *
-   * Realiza a pesquisa com o termo fornecido e atualiza a URL com o parâmetro de pesquisa.
-   *
-   * @param searchTerm - `string` que representa o termo de pesquisa inserido pelo usuário.
-   */
-  public onSearch(searchTerm: string): void {
-    this.currentPage = 1;
-    this._paginationService.setCurrentPage(this.currentPage);
-    this.searchTerm = searchTerm;
-
-    this._router.navigate([], {
-      queryParams: { page: 1, searchTerm },
-      queryParamsHandling: 'merge',
-    });
-    this._getEntityPage();
+    this._subscribeToQueryParams();
   }
 
   /**
@@ -174,10 +155,10 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
     this._subscriptions.add(
       this._actionMenuService.deleteEvent$.subscribe(async (id: number) => {
         try {
-          const response = await this._entityService.deleteEntity(
+          const response = await this._entityService.deleteEntity<T>({
             id,
-            this.endpoint
-          );
+            endpoint: this.endpoint,
+          });
           this._toastService.success(response.message);
           this._getEntityPage();
         } catch (error) {
@@ -189,30 +170,24 @@ export class EntityListComponent<T> implements OnInit, OnDestroy {
   }
 
   /**
-   * _subscribeToPagination
-   *
-   * Inscrição ao serviço de paginação, atualiza `currentPage` e recarrega a lista ao mudar a página.
-   */
-  private _subscribeToPagination(): void {
-    this.currentPage = this._paginationService.getCurrentPage();
-
-    this._subscriptions.add(
-      this._paginationService.currentPage$.subscribe((page) => {
-        this.currentPage = page;
-        this._getEntityPage();
-      })
-    );
-  }
-
-  /**
-   * _subscribeToSearch
+   * _subscribeToQueryParams
    *
    * Inscrição aos parâmetros de pesquisa na url para atualizar a lista quando a busca é realizada.
    */
-  private _subscribeToSearch(): void {
+  private _subscribeToQueryParams(): void {
     this._subscriptions.add(
       this._activatedRoute.queryParams.subscribe((params) => {
-        this.searchTerm = params['searchTerm'];
+        const searchTerm = params['searchTerm'];
+        const page = params['page'];
+        this.searchTerm = searchTerm;
+        this.currentPage = page;
+
+        this._router.navigate([], {
+          queryParams: { page, searchTerm: searchTerm ? searchTerm : null },
+          queryParamsHandling: 'merge',
+        });
+
+        this._getEntityPage();
       })
     );
   }

@@ -1,35 +1,45 @@
-<!-- Mobile -->
-<div class="search search--mobile" [class.active]="toggleSearch">
-  <button
-    *ngIf="toggleSearch"
-    mat-icon-button
-    color="primary"
-    (click)="onSearch()"
-  >
-    <mat-icon>search</mat-icon>
+<div class="search search--mobile" [class.active]="isVisible">
+  <button mat-icon-button *ngIf="isVisible" (click)="closeSearchbar()">
+    <mat-icon color="primary">arrow_right</mat-icon>
   </button>
+
   <input
     id="searchbar--mobile"
     class="search__input"
     placeholder="Buscar..."
     [(ngModel)]="searchTerm"
+    (ngModelChange)="handleSearch($event)"
   />
-  <button *ngIf="toggleSearch" mat-icon-button (click)="closeSearchbar()">
+
+  <button *ngIf="!isVisible" mat-icon-button (click)="openSearchbar()">
+    <mat-icon>search</mat-icon>
+  </button>
+
+  <button
+    mat-icon-button
+    *ngIf="isVisible && searchTerm"
+    (click)="clearSearch()"
+  >
     <mat-icon>close</mat-icon>
   </button>
-  <button *ngIf="!toggleSearch" mat-icon-button (click)="openSearchbar()">
+
+  <button *ngIf="!searchTerm" mat-icon-button color="primary">
     <mat-icon>search</mat-icon>
   </button>
 </div>
-<!-- Desktop -->
+
 <div class="search search--desktop">
   <input
     id="searchbar--desktop"
     class="search__input"
     placeholder="Buscar..."
     [(ngModel)]="searchTerm"
+    (ngModelChange)="handleSearch($event)"
   />
-  <button mat-icon-button color="primary" (click)="onSearch()">
-    <mat-icon>search</mat-icon>
+  <button *ngIf="!searchTerm" mat-icon-button>
+    <mat-icon color="primary">search</mat-icon>
+  </button>
+  <button *ngIf="searchTerm" mat-icon-button (click)="clearSearch()">
+    <mat-icon>close</mat-icon>
   </button>
 </div>

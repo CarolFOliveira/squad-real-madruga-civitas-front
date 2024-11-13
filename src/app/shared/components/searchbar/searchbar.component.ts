@@ -1,13 +1,15 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 /**
  * SearchbarComponent
  *
- * Barra de pesquisa para o usuário buscar algum item.
+ * Barra de pesquisa para o usuário buscar algum item, será adicionado `searchTerm` nos query params na url.
  *
  * @example
  * ```html
- * <app-searchbar (search)="onSearch($event)"></app-searchbar>
+ * <app-searchbar" />
  * ```
  */
 @Component({
@@ -15,54 +17,95 @@ import { Component, EventEmitter, Output } from '@angular/core';
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.scss'],
 })
-export class SearchbarComponent {
-  /**
-   * Evento emitido quando uma pesquisa é realizada.
-   */
-  @Output() public search = new EventEmitter<string>();
+export class SearchbarComponent implements OnInit, OnDestroy {
+  constructor(private _router: Router) {}
 
   /**
-   * O termo de pesquisa inserido pelo usuário
+   * Evento que é emitido quando uma pesquisa é realizada, enviando o termo de pesquisa atual.
+   */
+  private _searchTermSubject$ = new Subject<string>();
+
+  /**
+   * O termo de pesquisa inserido pelo usuário na barra de pesquisa.
    */
   public searchTerm = '';
 
   /**
    * Controla a visibilidade da barra de pesquisa no mobile.
+   *
+   * @defaultValue `false`
    */
-  public toggleSearch = false;
+  public isVisible = false;
+
+  /**
+   * ngOnInit
+   *
+   * Inicializa o componente se inscrevendo no `Subject` para monitorar mudanças no `searchTerm` e
+   * atualiza as query params da url com o termo de pesquisa atualizado.
+   *
+   * @remarks
+   * Foi utilizado debounce para que o termo de pesquisa atualize as query params depois de meio segundo.
+   * A atualização das query params só acontece quando o valor for distinto do último enviado.
+   */
+  public ngOnInit(): void {
+    this._searchTermSubject$
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((searchTerm: string) => {
+        this._router.navigate([], {
+          queryParams: { page: 1, searchTerm },
+          queryParamsHandling: 'merge',
+        });
+      });
+  }
 
   /**
    * openSearchbar
    *
-   * Abre a barra de pesquisa definindo a flag toggleSearch como `true`.
+   * Abre a barra de pesquisa definindo a flag isVisible como `true`.
    *
    * @remarks
-   * Alterando toggleSearch para `true`, faz com que a barra de pesquisa
-   * ocupe todo o espaço disponível em tela (no modo mobile).
+   * Alterando toggleSearch para `true`, faz com que a barra de pesquisa ocupe todo o espaço disponível em tela (no modo mobile).
    */
   public openSearchbar(): void {
-    this.toggleSearch = true;
+    this.isVisible = true;
   }
 
   /**
    * closeSearchbar
    *
-   * Fecha a barra de pesquisa definindo a flag toggleSearch como `false`.
-   *
-   * @remarks
-   * Fechando a barra de pesquisa, o termo também é reinicializado para o valor padrão.
+   * Fecha a barra de pesquisa definindo a flag isVisible como `false`.
    */
   public closeSearchbar(): void {
-    this.searchTerm = '';
-    this.toggleSearch = false;
+    this.isVisible = false;
   }
 
   /**
-   * onSearch
+   * clearSearch
    *
-   * Emite o termo de pesquisa.
+   * Limpa o termo de pesquisa e emite um valor vazio no Subject.
    */
-  public onSearch(): void {
-    this.search.emit(this.searchTerm.trim());
+  public clearSearch() {
+    this.searchTerm = '';
+    this._searchTermSubject$.next('');
+  }
+
+  /**
+   * handleSearch
+   *
+   * Atualiza o termo de pesquisa com o valor informado e o envia ao Subject.
+   *
+   * @param value - `string` com o termo de pesquisa a ser enviado para o backend.
+   */
+  public handleSearch(value: string) {
+    this._searchTermSubject$.next(value);
+  }
+
+  /**
+   * ngOnDestroy
+   *
+   * Limpa a inscrição para evitar vazamentos de memória quando o componente for destruído.
+   */
+  public ngOnDestroy(): void {
+    this._searchTermSubject$.unsubscribe();
   }
 }

@@ -4,7 +4,7 @@
 <section class="section">
   <header class="section__header">
     <h2 class="section__title">{{ sectionTitle }}</h2>
-    <app-searchbar (search)="onSearch($event)" />
+    <app-searchbar />
   </header>
 
   <ng-container *ngFor="let item of paginatedItems; index as i">
