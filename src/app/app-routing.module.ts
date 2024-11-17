@@ -18,6 +18,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/admin/admin.module').then((m) => m.AdminModule),
   },
+  {
+    path: 'professor',
+    data: { breadcrumbs: 'Tela Inicial' },
+    loadChildren: () =>
+      import('./features/teacher/teacher.module').then((m) => m.TeacherModule),
+  },
 ];
 
 @NgModule({
