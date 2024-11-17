@@ -10,7 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
 
 // App Modules
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -19,7 +18,6 @@ import { AdminRoutingModule } from './admin-routing.module';
 // Components
 import { ActionDialogComponent } from './components/action-dialog/action-dialog.component';
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
-import { BrandLinkComponent } from './components/brand-link/brand-link.component';
 import { EntityListComponent } from './components/entity-list/entity-list.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -35,7 +33,6 @@ import { TeacherUpsertComponent } from './pages/teacher-upsert/teacher-upsert.co
 const COMPONENTS = [
   ActionDialogComponent,
   ActionMenuComponent,
-  BrandLinkComponent,
   ClassroomUpsertComponent,
   ClassroomListComponent,
   DashboardComponent,
@@ -58,7 +55,6 @@ const MODULES = [
   MatListModule,
   MatMenuModule,
   MatSidenavModule,
-  MatToolbarModule,
   ReactiveFormsModule,
   SharedModule,
 ];

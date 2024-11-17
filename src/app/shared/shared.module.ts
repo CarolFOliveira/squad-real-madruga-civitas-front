@@ -13,8 +13,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Components
+import { BrandLinkComponent } from './components/brand-link/brand-link.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CardComponent } from './components/card/card.component';
@@ -24,8 +26,10 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ReturnButtonComponent } from './components/return-button/return-button.component';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { SelectComponent } from './components/select/select.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 const COMPONENTS = [
+  BrandLinkComponent,
   BreadcrumbsComponent,
   ButtonComponent,
   CardComponent,
@@ -35,6 +39,7 @@ const COMPONENTS = [
   ReturnButtonComponent,
   SearchbarComponent,
   SelectComponent,
+  ToolbarComponent,
 ];
 
 const MODULES = [
@@ -47,6 +52,7 @@ const MODULES = [
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatSelectModule,
+  MatToolbarModule,
   ReactiveFormsModule,
 ];
 
