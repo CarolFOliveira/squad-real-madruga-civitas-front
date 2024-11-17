@@ -1,0 +1,19 @@
+@import "mixins";
+@import "variables";
+
+.toolbar {
+  background: $sidebar-bg-color;
+  height: 6.5rem;
+  padding-inline-start: 2.5rem;
+
+  .toolbar__nav {
+    @include center-flex($justify: space-between);
+    flex: 1;
+    margin: 0 auto;
+    max-width: $breakpoint-large-desktop;
+  }
+
+  &__spacer {
+    flex: 1 1 auto;
+  }
+}
