@@ -1,0 +1,87 @@
+<section class="section">
+  <header class="section__header">
+    <h2>Plano de desenvolvimento individual</h2>
+    <p>
+      Olá, professor(a).
+      <br />
+      Vamos juntos acompanhar a evolução dos nossos estudantes? Nosso objetivo é
+      evoluir as habilidades humanas dos nossos estudantes.
+    </p>
+  </header>
+
+  <p>Selecione uma turma para visualizar os PDIs.</p>
+  <app-select
+    placeholder="Selecione uma Turma"
+    [options]="options"
+    [control]="control"
+  />
+
+  <div class="card-wrapper">
+    <article class="card" *ngFor="let card of cards">
+      <div class="card__icon-container">
+        <mat-icon class="material-icons-outlined" color="primary">
+          {{ card.icon }}
+        </mat-icon>
+      </div>
+      <div class="card__content">
+        <p>{{ card.description }}</p>
+        <strong>{{ card.descriptionValue }}</strong>
+      </div>
+    </article>
+  </div>
+
+  <section>
+    <h3>Progresso Geral dos Alunos</h3>
+
+    <table class="table" mat-table [dataSource]="dataSource" matSort>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+      </ng-container>
+
+      <!-- Performance Column -->
+      <ng-container matColumnDef="performance">
+        <th
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+          class="text-center"
+        >
+          Desempenho
+        </th>
+        <td mat-cell *matCellDef="let row" class="text-center">
+          <span class="badge" [class]="getPerformance(row.performance)">
+            {{ row.performance }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Link Column -->
+      <ng-container matColumnDef="link">
+        <th mat-header-cell *matHeaderCellDef class="text-right">Ver PDI</th>
+        <td mat-cell *matCellDef="let row" class="text-right">
+          <mat-icon
+            matTooltip="Abrir PDI do aluno"
+            matTooltipPosition="left"
+            matTooltipHideDelay="1"
+          >
+            open_in_new
+          </mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; let even = even; columns: displayedColumns"
+        [ngClass]="{ even: even }"
+      ></tr>
+
+      <!-- Sem dados-->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Nenhum aluno encontrado.</td>
+      </tr>
+    </table>
+  </section>
+</section>

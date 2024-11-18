@@ -1,0 +1,81 @@
+@import "mixins";
+@import "variables";
+
+.section {
+  padding-inline: 2rem;
+
+  &__header {
+    margin-block: 5rem;
+  }
+
+  app-select {
+    display: block;
+
+    @media screen and (min-width: $breakpoint-mobile) {
+      max-width: 31.75%;
+      min-width: 27.5rem;
+    }
+  }
+
+  .card-wrapper {
+    display: flex;
+    gap: 2rem;
+    margin-block: 3.5rem;
+    flex-wrap: wrap;
+
+    .card {
+      @include center-flex($justify: flex-start);
+      border: 1px solid #8080802f;
+      box-shadow: 1px 1px 5px 0 #80808015;
+      padding: 3rem;
+      border-radius: 1.25rem;
+      flex: 1;
+      gap: 2rem;
+
+      &__content {
+        @include center-flex(column);
+        align-items: flex-start;
+        text-wrap: nowrap;
+
+        strong {
+          font-size: 2rem;
+        }
+      }
+
+      &__icon-container {
+        @include center-flex;
+        background-color: lighten($card-bg-color-default, 18%);
+        border-radius: 99rem;
+        width: 5rem;
+        height: 5rem;
+
+        mat-icon {
+          width: 3rem;
+          height: 3rem;
+          font-size: 3rem;
+        }
+      }
+    }
+  }
+}
+
+.table {
+  // TODO: adicionar cores do angular material de forma global
+  border: 1px solid #8080802f;
+  border-radius: 0.25rem;
+
+  .badge {
+    border-radius: 99rem;
+    border: 1px solid;
+    padding: 0.25rem 0.75rem;
+    text-transform: capitalize;
+  }
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
