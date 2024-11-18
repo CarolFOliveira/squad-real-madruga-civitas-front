@@ -1,4 +1,9 @@
-<app-toolbar *ngIf="isMobile" (menuClick)="toggleSidenav()" />
+<app-toolbar *ngIf="isMobile">
+  <button mat-icon-button (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</app-toolbar>
+
 <app-sidebar
   [mode]="isMobile ? 'over' : 'side'"
   [isSidenavOpen]="isSidenavOpen"
