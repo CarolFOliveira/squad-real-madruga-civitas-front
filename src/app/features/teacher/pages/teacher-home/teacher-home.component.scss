@@ -25,8 +25,8 @@
 
     .card {
       @include center-flex($justify: flex-start);
-      border: 1px solid #8080802f;
-      box-shadow: 1px 1px 5px 0 #80808015;
+      border: 1px solid $border-color;
+      box-shadow: 1px 1px 5px 0 $border-color;
       padding: 3rem;
       border-radius: 1.25rem;
       flex: 1;
@@ -60,8 +60,7 @@
 }
 
 .table {
-  // TODO: adicionar cores do angular material de forma global
-  border: 1px solid #8080802f;
+  border: 1px solid $border-color;
   border-radius: 0.25rem;
 
   .badge {
@@ -69,6 +68,24 @@
     border: 1px solid;
     padding: 0.25rem 0.75rem;
     text-transform: capitalize;
+  }
+
+  .badge.good {
+    background-color: rgba($green-color, 0.1);
+    border-color: rgba($green-color, 0.75);
+    color: $green-color;
+  }
+
+  .badge.satisfactory {
+    background-color: rgba($blue-color, 0.1);
+    border-color: rgba($blue-color, 0.75);
+    color: $blue-color;
+  }
+
+  .badge.bad {
+    background-color: rgba($error-color, 0.1);
+    border-color: rgba($error-color, 0.75);
+    color: $error-color;
   }
 }
 
