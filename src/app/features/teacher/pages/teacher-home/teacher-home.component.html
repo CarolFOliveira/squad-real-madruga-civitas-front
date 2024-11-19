@@ -23,76 +23,79 @@
     </article>
   </div>
 
-  <div class="group-selector">
-    <p class="group-selector__description">
-      Selecione uma turma para visualizar os PDIs.
+  <div class="filters">
+    <p class="filters__description">
+      Selecione uma turma para visualizar os alunos
     </p>
-    <mat-form-field appearance="outline" class="group-selector__select">
+    <mat-form-field appearance="outline" class="filters__select">
       <mat-select
         placeholder="Selecione uma Turma"
         (selectionChange)="onSelect($event)"
       >
-        <mat-option [value]="null">Selecione uma turma</mat-option>
         <mat-option *ngFor="let option of options" [value]="option.value">
           {{ option.viewValue }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <app-searchbar class="group-selector__search" />
+    <mat-form-field class="filters__search" appearance="outline">
+      <button mat-icon-button matSuffix *ngIf="!term">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button *ngIf="term" mat-icon-button matSuffix (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <input
+        matInput
+        placeholder="Pesquisar aluno"
+        (keyup)="applyFilter()"
+        [(ngModel)]="term"
+      />
+    </mat-form-field>
   </div>
 
   <div class="table-wrapper">
-    <h3>Progresso Geral dos Alunos</h3>
+    <h3>Progresso geral dos alunos</h3>
 
     <table class="table" mat-table [dataSource]="dataSource" matSort>
-      <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
         <td mat-cell *matCellDef="let row">{{ row.name }}</td>
       </ng-container>
 
-      <!-- Performance Column -->
       <ng-container matColumnDef="performance">
-        <th
-          mat-header-cell
-          mat-sort-header
-          *matHeaderCellDef
-          class="text-center"
-        >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef class="center">
           Desempenho
         </th>
-        <td mat-cell *matCellDef="let row" class="text-center">
-          <span class="badge" [class]="getPerformance(row.performance)">
+        <td mat-cell *matCellDef="let row" class="center">
+          <span class="badge" [class]="getPerformanceClass(row.performance)">
             {{ row.performance }}
           </span>
         </td>
       </ng-container>
 
-      <!-- Link Column -->
       <ng-container matColumnDef="link">
-        <th mat-header-cell *matHeaderCellDef class="text-right">Ver PDI</th>
-        <td mat-cell *matCellDef="let row" class="text-right">
-          <mat-icon
-            matTooltip="Abrir PDI do aluno"
+        <th mat-header-cell *matHeaderCellDef class="right">Ver PDI</th>
+        <td mat-cell *matCellDef="let row" class="right">
+          <button
+            [routerLink]="['/aluno-pdi', row.id]"
+            [matTooltip]="'Ver PDI do ' + row.name"
             matTooltipPosition="left"
             matTooltipHideDelay="1"
+            mat-icon-button
           >
-            open_in_new
-          </mat-icon>
+            <mat-icon>open_in_new</mat-icon>
+          </button>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; let even = even; columns: displayedColumns"
-        [ngClass]="{ even: even }"
-      ></tr>
-
-      <!-- Sem dados-->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">Nenhum aluno encontrado.</td>
+        <td class="mat-cell" colspan="4" class="table__blank-msg">
+          Nenhum aluno encontrado.
+          <button *ngIf="term" (click)="clearSearch()">Limpar filtros</button>
+        </td>
       </tr>
     </table>
   </div>

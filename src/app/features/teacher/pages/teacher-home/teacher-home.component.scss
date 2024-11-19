@@ -21,18 +21,18 @@
 
   .card-wrapper {
     display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
     margin-block: 3.5rem;
-    flex-wrap: wrap;
 
     .card {
       @include center-flex($justify: flex-start);
+      border-radius: 1.25rem;
       border: 1px solid $border-color;
       box-shadow: 1px 1px 5px 0 $border-color;
-      padding: 3rem;
-      border-radius: 1.25rem;
       flex: 1;
       gap: 2rem;
+      padding: 3rem;
 
       &__content {
         @include center-flex(column);
@@ -48,16 +48,43 @@
         @include center-flex;
         background-color: lighten($card-bg-color-default, 18%);
         border-radius: 99rem;
-        width: 5rem;
         height: 5rem;
+        width: 5rem;
 
         mat-icon {
-          width: 3rem;
-          height: 3rem;
           font-size: 3rem;
+          height: 3rem;
+          width: 3rem;
         }
       }
     }
+  }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2rem;
+
+  &__description {
+    flex-basis: 100%;
+  }
+  &__select {
+    flex: 2;
+  }
+
+  &__search {
+    display: flex;
+    flex: 1;
+
+    @media screen and (min-width: $breakpoint-small-desktop) {
+      max-width: 38.75rem;
+    }
+  }
+
+  &__select,
+  &__search {
+    min-width: 30rem;
   }
 }
 
@@ -67,6 +94,11 @@
   .table {
     border: 1px solid $border-color;
     border-radius: 0.25rem;
+
+    th,
+    td {
+      width: 33.33%;
+    }
 
     .badge {
       border-radius: 99rem;
@@ -81,7 +113,7 @@
       color: $green-color;
     }
 
-    .badge.satisfactory {
+    .badge.normal {
       background-color: rgba($blue-color, 0.1);
       border-color: rgba($blue-color, 0.75);
       color: $blue-color;
@@ -93,26 +125,27 @@
       color: $error-color;
     }
 
-    .text-right {
-      text-align: right;
-    }
+    &__blank-msg {
+      padding: 1.5rem;
 
-    .text-center {
-      text-align: center;
+      button {
+        all: unset;
+        color: $blue-color;
+        cursor: pointer;
+        text-decoration: underline;
+      }
     }
+  }
+
+  .right {
+    text-align: right;
+  }
+
+  .center {
+    text-align: center;
   }
 }
 
-.group-selector {
-  display: flex;
-  flex-wrap: wrap;
-
-  &__description {
-    flex-basis: 100%;
-  }
-
-  &__search,
-  &__select {
-    width: 100%;
-  }
+::ng-deep .center .mat-sort-header-container {
+  justify-content: center;
 }
