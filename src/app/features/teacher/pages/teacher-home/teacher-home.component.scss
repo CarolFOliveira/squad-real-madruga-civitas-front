@@ -2,13 +2,15 @@
 @import "variables";
 
 .section {
-  padding-inline: 2rem;
+  @media screen and (max-width: $breakpoint-large-desktop) {
+    padding-inline: 2rem;
+  }
 
   &__header {
     margin-block: 5rem;
   }
 
-  app-select {
+  .select {
     display: block;
 
     @media screen and (min-width: $breakpoint-mobile) {
@@ -59,40 +61,58 @@
   }
 }
 
-.table {
-  border: 1px solid $border-color;
-  border-radius: 0.25rem;
+.table-wrapper {
+  padding-block-end: 5rem;
 
-  .badge {
-    border-radius: 99rem;
-    border: 1px solid;
-    padding: 0.25rem 0.75rem;
-    text-transform: capitalize;
-  }
+  .table {
+    border: 1px solid $border-color;
+    border-radius: 0.25rem;
 
-  .badge.good {
-    background-color: rgba($green-color, 0.1);
-    border-color: rgba($green-color, 0.75);
-    color: $green-color;
-  }
+    .badge {
+      border-radius: 99rem;
+      border: 1px solid;
+      padding: 0.25rem 0.75rem;
+      text-transform: capitalize;
+    }
 
-  .badge.satisfactory {
-    background-color: rgba($blue-color, 0.1);
-    border-color: rgba($blue-color, 0.75);
-    color: $blue-color;
-  }
+    .badge.good {
+      background-color: rgba($green-color, 0.1);
+      border-color: rgba($green-color, 0.75);
+      color: $green-color;
+    }
 
-  .badge.bad {
-    background-color: rgba($error-color, 0.1);
-    border-color: rgba($error-color, 0.75);
-    color: $error-color;
+    .badge.satisfactory {
+      background-color: rgba($blue-color, 0.1);
+      border-color: rgba($blue-color, 0.75);
+      color: $blue-color;
+    }
+
+    .badge.bad {
+      background-color: rgba($error-color, 0.1);
+      border-color: rgba($error-color, 0.75);
+      color: $error-color;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .text-center {
+      text-align: center;
+    }
   }
 }
 
-.text-right {
-  text-align: right;
-}
+.group-selector {
+  display: flex;
+  flex-wrap: wrap;
 
-.text-center {
-  text-align: center;
+  &__description {
+    flex-basis: 100%;
+  }
+
+  &__search,
+  &__select {
+    width: 100%;
+  }
 }

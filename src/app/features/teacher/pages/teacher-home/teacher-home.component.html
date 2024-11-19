@@ -9,13 +9,6 @@
     </p>
   </header>
 
-  <p>Selecione uma turma para visualizar os PDIs.</p>
-  <app-select
-    placeholder="Selecione uma Turma"
-    [options]="options"
-    [control]="control"
-  />
-
   <div class="card-wrapper">
     <article class="card" *ngFor="let card of cards">
       <div class="card__icon-container">
@@ -30,7 +23,26 @@
     </article>
   </div>
 
-  <section>
+  <div class="group-selector">
+    <p class="group-selector__description">
+      Selecione uma turma para visualizar os PDIs.
+    </p>
+    <mat-form-field appearance="outline" class="group-selector__select">
+      <mat-select
+        placeholder="Selecione uma Turma"
+        (selectionChange)="onSelect($event)"
+      >
+        <mat-option [value]="null">Selecione uma turma</mat-option>
+        <mat-option *ngFor="let option of options" [value]="option.value">
+          {{ option.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <app-searchbar class="group-selector__search" />
+  </div>
+
+  <div class="table-wrapper">
     <h3>Progresso Geral dos Alunos</h3>
 
     <table class="table" mat-table [dataSource]="dataSource" matSort>
@@ -83,5 +95,5 @@
         <td class="mat-cell" colspan="4">Nenhum aluno encontrado.</td>
       </tr>
     </table>
-  </section>
+  </div>
 </section>

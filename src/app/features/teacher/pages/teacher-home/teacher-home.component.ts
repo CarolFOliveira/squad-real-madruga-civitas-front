@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 import { MatTableDataSource } from '@angular/material/table';
 
 interface IUserData {
+  link: string;
   name: string;
   performance: string;
-  link: string;
 }
 
 interface ICardData {
@@ -29,16 +29,14 @@ export class TeacherHomeComponent {
 
   // TODO: excluir exemplo
   options = [
-    { value: 1, viewValue: '1' },
-    { value: 2, viewValue: '2' },
-    { value: 3, viewValue: '3' },
-    { value: 4, viewValue: '4' },
+    { value: 1, viewValue: '3º ano A' },
+    { value: 2, viewValue: '3º ano B' },
+    { value: 3, viewValue: '3º ano C' },
+    { value: 4, viewValue: '3º ano D' },
   ];
-  // TODO: excluir exemplo
-  control = new FormControl('');
 
   // TODO: excluir dados de exemplo
-  users: IUserData[] = [
+  public users: IUserData[] = [
     {
       name: 'Fulano',
       performance: 'bom',
@@ -52,11 +50,6 @@ export class TeacherHomeComponent {
     {
       name: 'Fulano 3',
       performance: 'ruim',
-      link: '123',
-    },
-    {
-      name: 'Fulano 4',
-      performance: 'bom',
       link: '123',
     },
   ];
@@ -86,5 +79,9 @@ export class TeacherHomeComponent {
       ruim: 'bad',
     };
     return performance[value];
+  }
+
+  public onSelect($event: MatSelectChange): void {
+    console.log({ value: $event.value });
   }
 }
