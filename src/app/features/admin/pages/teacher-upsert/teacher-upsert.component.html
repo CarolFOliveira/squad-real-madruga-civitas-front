@@ -1,0 +1,46 @@
+<app-return-button routerLink="/administrador" />
+<app-breadcrumbs />
+
+<section class="section">
+  <header>
+    <h2 class="section__title">
+      {{
+        isEditMode ? "Editar cadastro do professor" : "Cadastro de professor"
+      }}
+    </h2>
+    <p class="section__description">Preencha as informações do professor</p>
+  </header>
+
+  <form class="form" [formGroup]="form" (submit)="onSubmit($event)">
+    <app-input
+      [control]="form.controls.teacherName"
+      label="Nome completo"
+      placeholder="Nome do professor"
+    />
+    <app-input
+      [control]="form.controls.teacherCPF"
+      label="CPF"
+      mask="000.000.000-00"
+      placeholder="123.456.789-00"
+    />
+    <app-input
+      [control]="form.controls.enrollmentNumber"
+      label="Número de matrícula"
+      placeholder="Digite o número da matrícula"
+    />
+    <app-select
+      [control]="form.controls.classrooms"
+      [options]="classrooms"
+      [multiple]="true"
+      label="Turmas"
+      placeholder="6º ano B"
+    />
+    <app-button
+      [isLoading]="form.pending"
+      [label]="isEditMode ? 'Salvar' : 'Cadastrar'"
+      class="form__btn"
+      label="Cadastrar"
+      type="submit"
+    />
+  </form>
+</section>

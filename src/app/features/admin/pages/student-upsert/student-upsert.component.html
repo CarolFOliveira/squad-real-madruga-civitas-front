@@ -1,8 +1,11 @@
 <app-return-button routerLink="/administrador" />
+<app-breadcrumbs />
 
 <section class="section">
   <header>
-    <h2 class="section__title">Cadastro de aluno</h2>
+    <h2 class="section__title">
+      {{ isEditMode ? "Editar cadastro de aluno" : "Cadastro de aluno" }}
+    </h2>
     <p class="section__description">Preencha as informações do aluno</p>
   </header>
 
@@ -26,7 +29,7 @@
     />
     <app-select
       [control]="form.controls.studentClass"
-      [options]="options"
+      [options]="classrooms"
       label="Turma"
       placeholder="6º ano B"
     />
@@ -38,8 +41,8 @@
     />
     <app-button
       [isLoading]="form.pending"
+      [label]="isEditMode ? 'Salvar' : 'Cadastrar'"
       class="form__btn"
-      label="Cadastrar"
       type="submit"
     />
   </form>

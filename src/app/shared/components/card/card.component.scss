@@ -1,19 +1,18 @@
 @import "variables";
 
-:host {
-  max-width: 30rem;
-}
-
 .card {
   display: inline-block;
   background-color: $card-bg-color-default;
   border-radius: 1.2rem;
   margin-bottom: 1rem;
   padding: 1rem 1.5rem 1rem;
-  max-width: 30rem;
+  max-width: 35rem;
+  user-select: none;
 
   &__image {
     object-fit: cover;
+    height: 19rem;
+    width: 23.5rem;
   }
 
   &__button {

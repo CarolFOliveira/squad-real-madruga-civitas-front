@@ -1,3 +1,4 @@
+@import "mixins";
 @import "variables";
 
 .section {
@@ -6,10 +7,6 @@
   &__title {
     font-size: clamp(2.8rem, (1rem + 3vw), 4.5rem);
     line-height: 1.2;
-  }
-
-  &__description {
-    max-width: 70rem;
   }
 
   &__button {
@@ -25,5 +22,15 @@
     strong {
       color: $primary-color;
     }
+  }
+}
+
+.cards {
+  @include center-flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  @media screen and (min-width: calc($breakpoint-large-desktop + 4rem)) {
+    justify-content: space-between;
   }
 }

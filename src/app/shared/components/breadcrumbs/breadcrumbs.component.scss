@@ -2,7 +2,7 @@
 @import "mixins";
 
 .nav {
-  @include center-flex;
+  @include center-flex($justify: flex-start);
 
   &__icon {
     @include center-flex;

@@ -5,6 +5,23 @@ import { FormControl } from '@angular/forms';
 // Interfaces
 import { ISelectOptions } from '../../interfaces/ISelectOptions';
 
+/**
+ * SelectComponent
+ *
+ * Responsável por exibir um select na interface.
+ * Pode ser usado para selecionar uma única opção ou múltiplas opções.
+ *
+ * @example
+ * ```html
+ * <app-select
+ *    [control]="form.controls.classrooms"
+ *    [options]="classrooms"
+ *    [multiple]="true"
+ *    label="Turmas"
+ *    placeholder="6º ano B"
+ *  />
+ * ```
+ */
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
@@ -22,12 +39,22 @@ export class SelectComponent {
    * ```
    */
   @Input() control!: FormControl;
-  /** Texto que será exibido na label, valor opcional.  */
+  /**
+   * Texto que será exibido na label, valor opcional.
+   */
   @Input() label = '';
-  /** Opções que serão mostradas dentro de cada elemento de `select`.  */
+  /**
+   * Opções que serão mostradas dentro de cada elemento de `select`.
+   */
   @Input() options: ISelectOptions[] = [];
-  /** Texto que será exibido no Select como placeholder.  */
+  /**
+   * Texto que será exibido no Select como placeholder.
+   */
   @Input() placeholder = '';
+  /**
+   * Permite o usuário selecionar mais de uma opção no checkbox.
+   */
+  @Input() multiple = false;
 
   /**
    * getErrorMessage

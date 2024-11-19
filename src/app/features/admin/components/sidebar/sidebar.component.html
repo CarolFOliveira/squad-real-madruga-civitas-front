@@ -11,8 +11,8 @@
       <ng-container *ngFor="let item of menuItems">
         <mat-list-item
           class="item"
-          [routerLink]="item.link"
           routerLinkActive="active"
+          [routerLink]="item.link"
         >
           <mat-icon class="item__icon material-icons-outlined">
             {{ item.icon }}

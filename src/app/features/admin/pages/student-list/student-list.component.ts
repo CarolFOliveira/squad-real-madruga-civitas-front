@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
 import { IPaginatedItems } from '../../interfaces/IPaginatedItems';
 import { IStudent } from '../../interfaces/IStudent';
 
+// Enum
+import { ApiEndpoints } from '../../interfaces/ApiEndpoints';
+
 /**
  * StudentListComponent
  *
@@ -21,19 +24,23 @@ export class StudentListComponent {
   /**
    * Endpoint para buscar dados dos alunos.
    */
-  public endpoint = 'alunos';
+  public endpoint = ApiEndpoints.STUDENTS;
 
   /**
+   * mapStudentToPaginatedItems
+   *
    * Mapeia um objeto `IStudent` para o formato de itens paginados.
    *
-   * @param student - Objeto do tipo {@link IStudent}.
-   * @returns Objeto do tipo {@link IPaginatedItems}.
+   * @param student Um objeto do tipo {@link IStudent} combinado com um `id` do tipo `number`.
+   * @returns Uma lista paginada contento um array de objeto do tipo {@link IPaginatedItems}.
    */
-  public mapStudentToPaginatedItems(student: IStudent): IPaginatedItems {
+  public mapStudentToPaginatedItems(
+    student: IStudent & { id: number }
+  ): IPaginatedItems {
     return {
       id: student.id,
-      title: student.name,
-      subtitle: `Número de matrícula: ${student.enrollmentNumber}`,
+      title: student.nomeCompleto,
+      subtitle: `Número de matrícula: ${student.numeroMatricula}`,
     };
   }
 }

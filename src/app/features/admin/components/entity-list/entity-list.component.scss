@@ -2,23 +2,10 @@
 @import "mixins";
 
 .section {
-  max-width: $breakpoint-large-desktop;
-  margin: 0 auto;
-
   &__header {
     @include center-flex($justify: space-between);
-    margin-block: 2rem;
-  }
-
-  &__nav-container {
-    @include center-flex(column);
-    align-items: flex-start;
-    margin-block: 4rem;
     gap: 1rem;
-
-    app-return-button {
-      margin-left: -1.5rem;
-    }
+    margin-block: 2rem;
   }
 
   &__title {
@@ -75,4 +62,8 @@
       color: #49454f;
     }
   }
+}
+
+app-return-button {
+  margin-left: -1.5rem;
 }

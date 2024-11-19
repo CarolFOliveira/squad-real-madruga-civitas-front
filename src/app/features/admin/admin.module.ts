@@ -10,15 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 // App Modules
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
-
-// Services
-import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 // Components
 import { ActionDialogComponent } from './components/action-dialog/action-dialog.component';
@@ -29,42 +25,49 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
+import { ClassroomListComponent } from './pages/classroom-list/classroom-list.component';
+import { ClassroomUpsertComponent } from './pages/classroom-upsert/classroom-upsert.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { StudentListComponent } from './pages/student-list/student-list.component';
-import { StudentRegistrationComponent } from './pages/student-registration/student-registration.component';
+import { StudentUpsertComponent } from './pages/student-upsert/student-upsert.component';
+import { TeacherListComponent } from './pages/teacher-list/teacher-list.component';
+import { TeacherUpsertComponent } from './pages/teacher-upsert/teacher-upsert.component';
 
 const COMPONENTS = [
   ActionDialogComponent,
   ActionMenuComponent,
   BrandLinkComponent,
+  ClassroomUpsertComponent,
+  ClassroomListComponent,
   DashboardComponent,
   EntityListComponent,
   LayoutComponent,
   SidebarComponent,
+  StudentUpsertComponent,
   StudentListComponent,
-  StudentRegistrationComponent,
+  TeacherUpsertComponent,
+  TeacherListComponent,
   ToolbarComponent,
   VideoDialogComponent,
 ];
 
 const MODULES = [
-  CommonModule,
-  ReactiveFormsModule,
   AdminRoutingModule,
-  SharedModule,
+  CommonModule,
   MatButtonModule,
   MatDialogModule,
   MatIconModule,
   MatListModule,
   MatMenuModule,
   MatSidenavModule,
-  MatSnackBarModule,
   MatToolbarModule,
+  ReactiveFormsModule,
+  SharedModule,
 ];
 
 @NgModule({
   declarations: [...COMPONENTS],
-  providers: [SnackbarService],
+  providers: [],
   imports: [...MODULES],
 })
 export class AdminModule {}
