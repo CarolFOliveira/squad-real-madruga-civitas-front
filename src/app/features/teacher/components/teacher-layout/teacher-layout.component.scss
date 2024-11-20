@@ -4,6 +4,11 @@
 .main {
   max-width: $breakpoint-large-desktop;
   margin: 6.5rem auto;
+  padding-inline: 2rem;
+
+  @media screen and (min-width: $breakpoint-large-desktop) {
+    padding-inline: 0;
+  }
 }
 
 .logout-btn {

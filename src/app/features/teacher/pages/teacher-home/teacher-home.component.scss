@@ -2,10 +2,6 @@
 @import "variables";
 
 .section {
-  @media screen and (max-width: $breakpoint-large-desktop) {
-    padding-inline: 2rem;
-  }
-
   &__header {
     margin-block: 5rem;
   }
@@ -86,66 +82,4 @@
   &__search {
     min-width: 30rem;
   }
-}
-
-.table-wrapper {
-  padding-block-end: 5rem;
-
-  .table {
-    border: 1px solid $border-color;
-    border-radius: 0.25rem;
-
-    th,
-    td {
-      width: 33.33%;
-    }
-
-    .badge {
-      border-radius: 99rem;
-      border: 1px solid;
-      padding: 0.25rem 0.75rem;
-      text-transform: capitalize;
-    }
-
-    .badge.good {
-      background-color: rgba($green-color, 0.1);
-      border-color: rgba($green-color, 0.75);
-      color: $green-color;
-    }
-
-    .badge.normal {
-      background-color: rgba($blue-color, 0.1);
-      border-color: rgba($blue-color, 0.75);
-      color: $blue-color;
-    }
-
-    .badge.bad {
-      background-color: rgba($error-color, 0.1);
-      border-color: rgba($error-color, 0.75);
-      color: $error-color;
-    }
-
-    &__blank-msg {
-      padding: 1.5rem;
-
-      button {
-        all: unset;
-        color: $blue-color;
-        cursor: pointer;
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .right {
-    text-align: right;
-  }
-
-  .center {
-    text-align: center;
-  }
-}
-
-::ng-deep .center .mat-sort-header-container {
-  justify-content: center;
 }
