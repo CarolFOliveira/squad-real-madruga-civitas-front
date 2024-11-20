@@ -19,10 +19,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Components
+import { StudentTableComponent } from './components/student-table/student-table.component';
 import { TeacherLayoutComponent } from './components/teacher-layout/teacher-layout.component';
 import { TeacherHomeComponent } from './pages/teacher-home/teacher-home.component';
 
-const COMPONENTS = [TeacherLayoutComponent, TeacherHomeComponent];
+const COMPONENTS = [
+  StudentTableComponent,
+  TeacherHomeComponent,
+  TeacherLayoutComponent,
+];
 
 const MODULES = [
   CommonModule,
