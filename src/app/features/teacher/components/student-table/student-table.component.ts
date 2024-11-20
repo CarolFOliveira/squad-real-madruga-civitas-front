@@ -19,19 +19,45 @@ interface IUserTableData {
   performance: string;
 }
 
+/**
+ * StudentTableComponent
+ *
+ * Componente que exibe uma tabela de alunos com funcionalidades de filtro e ordenação.
+ *
+ * @example
+ * ```html
+ * <app-student-table
+ *   [users]="users"
+ *   [term]="term"
+ *   (termChangeEvent)="term = $event"
+ * />
+ * ```
+ */
 @Component({
   selector: 'app-student-table',
   templateUrl: './student-table.component.html',
   styleUrls: ['./student-table.component.scss'],
 })
 export class StudentTableComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatSort) sort!: MatSort;
-  @Input() public users!: IUserTableData[];
-  @Input() public term = '';
-  @Output() termChange = new EventEmitter<string>();
+  @ViewChild(MatSort) public sort!: MatSort;
 
   /**
-   * Array de dados do tipo `MatTableDataSource` que permite funcionalidades nativas como filtros e paginação.
+   * Array de alunos exibidos na tabela, cada objeto será do tipo {@link IUserTableData}
+   */
+  @Input() public users!: IUserTableData[];
+
+  /**
+   * Termo de busca do tipo `string` utilizado para filtrar os dados da tabela.
+   */
+  @Input() public term = '';
+
+  /**
+   * Evento emitido quando o termo de busca é alterado.
+   */
+  @Output() public termChangeEvent = new EventEmitter<string>();
+
+  /**
+   * Array de dados do tipo `MatTableDataSource` que permite funcionalidades nativas como filtros.
    */
   public dataSource!: MatTableDataSource<IUserTableData>;
 
@@ -40,26 +66,31 @@ export class StudentTableComponent implements AfterViewInit, OnInit {
    */
   public displayedColumns: string[] = ['name', 'performance', 'link'];
 
-  ngOnInit(): void {
+  /**
+   * ngOnInit
+   *
+   * Inicializa o `MatTableDataSource` com os dados recebidos.
+   */
+  public ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.users);
   }
 
   /**
    * ngAfterViewInit
    *
-   * Método do do Angular que é chamado após a inicialização da view para configurar o sort da tabela.
+   * Configura o mecanismo de ordenação da tabela após a inicialização da view.
    */
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
 
   /**
-   * getPerformance
+   * getPerformanceClass
    *
    * Retorna a classe CSS correspondente ao desempenho fornecido.
    *
-   * @param value Uma `string` que corresponde ao valor de desempenho vindo do backend.
-   * @returns Uma `string` que representa a tradução do desempenho em inglês.
+   * @param value `string` que corresponde ao valor de desempenho vindo do backend.
+   * @returns `string` que representa a tradução do desempenho em inglês.
    */
   public getPerformanceClass(value: string): string {
     const performance: { [key: string]: string } = {
@@ -74,11 +105,11 @@ export class StudentTableComponent implements AfterViewInit, OnInit {
   /**
    * clearSearch
    *
-   * Reinicia o termo de pesquisa `term` e limpa os filtros da tabela.
+   * Limpa o termo de busca, notifica o componente pai e aplica o filtro na tabela.
    */
   public clearSearch(): void {
     this.term = '';
-    this.termChange.emit(this.term);
+    this.termChangeEvent.emit(this.term);
     this.applyFilter();
   }
 

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 /**
  * ToolbarComponent
  *
- *
  * Componente responsável por renderizar uma barra de navegação (navbar).
  *
  * @remarks

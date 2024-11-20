@@ -1,5 +1,8 @@
+// Libs
 import { Component, ViewChild } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
+
+// Components
 import { StudentTableComponent } from '../../components/student-table/student-table.component';
 
 /**
@@ -22,10 +25,10 @@ interface ICardData {
   styleUrls: ['./teacher-home.component.scss'],
 })
 export class TeacherHomeComponent {
-  @ViewChild(StudentTableComponent) studentTable!: StudentTableComponent;
+  @ViewChild(StudentTableComponent) public studentTable!: StudentTableComponent;
 
   /**
-   * Termo de busca utilizado para filtrar os dados da tabela.
+   * Termo de busca utilizado para filtrar os dados da tabela de alunos.
    */
   public term = '';
 
@@ -51,14 +54,18 @@ export class TeacherHomeComponent {
     },
   ];
 
+  /**
+   * Lista de turmas disponíveis para seleção.
+   */
   // TODO: Buscar turmas do professor no backend
   public options = [
     { value: 1, viewValue: '3º ano A' },
     { value: 2, viewValue: '3º ano B' },
-    { value: 3, viewValue: '3º ano C' },
-    { value: 4, viewValue: '3º ano D' },
   ];
 
+  /**
+   * Lista de usuários (alunos) que será exibida na tabela.
+   */
   // TODO: Buscar alunos de uma determinada turma no backend
   public users = [
     {
@@ -70,11 +77,6 @@ export class TeacherHomeComponent {
       id: 2,
       name: 'Carlos Silva',
       performance: 'normal',
-    },
-    {
-      id: 3,
-      name: 'Daniel Silva',
-      performance: 'ruim',
     },
   ];
 
@@ -90,11 +92,21 @@ export class TeacherHomeComponent {
     console.log({ value: $event.value });
   }
 
+  /**
+   * clearSearch
+   *
+   * Limpa o termo de busca e sincroniza o estado com o componente filho `StudentTableComponent`.
+   */
   public clearSearch(): void {
     this.term = '';
     this.studentTable.clearSearch();
   }
 
+  /**
+   * applyFilter
+   *
+   * Usa `applyFilter` do componente `StudentTableComponent` para aplicar o filtro com base no termo de busca.
+   */
   public applyFilter(): void {
     this.studentTable.applyFilter();
   }
