@@ -21,7 +21,6 @@ import { ActionMenuComponent } from './components/action-menu/action-menu.compon
 import { EntityListComponent } from './components/entity-list/entity-list.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
 import { ClassroomListComponent } from './pages/classroom-list/classroom-list.component';
 import { ClassroomUpsertComponent } from './pages/classroom-upsert/classroom-upsert.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -43,7 +42,6 @@ const COMPONENTS = [
   StudentListComponent,
   TeacherUpsertComponent,
   TeacherListComponent,
-  VideoDialogComponent,
 ];
 
 const MODULES = [

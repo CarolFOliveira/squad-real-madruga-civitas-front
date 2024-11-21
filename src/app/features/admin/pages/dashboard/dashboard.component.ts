@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 // Components
-import { VideoDialogComponent } from '../../components/video-dialog/video-dialog.component';
+import { VideoDialogComponent } from 'src/app/shared/components/video-dialog/video-dialog.component';
 
 /**
  * DashboardComponent

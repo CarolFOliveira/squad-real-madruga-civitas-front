@@ -8,6 +8,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 // Angular Material Modules
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -27,6 +28,7 @@ import { ReturnButtonComponent } from './components/return-button/return-button.
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { SelectComponent } from './components/select/select.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
 
 const COMPONENTS = [
   BrandLinkComponent,
@@ -40,6 +42,7 @@ const COMPONENTS = [
   SearchbarComponent,
   SelectComponent,
   ToolbarComponent,
+  VideoDialogComponent,
 ];
 
 const MODULES = [
@@ -47,6 +50,7 @@ const MODULES = [
   FormsModule,
   MatButtonModule,
   MatCardModule,
+  MatDialogModule,
   MatIconModule,
   MatInputModule,
   MatPaginatorModule,
