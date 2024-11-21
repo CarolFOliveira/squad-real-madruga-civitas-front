@@ -35,7 +35,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" colspan="4" class="table__blank-msg">
+    <td class="mat-cell" colspan="4" class="table__empty">
       Nenhum aluno encontrado.
       <button *ngIf="term" (click)="clearSearch()">Limpar filtros</button>
     </td>

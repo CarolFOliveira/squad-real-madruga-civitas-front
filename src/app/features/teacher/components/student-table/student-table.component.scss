@@ -12,6 +12,8 @@
   .badge {
     border-radius: 99rem;
     border: 1px solid;
+    display: inline-block;
+    min-width: 7rem;
     padding: 0.25rem 0.75rem;
     text-transform: capitalize;
   }
@@ -34,7 +36,7 @@
     color: $error-color;
   }
 
-  &__blank-msg {
+  &__empty {
     padding: 1.5rem;
 
     button {

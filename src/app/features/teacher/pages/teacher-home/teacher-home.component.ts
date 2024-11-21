@@ -1,18 +1,11 @@
 // Libs
 import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 
 // Components
+import { VideoDialogComponent } from 'src/app/shared/components/video-dialog/video-dialog.component';
 import { StudentTableComponent } from '../../components/student-table/student-table.component';
-
-/**
- * Interface com os dados dos cards exibidos na interface.
- */
-interface ICardData {
-  icon: string;
-  description: string;
-  descriptionValue: number;
-}
 
 /**
  * TeacherHomeComponent
@@ -33,28 +26,6 @@ export class TeacherHomeComponent {
   public term = '';
 
   /**
-   * Array de cards que exibem informações resumidas da aplicação para o usuário.
-   */
-  public cards: ICardData[] = [
-    {
-      description: 'Número de Turmas',
-      // TODO: Buscar valores do backend
-      descriptionValue: 6,
-      icon: 'school',
-    },
-    {
-      description: 'Número de Alunos',
-      descriptionValue: 104,
-      icon: 'assignment_ind',
-    },
-    {
-      description: 'Número de PDI',
-      descriptionValue: 104,
-      icon: 'assignment',
-    },
-  ];
-
-  /**
    * Lista de turmas disponíveis para seleção.
    */
   // TODO: Buscar turmas do professor no backend
@@ -68,17 +39,20 @@ export class TeacherHomeComponent {
    */
   // TODO: Buscar alunos de uma determinada turma no backend
   public users = [
-    {
-      id: 1,
-      name: 'Bianca Souza',
-      performance: 'bom',
-    },
-    {
-      id: 2,
-      name: 'Carlos Silva',
-      performance: 'normal',
-    },
+    { id: 1, name: 'Bianca Souza', performance: 'bom' },
+    { id: 2, name: 'Carlos Silva', performance: 'normal' },
   ];
+
+  constructor(private _dialog: MatDialog) {}
+
+  /**
+   * openDialog
+   *
+   * Responsável por abrir o modal do componente `VideoDialogComponent`.
+   */
+  public openDialog(): void {
+    this._dialog.open(VideoDialogComponent);
+  }
 
   /**
    * onSelect

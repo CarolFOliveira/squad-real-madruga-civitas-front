@@ -9,19 +9,9 @@
     </p>
   </header>
 
-  <div class="card-wrapper">
-    <article class="card" *ngFor="let card of cards">
-      <div class="card__icon-container">
-        <mat-icon class="material-icons-outlined" color="primary">
-          {{ card.icon }}
-        </mat-icon>
-      </div>
-      <div class="card__content">
-        <p>{{ card.description }}</p>
-        <strong>{{ card.descriptionValue }}</strong>
-      </div>
-    </article>
-  </div>
+  <button mat-flat-button class="section__button" (click)="openDialog()">
+    Ficou com alguma duvida? <strong>Clique aqui</strong>
+  </button>
 
   <div class="filters">
     <p class="filters__description">

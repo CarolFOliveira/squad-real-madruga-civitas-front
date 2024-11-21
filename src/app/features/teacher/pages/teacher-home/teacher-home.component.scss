@@ -2,57 +2,24 @@
 @import "variables";
 
 .section {
+  padding-block-end: 10rem;
+  min-height: calc(100vh - 13rem);
+  min-height: calc(100dvh - 13rem);
+
   &__header {
-    margin-block: 5rem;
+    margin-block-start: 5rem;
   }
 
-  .select {
+  &__button {
     display: block;
+    background-color: rgba($sidebar-active-color, 0.2) !important;
+    border-radius: 99rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-block-end: 7rem;
 
-    @media screen and (min-width: $breakpoint-mobile) {
-      max-width: 31.75%;
-      min-width: 27.5rem;
-    }
-  }
-
-  .card-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    margin-block: 3.5rem;
-
-    .card {
-      @include center-flex($justify: flex-start);
-      border-radius: 1.25rem;
-      border: 1px solid $border-color;
-      box-shadow: 1px 1px 5px 0 $border-color;
-      flex: 1;
-      gap: 2rem;
-      padding: 3rem;
-
-      &__content {
-        @include center-flex(column);
-        align-items: flex-start;
-        text-wrap: nowrap;
-
-        strong {
-          font-size: 2rem;
-        }
-      }
-
-      &__icon-container {
-        @include center-flex;
-        background-color: lighten($card-bg-color-default, 18%);
-        border-radius: 99rem;
-        height: 5rem;
-        width: 5rem;
-
-        mat-icon {
-          font-size: 3rem;
-          height: 3rem;
-          width: 3rem;
-        }
-      }
+    strong {
+      color: $primary-color;
     }
   }
 }
@@ -65,6 +32,7 @@
   &__description {
     flex-basis: 100%;
   }
+
   &__select {
     flex: 2;
   }
