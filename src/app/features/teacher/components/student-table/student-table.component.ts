@@ -1,3 +1,4 @@
+// Libs
 import {
   AfterViewInit,
   Component,
@@ -10,14 +11,8 @@ import {
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-/**
- *  Interface com os dados do Aluno que serão exibidos na tabela.
- */
-interface IUserTableData {
-  id: number;
-  name: string;
-  performance: string;
-}
+// Interfaces
+import { IStudentTableData } from '../../interfaces/IStudentTableData';
 
 /**
  * StudentTableComponent
@@ -44,7 +39,7 @@ export class StudentTableComponent implements AfterViewInit, OnInit {
   /**
    * Array de alunos exibidos na tabela, cada objeto será do tipo {@link IUserTableData}
    */
-  @Input() public users!: IUserTableData[];
+  @Input() public students!: IStudentTableData[];
 
   /**
    * Termo de busca do tipo `string` utilizado para filtrar os dados da tabela.
@@ -59,7 +54,7 @@ export class StudentTableComponent implements AfterViewInit, OnInit {
   /**
    * Array de dados do tipo `MatTableDataSource` que permite funcionalidades nativas como filtros.
    */
-  public dataSource!: MatTableDataSource<IUserTableData>;
+  public dataSource!: MatTableDataSource<IStudentTableData>;
 
   /**
    * Array de `string` que representa as colunas exibidas na tabela.
@@ -72,7 +67,7 @@ export class StudentTableComponent implements AfterViewInit, OnInit {
    * Inicializa o `MatTableDataSource` com os dados recebidos.
    */
   public ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.users);
+    this.dataSource = new MatTableDataSource(this.students);
   }
 
   /**
