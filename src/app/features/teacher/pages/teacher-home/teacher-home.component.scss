@@ -2,12 +2,16 @@
 @import "variables";
 
 .section {
-  padding-block-end: 10rem;
-  min-height: calc(100vh - 13rem);
-  min-height: calc(100dvh - 13rem);
+  margin-block-end: 19rem;
 
   &__header {
     margin-block-start: 5rem;
+  }
+
+  &__title {
+    font-size: clamp(3.25rem, (1rem + 4vw), 4.5rem);
+    line-height: 1.4;
+    margin-block-start: -0.25rem;
   }
 
   &__button {
@@ -20,6 +24,26 @@
 
     strong {
       color: $primary-color;
+    }
+  }
+
+  &__empty-state {
+    background-color: rgba($card-bg-color-dark, 0.1);
+    border-radius: 0.5rem;
+    border: 1px solid $card-bg-color-dark;
+    color: $primary-color;
+    font-weight: 500;
+    letter-spacing: 0.7px;
+    margin-block-start: 5rem;
+    padding: 2rem;
+    text-align: center;
+
+    strong {
+      text-decoration: underline;
+    }
+
+    &::before {
+      content: "🛈";
     }
   }
 }

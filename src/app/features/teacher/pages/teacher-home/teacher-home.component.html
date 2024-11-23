@@ -1,6 +1,6 @@
 <section class="section">
   <header class="section__header">
-    <h2>Plano de desenvolvimento individual</h2>
+    <h2 class="section__title">Plano de desenvolvimento individual</h2>
     <p>
       Olá, professor(a).
       <br />
@@ -29,24 +29,40 @@
     </mat-form-field>
 
     <mat-form-field class="filters__search" appearance="outline">
-      <button mat-icon-button matSuffix *ngIf="!term">
+      <button
+        mat-icon-button
+        matSuffix
+        *ngIf="!term"
+        [disabled]="students && !students.length"
+      >
         <mat-icon>search</mat-icon>
       </button>
-      <button *ngIf="term" mat-icon-button matSuffix (click)="clearSearch()">
+      <button mat-icon-button matSuffix *ngIf="term" (click)="clearSearch()">
         <mat-icon>close</mat-icon>
       </button>
       <input
         matInput
         placeholder="Pesquisar aluno"
-        (keyup)="applyFilter()"
+        [disabled]="students && !students.length"
         [(ngModel)]="term"
+        (keyup)="applyFilter()"
       />
     </mat-form-field>
   </div>
 
   <app-student-table
-    [users]="users"
+    *ngIf="students && students.length"
+    [students]="students"
     [term]="term"
     (termChangeEvent)="term = $event"
   />
+
+  <p *ngIf="!students" class="section__empty-state">
+    Por favor, selecione uma turma para visualizar os alunos.
+  </p>
+
+  <p *ngIf="!students?.length" class="section__empty-state">
+    Ainda <strong>não</strong> há alunos cadastrados para esta turma no banco de
+    dados.
+  </p>
 </section>

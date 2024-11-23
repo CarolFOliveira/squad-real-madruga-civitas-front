@@ -7,6 +7,10 @@ import { MatSelectChange } from '@angular/material/select';
 import { VideoDialogComponent } from 'src/app/shared/components/video-dialog/video-dialog.component';
 import { StudentTableComponent } from '../../components/student-table/student-table.component';
 
+// Interfaces
+import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
+import { IStudentTableData } from '../../interfaces/IStudentTableData';
+
 /**
  * TeacherHomeComponent
  *
@@ -29,19 +33,16 @@ export class TeacherHomeComponent {
    * Lista de turmas disponíveis para seleção.
    */
   // TODO: Buscar turmas do professor no backend
-  public options = [
+  public options: ISelectOptions[] = [
     { value: 1, viewValue: '3º ano A' },
     { value: 2, viewValue: '3º ano B' },
   ];
 
   /**
-   * Lista de usuários (alunos) que será exibida na tabela.
+   * Lista de usuários (alunos) que será exibida na tabela, objeto do tipo {@link IStudentTableData}
    */
   // TODO: Buscar alunos de uma determinada turma no backend
-  public users = [
-    { id: 1, name: 'Bianca Souza', performance: 'bom' },
-    { id: 2, name: 'Carlos Silva', performance: 'normal' },
-  ];
+  public students!: IStudentTableData[];
 
   constructor(private _dialog: MatDialog) {}
 
@@ -73,7 +74,7 @@ export class TeacherHomeComponent {
    */
   public clearSearch(): void {
     this.term = '';
-    this.studentTable.clearSearch();
+    this.studentTable?.clearSearch();
   }
 
   /**
@@ -82,6 +83,6 @@ export class TeacherHomeComponent {
    * Usa `applyFilter` do componente `StudentTableComponent` para aplicar o filtro com base no termo de busca.
    */
   public applyFilter(): void {
-    this.studentTable.applyFilter();
+    this.studentTable?.applyFilter();
   }
 }
