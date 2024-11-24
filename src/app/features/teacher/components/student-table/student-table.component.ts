@@ -115,7 +115,7 @@ export class StudentTableComponent implements AfterViewInit, OnInit {
    *
    * Aplica o filtro na tabela utilizando o termo de pesquisa `term`.
    */
-  public applyFilter() {
+  public applyFilter(): void {
     this.dataSource.filter = this.term.trim().toLowerCase();
   }
 }

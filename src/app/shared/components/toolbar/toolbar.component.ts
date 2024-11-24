@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
  *
  * Componente responsável por renderizar uma barra de navegação (navbar).
  *
- * @remarks
- * Exibe um logotipo à esquerda e permite que o usuário defina o conteúdo à direita, como links de navegação ou botões.
  * @example
  * ```html
  * <app-toolbar>

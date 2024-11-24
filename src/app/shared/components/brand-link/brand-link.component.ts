@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * BrandLinkComponent
@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
  * Este componente é utilizado como um ponto de acesso rápido à home dependendo do tipo do usuário.
  * @example
  * ```html
- * <app-brand-link></app-brand-link>
+ * <app-brand-link returnLink="/dashboard"></app-brand-link>
  * ```
  */
 @Component({
@@ -18,5 +18,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./brand-link.component.scss'],
 })
 export class BrandLinkComponent {
-  // TODO: receber uma props com o link que o usuário deve ser redirecionado
+  /**
+   * Especifica o link para onde o logotipo redireciona ao ser clicado.
+   *
+   * @defaultValue `..`
+   */
+  @Input() public returnLink = '..';
 }

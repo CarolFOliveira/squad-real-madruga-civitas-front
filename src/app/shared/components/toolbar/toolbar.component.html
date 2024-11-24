@@ -1,6 +1,6 @@
 <mat-toolbar class="toolbar">
   <nav class="toolbar__nav">
-    <app-brand-link />
+    <ng-content select="[brand]"></ng-content>
     <span class="toolbar__spacer"></span>
     <ng-content></ng-content>
   </nav>
