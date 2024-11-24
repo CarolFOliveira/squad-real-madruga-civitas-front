@@ -1,10 +1,17 @@
 @import "mixins";
 @import "variables";
 
+:host {
+  display: block;
+  padding-block-end: 1px;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
 .main {
   max-width: $breakpoint-large-desktop;
-  margin: 6.5rem auto;
-  padding-inline: 2rem;
+  margin: 5rem auto 10rem;
+  padding: 2rem;
 
   @media screen and (min-width: $breakpoint-large-desktop) {
     padding-inline: 0;
