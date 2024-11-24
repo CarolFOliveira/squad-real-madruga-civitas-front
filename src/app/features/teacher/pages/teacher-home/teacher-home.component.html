@@ -33,7 +33,7 @@
         mat-icon-button
         matSuffix
         *ngIf="!term"
-        [disabled]="students && !students.length"
+        [disabled]="!(selectedClassId && students.length)"
       >
         <mat-icon>search</mat-icon>
       </button>
@@ -43,7 +43,7 @@
       <input
         matInput
         placeholder="Pesquisar aluno"
-        [disabled]="students && !students.length"
+        [disabled]="!(selectedClassId && students.length)"
         [(ngModel)]="term"
         (keyup)="applyFilter()"
       />
@@ -51,17 +51,17 @@
   </div>
 
   <app-student-table
-    *ngIf="students && students.length"
     [students]="students"
     [term]="term"
     (termChangeEvent)="term = $event"
+    *ngIf="students.length"
   />
 
-  <p *ngIf="!students" class="section__empty-state">
+  <p class="section__empty-state" *ngIf="!selectedClassId">
     Por favor, selecione uma turma para visualizar os alunos.
   </p>
 
-  <p *ngIf="!students?.length" class="section__empty-state">
+  <p class="section__empty-state" *ngIf="selectedClassId && !students.length">
     Ainda <strong>não</strong> há alunos cadastrados para esta turma no banco de
     dados.
   </p>

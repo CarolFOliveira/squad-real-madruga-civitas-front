@@ -30,6 +30,13 @@ export class TeacherHomeComponent {
   public term = '';
 
   /**
+   * Id da turma `number` que foi selecionada pelo usuário na interface.
+   *
+   * @defaultValue `null`
+   */
+  public selectedClassId: number | null = null;
+
+  /**
    * Lista de turmas disponíveis para seleção.
    */
   // TODO: Buscar turmas do professor no backend
@@ -42,7 +49,7 @@ export class TeacherHomeComponent {
    * Lista de usuários (alunos) que será exibida na tabela, objeto do tipo {@link IStudentTableData}
    */
   // TODO: Buscar alunos de uma determinada turma no backend
-  public students!: IStudentTableData[];
+  public students: IStudentTableData[] = [];
 
   constructor(private _dialog: MatDialog) {}
 
@@ -64,7 +71,7 @@ export class TeacherHomeComponent {
    */
   public onSelect($event: MatSelectChange): void {
     // TODO: chamar o backend com o valor selecionado
-    console.log({ value: $event.value });
+    this.selectedClassId = $event.value;
   }
 
   /**
