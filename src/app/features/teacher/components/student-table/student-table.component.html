@@ -31,7 +31,11 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; let even = even; columns: displayedColumns"
+    [ngClass]="{ alternate: even }"
+  ></tr>
   <tr class="mat-row" *matNoDataRow>
     <td class="mat-cell" colspan="4" class="table__empty">
       Nenhum aluno encontrado.

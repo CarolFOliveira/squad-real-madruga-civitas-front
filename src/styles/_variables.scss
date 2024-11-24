@@ -4,6 +4,8 @@
 /* Paletas */
 $green-palette: mat.define-palette(mat.$green-palette);
 $blue-palette: mat.define-palette(mat.$blue-palette);
+$blue-gray-palette: mat.define-palette(mat.$blue-gray-palette, A400);
+$orange-palette: mat.define-palette(mat.$orange-palette);
 
 /* Breakpoints */
 $breakpoint-mobile: 576px;
@@ -16,6 +18,8 @@ $primary-color: mat.get-color-from-palette($primary-palette);
 $error-color: mat.get-color-from-palette($warn-palette);
 $green-color: mat.get-color-from-palette($green-palette, 500);
 $blue-color: mat.get-color-from-palette($blue-palette);
+$blue-gray-color: mat.get-color-from-palette($blue-gray-palette);
+$orange-color: mat.get-color-from-palette($orange-palette);
 
 /* Inputs */
 $input-label-color: mat.get-color-from-palette($primary-palette, 50);

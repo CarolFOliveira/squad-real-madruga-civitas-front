@@ -6,5 +6,5 @@
 export interface IStudentTableData {
   id: number;
   name: string;
-  performance: string;
+  performance: 'Exemplar' | 'Engajado' | 'Evoluindo' | 'Atenção' | 'Crítico';
 }

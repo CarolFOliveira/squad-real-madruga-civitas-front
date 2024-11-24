@@ -85,16 +85,18 @@ export class StudentTableComponent implements AfterViewInit, OnInit {
    * Retorna a classe CSS correspondente ao desempenho fornecido.
    *
    * @param value `string` que corresponde ao valor de desempenho vindo do backend.
-   * @returns `string` que representa a tradução do desempenho em inglês.
+   * @returns `string` que representa a tradução do desempenho em inglês.`
    */
   public getPerformanceClass(value: string): string {
     const performance: { [key: string]: string } = {
-      bom: 'good',
-      normal: 'normal',
-      ruim: 'bad',
+      exemplar: 'outstanding',
+      engajado: 'reliable',
+      evoluindo: 'developing',
+      atenção: 'attention',
+      crítico: 'critical',
     };
 
-    return performance[value];
+    return performance[value.toLowerCase()];
   }
 
   /**
