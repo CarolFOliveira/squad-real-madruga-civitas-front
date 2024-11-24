@@ -42,16 +42,11 @@ export class TeacherHomeComponent implements OnInit {
   /**
    * Lista de turmas disponíveis para seleção.
    */
-  // TODO: Buscar turmas do professor no backend
-  public options: ISelectOptions[] = [
-    { value: 1, viewValue: '3º ano A' },
-    { value: 2, viewValue: '3º ano B' },
-  ];
+  public options: ISelectOptions[] = [];
 
   /**
    * Lista de usuários (alunos) que será exibida na tabela, objeto do tipo {@link IStudentTableData}
    */
-  // TODO: Buscar alunos de uma determinada turma no backend
   public students: IStudentTableData[] = [];
 
   constructor(
@@ -86,7 +81,7 @@ export class TeacherHomeComponent implements OnInit {
    */
   public onSelect($event: MatSelectChange): void {
     this.selectedClassId = $event.value;
-    this._loadClassroomData();
+    this._loadStudentsFromClassroom();
   }
 
   /**
@@ -117,5 +112,16 @@ export class TeacherHomeComponent implements OnInit {
    */
   private async _loadClassroomData(): Promise<void> {
     this.options = await this._teacherService.getTeacherClassrooms();
+  }
+
+  /**
+   * _loadStudentsFromClassroom
+   *
+   * Inicializa os alunos de uma determinada turma para ser renderizada na tabela.
+   *
+   * @returns Uma `Promise` vazia que é resolvida após carregar os alunos.
+   */
+  private async _loadStudentsFromClassroom(): Promise<void> {
+    this.students = await this._teacherService.getStudentsFromClassroom();
   }
 }

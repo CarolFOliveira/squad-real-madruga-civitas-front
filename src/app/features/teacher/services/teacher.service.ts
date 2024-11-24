@@ -8,6 +8,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 
 // Interfaces
 import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
+import { IStudentTableData } from '../interfaces/IStudentTableData';
 
 // Variable Environment
 import { environment } from 'src/environments/environment';
@@ -43,6 +44,31 @@ export class TeacherService {
       return response.map((classroom) => ({
         value: classroom.id,
         viewValue: classroom.turmaApelido,
+      }));
+    } catch (error) {
+      this._toastService.error('Erro ao carregar as turmas');
+    }
+
+    return [];
+  }
+
+  /**
+   * getStudentsFromClassroom
+   *
+   * Responsável por buscar a lista de alunos associadas a turma no backend.
+   *
+   * @returns Um `Promise` contendo uma lista de alunos do tipo {@link IStudentTableData}.
+   */
+  public async getStudentsFromClassroom(): Promise<IStudentTableData[]> {
+    try {
+      const response = await firstValueFrom(
+        this._http.get<IStudentTableData[]>(`${environment.apiUrl}/alunos`)
+      );
+
+      return response.map((student) => ({
+        id: student.id,
+        name: student.name,
+        performance: student.performance,
       }));
     } catch (error) {
       this._toastService.error('Erro ao carregar as turmas');

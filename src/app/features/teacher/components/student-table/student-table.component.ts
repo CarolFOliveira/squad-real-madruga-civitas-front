@@ -22,7 +22,7 @@ import { IStudentTableData } from '../../interfaces/IStudentTableData';
  * @example
  * ```html
  * <app-student-table
- *   [users]="users"
+ *   [students]="students"
  *   [term]="term"
  *   (termChangeEvent)="term = $event"
  * />
