@@ -1,11 +1,14 @@
 // Libs
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 
 // Components
 import { VideoDialogComponent } from 'src/app/shared/components/video-dialog/video-dialog.component';
 import { StudentTableComponent } from '../../components/student-table/student-table.component';
+
+// Services
+import { TeacherService } from '../../services/teacher.service';
 
 // Interfaces
 import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
@@ -21,7 +24,7 @@ import { IStudentTableData } from '../../interfaces/IStudentTableData';
   templateUrl: './teacher-home.component.html',
   styleUrls: ['./teacher-home.component.scss'],
 })
-export class TeacherHomeComponent {
+export class TeacherHomeComponent implements OnInit {
   @ViewChild(StudentTableComponent) public studentTable!: StudentTableComponent;
 
   /**
@@ -51,7 +54,19 @@ export class TeacherHomeComponent {
   // TODO: Buscar alunos de uma determinada turma no backend
   public students: IStudentTableData[] = [];
 
-  constructor(private _dialog: MatDialog) {}
+  constructor(
+    private _dialog: MatDialog,
+    private _teacherService: TeacherService
+  ) {}
+
+  /**
+   * ngOnInit
+   *
+   * Inicializa o componente buscando os valores das turmas no backend.
+   */
+  public ngOnInit(): void {
+    this._loadClassroomData();
+  }
 
   /**
    * openDialog
@@ -65,13 +80,13 @@ export class TeacherHomeComponent {
   /**
    * onSelect
    *
-   * Captura a opção escolhida pelo usuário na interface.
+   * Captura a opção escolhida pelo usuário na interface e altera o valor de `selectedClassId`.
    *
    * @param $event Evento de mudança gerado pelo `MatSelectChange`, contendo o valor selecionado.
    */
   public onSelect($event: MatSelectChange): void {
-    // TODO: chamar o backend com o valor selecionado
     this.selectedClassId = $event.value;
+    this._loadClassroomData();
   }
 
   /**
@@ -91,5 +106,16 @@ export class TeacherHomeComponent {
    */
   public applyFilter(): void {
     this.studentTable?.applyFilter();
+  }
+
+  /**
+   * _loadClassroomData
+   *
+   * Inicializa as turmas no formulário no formato de array com objetos do tipo {@link ISelectOptions}.
+   *
+   * @returns Uma `Promise` vazia que é resolvida após carregar as turmas.
+   */
+  private async _loadClassroomData(): Promise<void> {
+    this.options = await this._teacherService.getTeacherClassrooms();
   }
 }
