@@ -3,23 +3,6 @@
 
 .section {
   margin-block: 1rem 7.5rem;
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "chart actions";
-  grid-template-columns: 1fr 18.25rem;
-
-  @media screen and (max-width: $breakpoint-tablet) {
-    grid-template-areas:
-      "header"
-      "actions"
-      "chart";
-    grid-template-columns: 1fr;
-  }
-
-  &__header {
-    grid-area: header;
-  }
 
   &__title {
     font-size: clamp(2.6rem, (1rem + 3vw), 4.5rem);
@@ -28,7 +11,7 @@
 
   &__description {
     background-color: $card-bg-color-light;
-    border-radius: 0.6rem;
+    border-radius: 6px;
     border: 1px solid $border-color;
     font-size: 1.75rem;
     padding: 1rem 2rem;
@@ -39,42 +22,6 @@
 
     small {
       display: block;
-    }
-  }
-
-  .chart-container {
-    grid-area: chart;
-
-    button {
-      border-radius: 99rem;
-      padding-inline: 2.5rem;
-
-      @media screen and (max-width: $breakpoint-tablet) {
-        display: flex;
-        justify-self: center;
-        margin-block: 2rem;
-      }
-    }
-  }
-}
-
-.actions {
-  @include center-flex(column, flex-start);
-  grid-area: actions;
-  justify-self: center;
-  max-width: 18rem;
-  padding: 2.25rem 0 1rem 1rem;
-
-  &__field {
-    width: 100%;
-
-    input {
-      color: inherit;
-    }
-
-    .label {
-      font-size: 1.6rem;
-      background-color: $input-label-color;
     }
   }
 }

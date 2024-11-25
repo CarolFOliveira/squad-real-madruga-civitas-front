@@ -43,6 +43,10 @@ apx-chart {
 
   &__field {
     width: 100%;
+
+    input {
+      color: inherit;
+    }
   }
 
   &__label {

@@ -4,33 +4,12 @@
   <header class="section__header">
     <h2 class="section__title">Plano de desenvolvimento individual</h2>
     <p class="section__description">
-      Aluno
-      <strong>Fulano da Silva</strong>
-      - Mátricula 3928173
+      Aluno <strong>Fulano da Silva</strong> - Mátricula 3928173
       <small>Turma 3º ano B</small>
     </p>
   </header>
 
-  <div class="chart-container">
-    <apx-chart
-      [chart]="chartOptions.chart!"
-      [dataLabels]="chartOptions.dataLabels!"
-      [plotOptions]="chartOptions.plotOptions!"
-      [series]="chartOptions.series!"
-      [xaxis]="chartOptions.xaxis!"
-      [yaxis]="chartOptions.yaxis!"
-      [legend]="chartOptions.legend!"
-      [grid]="chartOptions.grid!"
-    ></apx-chart>
-    <button mat-stroked-button color="primary">Ver detalhes</button>
-  </div>
-
-  <div class="actions">
-    <mat-form-field class="actions__field" appearance="outline">
-      <mat-label class="label"> Data último cadastro</mat-label>
-      <input matInput value="18/11/2024" readonly disabled />
-    </mat-form-field>
-
+  <app-student-chart>
     <app-button label="Cadastrar novo PDI" routerLink="cadastrar" />
-  </div>
+  </app-student-chart>
 </section>
