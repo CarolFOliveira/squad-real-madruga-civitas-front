@@ -12,16 +12,8 @@ export class StudentChartComponent implements OnInit {
   public ngOnInit(): void {
     this.chartOptions = {
       series: [
-        {
-          name: 'Mês anterior',
-          color: '#D0BCFF',
-          data: [2, 4, 2],
-        },
-        {
-          name: 'Mês atual',
-          color: '#65558F',
-          data: [3, 3, 3],
-        },
+        { name: 'Mês anterior', data: [4, 3, 2] }, //TODO: trazer dados do backend
+        { name: 'Mês atual', data: [3, 4, 5] },
       ],
       chart: {
         type: 'bar',
@@ -30,7 +22,11 @@ export class StudentChartComponent implements OnInit {
           show: false,
         },
         animations: {
-          speed: 275,
+          easing: 'easeinout',
+          speed: 1,
+          dynamicAnimation: {
+            speed: 250,
+          },
         },
       },
       plotOptions: {
@@ -41,9 +37,13 @@ export class StudentChartComponent implements OnInit {
           borderRadius: 8,
         },
       },
-      dataLabels: {
-        enabled: false,
+      colors: ['#65558F', '#D0BCFF'],
+      legend: {
+        height: 50,
+        offsetY: 10,
+        fontSize: 'clamp(11px, 1vw, 14px)',
       },
+      dataLabels: { enabled: false },
       xaxis: {
         categories: [
           'Desenvolvimento acadêmico',
@@ -62,10 +62,6 @@ export class StudentChartComponent implements OnInit {
           offsetX: -15,
         },
       },
-      legend: {
-        fontSize: '15px',
-        height: 50,
-      },
       grid: {
         borderColor: '#2222220c',
         padding: {
@@ -73,6 +69,23 @@ export class StudentChartComponent implements OnInit {
           left: 0,
         },
       },
+      responsive: [
+        {
+          breakpoint: 598,
+          options: {
+            xaxis: {
+              labels: {
+                formatter: function (value: string) {
+                  return value === 'Desenvolvimento acadêmico'
+                    ? 'Desenv. acadêmico'
+                    : value;
+                },
+                rotateAlways: true,
+              },
+            },
+          },
+        },
+      ],
     };
   }
 }
