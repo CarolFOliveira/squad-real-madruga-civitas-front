@@ -21,10 +21,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // Components
 import { StudentTableComponent } from './components/student-table/student-table.component';
 import { TeacherLayoutComponent } from './components/teacher-layout/teacher-layout.component';
+import { StudentIdpChartComponent } from './pages/student-idp-chart/student-idp-chart.component';
 import { TeacherHomeComponent } from './pages/teacher-home/teacher-home.component';
 
 const COMPONENTS = [
   StudentTableComponent,
+  StudentIdpChartComponent,
   TeacherHomeComponent,
   TeacherLayoutComponent,
 ];
