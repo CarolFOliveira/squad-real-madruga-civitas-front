@@ -1,0 +1,54 @@
+@import "variables";
+
+.section {
+  margin-block: 0.75rem 6rem;
+
+  .description-list {
+    display: grid;
+    column-gap: 2rem;
+    grid-template-columns: max-content 1fr;
+    margin-block: 3rem;
+    row-gap: 1rem;
+
+    dt {
+      font-weight: bold;
+    }
+  }
+}
+
+.title {
+  font-size: clamp(2rem, 1rem + 3vw, 2.5rem);
+  margin-block-start: 5rem;
+}
+
+.list {
+  list-style: none;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    margin-block-end: 1.5rem;
+  }
+
+  .input__label {
+    color: $primary-color;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+}
+
+.textarea-container {
+  background-color: darken($light-bg-color, 2);
+  width: 100%;
+
+  textarea {
+    color: inherit;
+    min-height: 15rem;
+    opacity: 0.65;
+  }
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    background-color: $light-bg-color;
+  }
+}
