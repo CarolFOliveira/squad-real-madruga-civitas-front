@@ -1,0 +1,52 @@
+@import "variables";
+@import "mixins";
+
+:host {
+  display: grid;
+  grid-template-areas:
+    "chart actions"
+    "button actions";
+  grid-template-columns: 1fr 18.25rem;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    grid-template-areas:
+      "actions"
+      "chart"
+      "button";
+    grid-template-columns: 1fr;
+  }
+}
+
+apx-chart {
+  grid-area: chart;
+}
+
+.button {
+  grid-area: button;
+  border-radius: 99rem;
+  max-width: 20rem;
+  padding-inline: 2.5rem;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    display: flex;
+    justify-self: center;
+    margin-block: 2rem;
+  }
+}
+
+.actions {
+  @include center-flex(column, flex-start);
+  grid-area: actions;
+  justify-self: center;
+  max-width: 18rem;
+  padding: 3rem 0 1rem 1rem;
+
+  &__field {
+    width: 100%;
+  }
+
+  &__label {
+    background-color: $input-label-color;
+    font-size: 1.6rem;
+  }
+}

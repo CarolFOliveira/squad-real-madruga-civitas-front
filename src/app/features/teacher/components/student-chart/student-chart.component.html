@@ -1,0 +1,21 @@
+<apx-chart
+  [chart]="chartOptions.chart!"
+  [dataLabels]="chartOptions.dataLabels!"
+  [plotOptions]="chartOptions.plotOptions!"
+  [series]="chartOptions.series!"
+  [xaxis]="chartOptions.xaxis!"
+  [yaxis]="chartOptions.yaxis!"
+  [legend]="chartOptions.legend!"
+  [grid]="chartOptions.grid!"
+></apx-chart>
+
+<button mat-stroked-button color="primary" class="button">Ver detalhes</button>
+
+<div class="actions">
+  <mat-form-field class="actions__field" appearance="outline">
+    <mat-label class="actions__label">Data último cadastro</mat-label>
+    <input matInput value="18/11/2024" readonly />
+  </mat-form-field>
+
+  <ng-content></ng-content>
+</div>
