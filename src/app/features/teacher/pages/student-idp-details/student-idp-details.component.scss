@@ -1,7 +1,10 @@
 @import "variables";
 
 .section {
-  margin-block: 0.75rem 6rem;
+  &__title {
+    font-size: clamp(3.25rem, 1rem + 4vw, 4.5rem);
+    line-height: 1.4;
+  }
 
   .description-list {
     display: grid;
@@ -40,12 +43,17 @@
 
 .textarea-container {
   background-color: darken($light-bg-color, 2);
+  margin-block-start: 3rem;
   width: 100%;
 
   textarea {
     color: inherit;
-    min-height: 15rem;
+    min-height: 20rem;
     opacity: 0.65;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      min-height: 10rem;
+    }
   }
 
   ::ng-deep .mat-mdc-form-field-subscript-wrapper {
