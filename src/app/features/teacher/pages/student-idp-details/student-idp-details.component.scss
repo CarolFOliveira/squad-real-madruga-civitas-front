@@ -2,42 +2,25 @@
 
 .section {
   &__title {
-    font-size: clamp(3.25rem, 1rem + 4vw, 4.5rem);
-    line-height: 1.4;
+    font-size: clamp(2rem, 1rem + 3vw, 2.5rem);
+    margin-block-start: 5rem;
   }
 
-  .description-list {
-    display: grid;
-    column-gap: 2rem;
-    grid-template-columns: max-content 1fr;
-    margin-block: 3rem;
-    row-gap: 1rem;
+  .list {
+    list-style: none;
 
-    dt {
-      font-weight: bold;
+    &__item {
+      display: flex;
+      flex-direction: column;
+      margin-block-end: 1.5rem;
     }
-  }
-}
 
-.title {
-  font-size: clamp(2rem, 1rem + 3vw, 2.5rem);
-  margin-block-start: 5rem;
-}
-
-.list {
-  list-style: none;
-
-  &__item {
-    display: flex;
-    flex-direction: column;
-    margin-block-end: 1.5rem;
-  }
-
-  .input__label {
-    color: $primary-color;
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 1px;
+    .label {
+      color: $primary-color;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
   }
 }
 

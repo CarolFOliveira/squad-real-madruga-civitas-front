@@ -23,6 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Components
 import { StudentChartComponent } from './components/student-chart/student-chart.component';
+import { StudentOverviewComponent } from './components/student-overview/student-overview.component';
 import { StudentTableComponent } from './components/student-table/student-table.component';
 import { TeacherLayoutComponent } from './components/teacher-layout/teacher-layout.component';
 import { StudentIdpChartComponent } from './pages/student-idp-chart/student-idp-chart.component';
@@ -33,6 +34,7 @@ const COMPONENTS = [
   StudentChartComponent,
   StudentIdpChartComponent,
   StudentIdpDetailsComponent,
+  StudentOverviewComponent,
   StudentTableComponent,
   TeacherHomeComponent,
   TeacherLayoutComponent,

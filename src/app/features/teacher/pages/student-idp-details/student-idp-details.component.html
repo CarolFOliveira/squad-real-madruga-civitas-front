@@ -1,53 +1,32 @@
 <app-return-button />
 
-<section class="section">
-  <header class="section__header">
-    <h2 class="section__title">Detalhes do PDI</h2>
-  </header>
+<app-student-overview title="Detalhes do PDI" />
 
-  <dl class="description-list">
-    <dt>Professor(a)</dt>
-    <dd>Ciclano da Silva</dd>
-    <dt>Data</dt>
-    <dd>23/03/2022</dd>
-    <dt>Aluno(a)</dt>
-    <dd>Fulano de tal</dd>
-    <dt>Número de matrícula do aluno</dt>
-    <dd>123213</dd>
-    <dt>Ano/Turma</dt>
-    <dd>3 ano B</dd>
-  </dl>
+<section class="section" *ngFor="let questionGroup of questionGroups">
+  <h3 class="section__title">
+    {{ questionGroup.name + " - " + questionGroup.title }}
+  </h3>
 
-  <ng-container *ngFor="let questionGroup of questionGroups">
-    <h3 class="title">
-      {{ questionGroup.name + " - " + questionGroup.title }}
-    </h3>
-
-    <ul class="list">
-      <li class="list__item" *ngFor="let question of questionGroup.questions">
-        <span>{{ question.text }}</span>
-        <mat-radio-group class="input">
-          <mat-radio-button
-            [value]="answerData[question.name]"
-            checked
-            disabled
-          >
-            <span class="input__label">
-              {{ getAnswer(answerData[question.name]) }}
-            </span>
-          </mat-radio-button>
-        </mat-radio-group>
-      </li>
-    </ul>
-  </ng-container>
-
-  <mat-form-field appearance="outline" class="textarea-container">
-    <mat-label for="comments">Considerações</mat-label>
-    <textarea
-      [disabled]="true"
-      [value]="answerData.comments"
-      matInput
-      readonly
-    ></textarea>
-  </mat-form-field>
+  <ul class="list">
+    <li class="list__item" *ngFor="let question of questionGroup.questions">
+      <span>{{ question.text }}</span>
+      <mat-radio-group>
+        <mat-radio-button [value]="answerData[question.name]" checked disabled>
+          <span class="label">
+            {{ getAnswer(answerData[question.name]) }}
+          </span>
+        </mat-radio-button>
+      </mat-radio-group>
+    </li>
+  </ul>
 </section>
+
+<mat-form-field appearance="outline" class="textarea-container">
+  <mat-label for="comments">Considerações</mat-label>
+  <textarea
+    [disabled]="true"
+    [value]="answerData.comments"
+    matInput
+    readonly
+  ></textarea>
+</mat-form-field>
