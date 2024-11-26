@@ -1,6 +1,6 @@
 <app-return-button />
 
-<app-student-overview title="Detalhes do PDI" />
+<app-student-overview title="Detalhes do PDI" [student]="student" />
 
 <section class="section" *ngFor="let questionGroup of questionGroups">
   <h3 class="section__title">
@@ -13,7 +13,7 @@
       <mat-radio-group>
         <mat-radio-button [value]="answerData[question.name]" checked disabled>
           <span class="label">
-            {{ getAnswer(answerData[question.name]) }}
+            {{ getAnswer(+answerData[question.name]) }}
           </span>
         </mat-radio-button>
       </mat-radio-group>

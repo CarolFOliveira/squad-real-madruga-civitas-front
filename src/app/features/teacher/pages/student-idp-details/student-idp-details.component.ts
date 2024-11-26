@@ -1,43 +1,88 @@
 // Libs
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+// Services
+import { TeacherService } from '../../services/teacher.service';
 
 // Interfaces
 import { IStudentIDPForm } from '../../interfaces/IStudentIDPForm';
+import { IStudentIDPSummary } from '../../interfaces/IStudentIDPSummary';
 
 // Constants
 import { idpAnswerOptions } from '../../constants/idp-answer-options';
 import { idpQuestion } from '../../constants/idp-questions';
 
+/**
+ * StudentIdpDetailsComponent
+ *
+ * Componente que representa a página que exibe os detalhes de um PDI cadastrado no sistema.
+ */
 @Component({
   selector: 'app-student-idp-details',
   templateUrl: './student-idp-details.component.html',
   styleUrls: ['./student-idp-details.component.scss'],
 })
-export class StudentIdpDetailsComponent {
+export class StudentIdpDetailsComponent implements OnInit {
+  /**
+   * Opções de resposta utilizadas no formulário do PDI.
+   */
   public answerOptions = [...idpAnswerOptions];
+
+  /**
+   * Grupos de perguntas utilizadas no formulário do PDI.
+   */
   public questionGroups = [...idpQuestion];
 
-  // TODO: buscar valores no backend
-  public answerData: IStudentIDPForm = {
-    interestEngagement: 3,
-    performanceTests: 4,
-    concentrationAbility: 2,
-    deadlineSkills: 5,
-    contentProgress: 1,
-    frustrationTolerance: 3,
-    emotionExpression: 4,
-    conflictResolution: 2,
-    adaptationAbility: 5,
-    empathyRespect: 4,
-    punctuality: 3,
-    taskCompletion: 1,
-    materialOrganization: 5,
-    collectiveResponsibility: 2,
-    schoolRulesRespect: 4,
-    comments: 'Teste',
-  };
+  /**
+   * Dados das respostas preenchidas no formulário do PDI do aluno.
+   */
+  public answerData: IStudentIDPForm = {} as IStudentIDPForm;
 
-  public getAnswer(value: string | number): string | undefined {
-    return this.answerOptions.find((answer) => answer.value === value)?.text;
+  /**
+   * Informações detalhadas do aluno relacionadas ao PDI.
+   */
+  public student: IStudentIDPSummary = {} as IStudentIDPSummary;
+
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _teacherService: TeacherService
+  ) {}
+
+  /**
+   * ngOnInit
+   *
+   * Busca o id nos parâmetros ao inicializar o componente e carrega as informações do aluno.
+   */
+  public ngOnInit(): void {
+    const studentId = this._activatedRoute.snapshot.paramMap.get('id');
+    this._loadStudentIDPData(studentId);
+  }
+
+  /**
+   * getAnswer
+   *
+   * Busca o texto da opção da opção que será exibida na tela com base no valor fornecido.
+   *
+   * @param value `number` que representa a opção preenchida no formulário do PDI.
+   * @returns `string` que representa o texto que correspondente à resposta.
+   */
+  public getAnswer(value: number): string {
+    const answer = this.answerOptions.find((answer) => answer.value === value);
+    return answer ? answer.text : 'Sem resposta';
+  }
+
+  /**
+   * _loadStudentIDPData
+   *
+   * Carrega os dados do PDI de um aluno, a partir do seu Id.
+   *
+   * @param studentId - O Id do aluno, que pode ser uma `string` ou `null`.
+   * @returns Uma `Promise` que resolve quando os dados forem carregados e atribuídos.
+   */
+  public async _loadStudentIDPData(studentId: string | null): Promise<void> {
+    const response = await this._teacherService.getStudentPDI(studentId);
+    this.student = response.student;
+    this.answerData = response.answerData;
   }
 }
