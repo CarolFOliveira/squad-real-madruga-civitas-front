@@ -10,9 +10,9 @@ export interface IStudentFormValue {
   studentName: string;
 
   /**
-   * O RG do aluno.
+   * O email do aluno.
    */
-  studentRG: string;
+  email: string;
 
   /**
    * O número de matrícula do aluno.

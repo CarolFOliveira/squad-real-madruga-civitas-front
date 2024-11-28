@@ -7,7 +7,7 @@ export interface IStudent {
   id?: number;
   numeroMatricula: string;
   nomeCompleto: string;
-  rg: string;
+  email: string;
   turmaId: string;
   responsavelCpf: string;
 }
