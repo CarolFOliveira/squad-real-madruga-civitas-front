@@ -3,15 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom, Observable, tap } from 'rxjs';
 
-// Interfaces
-import { ILoginRequest } from '../interfaces/ILoginRequest';
-import { ILoginResponse } from '../interfaces/ILoginResponse';
-
 // Env variables
 import { environment } from 'src/environments/environment';
 
 // Services
 import { StorageService } from 'src/app/shared/services/storage.service';
+
+// Interfaces
+import { ILoginCredentials } from '../interfaces/ILoginCredentials';
+import { ILoginResponse } from '../interfaces/ILoginResponse';
 
 /**
  * AuthService
@@ -37,19 +37,16 @@ export class AuthService {
    *
    * Autentica um usuário enviando suas credenciais de login para o backend.
    *
-   * @param credentials - Objeto do tipo {@link ILoginRequest}
+   * @param credentials - Objeto do tipo {@link ILoginCredentials}
    * @remarks Após a autenticação com o back, marca `isAuthenticated$` como `true`
    * para indicar que o usuário está autenticado.
    * @returns Uma `Promise` contendo a resposta, que inclui um `token` se a autenticação
    * for bem-sucedida.
    */
-  public login(credentials: ILoginRequest): Promise<ILoginResponse> {
+  public login(credentials: ILoginCredentials): Promise<ILoginResponse> {
     return firstValueFrom(
       this._http
-        .post<ILoginResponse>(`${environment.apiUrl}/admin/login`, {
-          email: credentials.email,
-          senha: credentials.password,
-        })
+        .post<ILoginResponse>(`${environment.apiUrl}/auth/login`, credentials)
         .pipe(
           tap(() => {
             this.isAuthenticated$.next(true);
@@ -70,7 +67,7 @@ export class AuthService {
    */
   public checkAuthenticationStatus(): Observable<{ authenticated: boolean }> {
     return this._http
-      .get<{ authenticated: boolean }>(`${environment.apiUrl}/membros/status`)
+      .get<{ authenticated: boolean }>(`${environment.apiUrl}/auth/status`)
       .pipe(
         tap(({ authenticated }) => this.isAuthenticated$.next(authenticated))
       );
