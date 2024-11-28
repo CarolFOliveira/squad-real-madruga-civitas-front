@@ -12,6 +12,9 @@ import { AuthService } from '../services/auth.service';
 import { ILoginCredentials } from '../interfaces/ILoginCredentials';
 import { ILoginResponse } from '../interfaces/ILoginResponse';
 
+// Enum
+import { EnumRoles } from 'src/app/shared/enums/EnumRoles';
+
 /**
  * LoginComponent
  *
@@ -94,14 +97,22 @@ export class LoginComponent {
    * @param response - A resposta do servidor do tipo {@link ILoginResponse}.
    * @remarks
    * - Utiliza o serviço do token para armazenar ele no localStorage.
-   * - Redireciona o usuário para a página inicial após o login bem-sucedido.
+   * - Redireciona o usuário para a página inicial do respectivo usuário após o login bem-sucedido.
    */
   private _handleLoginSuccess(response: ILoginResponse): void {
-    const { token, userType } = response;
+    const { token, tipoConta } = response;
 
     if (token) {
+      const routeMap = {
+        [EnumRoles.ADMIN]: 'administrador',
+        [EnumRoles.TEACHER]: 'professor',
+        [EnumRoles.STUDENT]: 'aluno',
+        [EnumRoles.GUARDIAN]: 'aluno',
+      };
+      const route = routeMap[tipoConta as EnumRoles];
+
       this._storageService.saveItem('jwtToken', token);
-      this._router.navigate([userType]);
+      this._router.navigate([route]);
     }
   }
 

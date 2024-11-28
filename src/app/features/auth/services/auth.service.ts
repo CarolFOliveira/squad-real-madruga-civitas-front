@@ -46,7 +46,10 @@ export class AuthService {
   public login(credentials: ILoginCredentials): Promise<ILoginResponse> {
     return firstValueFrom(
       this._http
-        .post<ILoginResponse>(`${environment.apiUrl}/auth/login`, credentials)
+        .post<ILoginResponse>(`${environment.apiUrl}/auth/login`, {
+          email: credentials.email,
+          senha: credentials.password,
+        })
         .pipe(
           tap(() => {
             this.isAuthenticated$.next(true);
