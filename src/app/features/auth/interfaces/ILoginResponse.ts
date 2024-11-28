@@ -1,3 +1,4 @@
 export interface ILoginResponse {
-  token?: string;
+  token: string;
+  userType: string;
 }

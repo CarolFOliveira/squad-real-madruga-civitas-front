@@ -1,0 +1,58 @@
+<section class="section">
+  <header class="section__header">
+    <h2 class="section__title">Seja bem-vindo!</h2>
+    <p class="section__description">
+      Utilize suas credenciais para realizar o login na plataforma Civitas.
+    </p>
+
+    <figure>
+      <img src="assets/logo.png" alt="" />
+      <figcaption>Civitas</figcaption>
+    </figure>
+  </header>
+
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
+    <app-input
+      class="form__field"
+      autocomplete="email"
+      placeholder="Insira seu e-mail"
+      type="email"
+      [control]="loginForm.controls.email"
+      [showErrors]="loginFailed"
+    />
+    <app-input
+      class="form__field"
+      autocomplete="current-password"
+      placeholder="Insira sua senha"
+      type="password"
+      [control]="loginForm.controls.password"
+      [showErrors]="loginFailed"
+    />
+
+    <strong class="form__error" *ngIf="loginForm.errors?.['unauthorized']">
+      Seu e-mail ou senha estão incorretos.
+    </strong>
+
+    <strong class="form__error" *ngIf="loginForm.errors?.['noConnection']">
+      Verifique sua conexão e tente novamente.
+    </strong>
+
+    <strong class="form__error" *ngIf="loginForm.errors?.['serverError']">
+      Houve um problema no servidor.
+    </strong>
+    <app-button label="Entrar" type="submit" [isLoading]="isSubmitting" />
+  </form>
+
+  <picture class="picture">
+    <source
+      type="image/webp"
+      srcset="assets/login-image.webp 1x, assets/login-image2x.webp 2x"
+    />
+    <img
+      class="picture__image"
+      src="assets/login-image.webp"
+      alt="Um grupo de crianças do ensino fundamental está sentado em suas carteiras em uma sala de aula bem iluminada, com as mãos levantadas entusiasticamente. Elas estão engajadas e ansiosas para responder à pergunta da professora.
+    "
+    />
+  </picture>
+</section>
