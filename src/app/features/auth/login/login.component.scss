@@ -9,12 +9,18 @@
   min-height: 100dvh;
   padding: 2rem;
 
-  @media screen and (min-width: $breakpoint-mobile) {
+  @media screen and (min-width: $breakpoint-small-desktop) {
     padding: 0;
   }
 }
 
 .section {
+  --inline-padding: 1.75rem;
+
+  @media screen and (min-width: $breakpoint-mobile) {
+    --inline-padding: 3rem;
+  }
+
   background-color: #fff;
   border-radius: 0.5rem;
   display: grid;
@@ -34,7 +40,7 @@
     @include center-flex(column);
     align-items: flex-start;
     grid-area: header;
-    padding: 3rem 3rem 0;
+    padding: 3rem var(--inline-padding) 0;
 
     figure {
       @include center-flex(column);
@@ -67,7 +73,7 @@
   @include center-flex(column);
   grid-area: form;
   gap: 1rem;
-  padding: 1rem 3rem 3rem;
+  padding: 1rem var(--inline-padding) 3rem;
 
   &__field {
     width: 100%;
@@ -75,10 +81,13 @@
 
   &__error {
     color: $error-color;
-    font-weight: 500;
-    line-height: 0.5;
-    text-align: left;
-    transform: translateY(-200%);
+    align-self: flex-start;
+    line-height: 1.2;
+    transform: translateY(-1.25rem);
+  }
+
+  ::ng-deep .mdc-button {
+    padding: 2rem 4rem;
   }
 }
 

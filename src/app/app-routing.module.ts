@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'administrador',
-    data: { breadcrumbs: 'Tela Inicial' },
+    data: { breadcrumbs: 'Painel Administrativo' },
     loadChildren: () =>
       import('./features/admin/admin.module').then((m) => m.AdminModule),
   },
