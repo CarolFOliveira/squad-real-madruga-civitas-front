@@ -24,6 +24,11 @@
       placeholder="123.456.789-00"
     />
     <app-input
+      [control]="form.controls.email"
+      label="E-mail"
+      placeholder="email@email.com"
+    />
+    <app-input
       [control]="form.controls.enrollmentNumber"
       label="Número de matrícula"
       placeholder="Digite o número da matrícula"

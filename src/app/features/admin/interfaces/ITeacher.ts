@@ -7,6 +7,7 @@ export interface ITeacher {
   id?: number;
   numeroMatricula: string;
   nomeCompleto: string;
+  email: string;
   cpf: string;
   turmas: number[];
 }
