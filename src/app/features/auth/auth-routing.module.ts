@@ -3,15 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Components
-import { AdminLoginComponent } from './login/admin-login/admin-login.component';
-import { ParentsLoginComponent } from './login/parents-login/parents-login.component';
-import { TeacherLoginComponent } from './login/teacher-login/teacher-login.component';
+import { LoginComponent } from './login/login.component';
 
-const routes: Routes = [
-  { path: 'administrador', component: AdminLoginComponent },
-  { path: 'professor', component: TeacherLoginComponent },
-  { path: 'responsavel', component: ParentsLoginComponent },
-];
+const routes: Routes = [{ path: 'login', component: LoginComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
