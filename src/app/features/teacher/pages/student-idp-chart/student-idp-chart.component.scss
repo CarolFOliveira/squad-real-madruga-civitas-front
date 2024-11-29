@@ -1,8 +1,10 @@
 @import "mixins";
 @import "variables";
 
-.section {
-  margin-block: 1rem 7.5rem;
+.idp-chart-section {
+  &__content {
+    margin-block: 1rem 7.5rem;
+  }
 
   &__title {
     font-size: clamp(2.6rem, (1rem + 3vw), 4.5rem);

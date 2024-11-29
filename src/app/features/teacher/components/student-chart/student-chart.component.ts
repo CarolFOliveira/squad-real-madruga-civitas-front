@@ -18,6 +18,8 @@ export class StudentChartComponent implements OnInit {
 
   @Input() public registrationDate: string | undefined;
 
+  @Input() public isLoading = false;
+
   public ngOnInit(): void {
     this.chartOptions = {
       series: [...this.series],

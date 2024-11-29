@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 // App Modules
 import { SharedModule } from '../../shared/shared.module';
@@ -46,6 +47,7 @@ const MODULES = [
   MatInputModule,
   MatTooltipModule,
   NgApexchartsModule,
+  NgxSkeletonLoaderModule,
   FormsModule,
   SharedModule,
   TeacherRoutingModule,

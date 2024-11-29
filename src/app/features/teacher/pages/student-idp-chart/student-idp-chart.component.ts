@@ -9,7 +9,7 @@ import { IStudentIdpSummary } from '../../interfaces/IStudentIdpSummary';
 
 // Services
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { TeacherService } from '../../services/teacher.service';
+import { TeacherAPIService } from '../../services/teacher-api.service';
 
 /**
  * StudentIdpChartComponent
@@ -22,6 +22,13 @@ import { TeacherService } from '../../services/teacher.service';
   styleUrls: ['./student-idp-chart.component.scss'],
 })
 export class StudentIdpChartComponent implements OnInit {
+  /**
+   * Indica o estado de carregamento dos dados.
+   *
+   * @defaultValue `false`
+   */
+  public isLoading = false;
+
   /**
    * ID do aluno recuperado a partir dos parâmetros da rota.
    */
@@ -49,7 +56,7 @@ export class StudentIdpChartComponent implements OnInit {
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _teacherService: TeacherService,
+    private _teacherService: TeacherAPIService,
     private _toastService: ToastService
   ) {}
 
@@ -76,12 +83,15 @@ export class StudentIdpChartComponent implements OnInit {
    * @returns Uma Promise que é resolvida quando todos os dados são carregados.
    */
   private async _initialize(): Promise<void> {
+    this.isLoading = true;
     try {
       await this._loadStudentIdpHistory();
       await this._loadStudentIdpDetails();
       await this._loadStudentData();
     } catch (error) {
       this._toastService.error('Erro ao inicializar os dados');
+    } finally {
+      this.isLoading = false;
     }
   }
 

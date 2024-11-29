@@ -9,7 +9,12 @@
   [series]="chartOptions.series!"
   [xaxis]="chartOptions.xaxis!"
   [yaxis]="chartOptions.yaxis!"
+  *ngIf="!isLoading; else chartSkeleton"
 ></apx-chart>
+
+<ng-template #chartSkeleton>
+  <ngx-skeleton-loader class="chart-skeleton" [theme]="{ 'height.px': 390 }" />
+</ng-template>
 
 <button mat-stroked-button color="primary" class="button">Ver detalhes</button>
 

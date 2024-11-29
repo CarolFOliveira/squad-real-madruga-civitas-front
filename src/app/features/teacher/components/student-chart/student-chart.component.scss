@@ -17,8 +17,13 @@
   }
 }
 
-apx-chart {
+apx-chart,
+.chart-skeleton {
   grid-area: chart;
+}
+
+.chart-skeleton {
+  padding: 2.1rem 5rem 1rem 0;
 }
 
 .button {

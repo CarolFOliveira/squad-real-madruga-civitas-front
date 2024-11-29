@@ -1,19 +1,28 @@
 <app-return-button routerLink="/professor" />
 
-<section class="section">
-  <header class="section__header">
-    <h2 class="section__title">Plano de desenvolvimento individual</h2>
-    <p class="section__description">
+<section class="idp-chart-section__content">
+  <header class="idp-chart-section__header">
+    <h2 class="idp-chart-section__title">
+      Plano de desenvolvimento individual
+    </h2>
+    <p
+      class="idp-chart-section__description"
+      *ngIf="!isLoading; else studentSkeleton"
+    >
       Aluno <strong>{{ idpData.studentName }}</strong> - Mátricula
       {{ idpData.enrollmentNumber }}
       <small>Turma {{ idpData.classroomName }}</small>
     </p>
+
+    <ng-template #studentSkeleton>
+      <ngx-skeleton-loader [theme]="{ 'height.px': 72 }" />
+    </ng-template>
   </header>
 
   <app-student-chart
     [series]="series"
     [registrationDate]="latestStudentIdpRecord.registrationDate"
-    *ngIf="series.length"
+    [isLoading]="isLoading"
   >
     <app-button label="Cadastrar novo PDI" routerLink="cadastrar" />
   </app-student-chart>
