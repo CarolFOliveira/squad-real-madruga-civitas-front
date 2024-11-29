@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ApexOptions } from 'ng-apexcharts';
+import { Component, Input, OnInit } from '@angular/core';
+import { ApexAxisChartSeries, ApexOptions } from 'ng-apexcharts';
 
 /**
  * StudentChartComponent
  *
- * Componente responsável por exibir um gráfico de barras com comparações entre o mês anterior e o
- * mês atual em diferentes categorias de avaliação do Plano de Desenvolvimento Individual do aluno.
+ * Componente que representa a página que mostra gráfico de evolução dos PDIs de um aluno.
  */
 @Component({
   selector: 'app-student-chart',
@@ -13,22 +12,15 @@ import { ApexOptions } from 'ng-apexcharts';
   styleUrls: ['./student-chart.component.scss'],
 })
 export class StudentChartComponent implements OnInit {
-  /**
-   * Configurações do gráfico ApexCharts.
-   */
   public chartOptions!: Partial<ApexOptions>;
 
-  /**
-   * ngOnInit
-   *
-   * Define as configurações iniciais para o gráfico exibido no componente.
-   */
+  @Input() public series: ApexAxisChartSeries = [];
+
+  @Input() public registrationDate: string | undefined;
+
   public ngOnInit(): void {
     this.chartOptions = {
-      series: [
-        { name: 'Mês anterior', data: [4, 3, 2] }, //TODO: trazer dados do backend
-        { name: 'Mês atual', data: [3, 4, 5] },
-      ],
+      series: [...this.series],
       chart: {
         type: 'bar',
         height: 425,

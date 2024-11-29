@@ -4,12 +4,17 @@
   <header class="section__header">
     <h2 class="section__title">Plano de desenvolvimento individual</h2>
     <p class="section__description">
-      Aluno <strong>Fulano da Silva</strong> - Mátricula 3928173
-      <small>Turma 3º ano B</small>
+      Aluno <strong>{{ idpData.studentName }}</strong> - Mátricula
+      {{ idpData.enrollmentNumber }}
+      <small>Turma {{ idpData.classroomName }}</small>
     </p>
   </header>
 
-  <app-student-chart>
+  <app-student-chart
+    [series]="series"
+    [registrationDate]="latestStudentIdpRecord.registrationDate"
+    *ngIf="series.length"
+  >
     <app-button label="Cadastrar novo PDI" routerLink="cadastrar" />
   </app-student-chart>
 </section>
