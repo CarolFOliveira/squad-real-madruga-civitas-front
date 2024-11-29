@@ -40,6 +40,11 @@ export class StudentIdpChartComponent implements OnInit {
   public latestStudentIdpRecord!: IStudentIdpHistory;
 
   /**
+   * Dados gerais do aluno e professor presentes no PDI.
+   */
+  public idpData!: IStudentIdpSummary;
+
+  /**
    * Uma lista com o histórico de PDIs do aluno, cada PDI segue o formato {@link IStudentIdpHistory}.
    */
   public studentIdpHistory: IStudentIdpHistory[] = [];
@@ -47,12 +52,7 @@ export class StudentIdpChartComponent implements OnInit {
   /**
    * Define as séries de dados a serem exibidas no gráfico ApexCharts.
    */
-  public series: ApexAxisChartSeries = [];
-
-  /**
-   * Dados gerais do aluno e professor presentes no PDI.
-   */
-  public idpData!: IStudentIdpSummary;
+  public series!: ApexAxisChartSeries;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -106,7 +106,8 @@ export class StudentIdpChartComponent implements OnInit {
     this.studentIdpHistory = await this._teacherService.getStudentIdpHistory(
       this.studentId
     );
-    this.latestStudentIdpRecord = this.studentIdpHistory[0];
+    if (this.studentIdpHistory.length)
+      this.latestStudentIdpRecord = this.studentIdpHistory[0];
   }
 
   /**

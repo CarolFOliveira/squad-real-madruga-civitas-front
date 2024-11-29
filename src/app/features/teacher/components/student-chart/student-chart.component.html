@@ -1,26 +1,31 @@
-<apx-chart
-  [chart]="chartOptions.chart!"
-  [colors]="chartOptions.colors!"
-  [dataLabels]="chartOptions.dataLabels!"
-  [grid]="chartOptions.grid!"
-  [legend]="chartOptions.legend!"
-  [plotOptions]="chartOptions.plotOptions!"
-  [responsive]="chartOptions.responsive!"
-  [series]="chartOptions.series!"
-  [xaxis]="chartOptions.xaxis!"
-  [yaxis]="chartOptions.yaxis!"
-  *ngIf="!isLoading; else chartSkeleton"
-></apx-chart>
+<ng-container *ngIf="!isLoading; else chartSkeleton">
+  <apx-chart
+    [series]="series"
+    [chart]="chartOptions.chart!"
+    [colors]="chartOptions.colors!"
+    [dataLabels]="chartOptions.dataLabels!"
+    [grid]="chartOptions.grid!"
+    [legend]="chartOptions.legend!"
+    [plotOptions]="chartOptions.plotOptions!"
+    [responsive]="chartOptions.responsive!"
+    [xaxis]="chartOptions.xaxis!"
+    [yaxis]="chartOptions.yaxis!"
+  ></apx-chart>
+</ng-container>
 
 <ng-template #chartSkeleton>
-  <ngx-skeleton-loader class="chart-skeleton" [theme]="{ 'height.px': 390 }" />
+  <ngx-skeleton-loader class="skeleton" [theme]="{ 'height.px': 390 }" />
 </ng-template>
 
 <button mat-stroked-button color="primary" class="button">Ver detalhes</button>
 
 <div class="actions">
-  <mat-form-field class="actions__field" appearance="outline">
-    <mat-label class="actions__label">Data último cadastro</mat-label>
+  <mat-form-field
+    class="actions__field"
+    appearance="outline"
+    *ngIf="registrationDate"
+  >
+    <mat-label class="actions__label">Data do registro</mat-label>
     <input matInput [value]="registrationDate" readonly disabled />
   </mat-form-field>
 
