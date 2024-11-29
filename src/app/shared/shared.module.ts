@@ -30,6 +30,11 @@ import { SelectComponent } from './components/select/select.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
 
+// Pipes
+import { PerformanceClassPipe } from './pipes/performance-class.pipe';
+
+const PIPES = [PerformanceClassPipe];
+
 const COMPONENTS = [
   BrandLinkComponent,
   BreadcrumbsComponent,
@@ -61,9 +66,9 @@ const MODULES = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, ...PIPES],
   providers: [provideNgxMask()],
   imports: [...MODULES, NgxMaskDirective, NgxMaskPipe, RouterLink],
-  exports: [...COMPONENTS],
+  exports: [...COMPONENTS, ...PIPES],
 })
 export class SharedModule {}
