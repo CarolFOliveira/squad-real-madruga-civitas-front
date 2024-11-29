@@ -5,19 +5,26 @@
   </ng-container>
 
   <ng-container matColumnDef="performance">
-    <th mat-header-cell mat-sort-header *matHeaderCellDef class="center">
+    <th
+      mat-header-cell
+      mat-sort-header
+      *matHeaderCellDef
+      class="table__cell--center"
+    >
       Desempenho
     </th>
-    <td mat-cell *matCellDef="let row" class="center">
-      <span class="badge" [class]="getPerformanceClass(row.performance)">
+    <td mat-cell *matCellDef="let row" class="table__cell--center">
+      <span class="table__badge" [class]="getPerformanceClass(row.performance)">
         {{ row.performance }}
       </span>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="link">
-    <th mat-header-cell *matHeaderCellDef class="right">Visualizar PDI</th>
-    <td mat-cell *matCellDef="let row" class="right">
+    <th mat-header-cell *matHeaderCellDef class="table__cell--right">
+      Visualizar PDI
+    </th>
+    <td mat-cell *matCellDef="let row" class="table__cell--right">
       <button
         [routerLink]="['aluno-pdi', row.id]"
         [matTooltip]="'Ver PDI de ' + row.name"
@@ -34,10 +41,10 @@
   <tr
     mat-row
     *matRowDef="let row; let even = even; columns: displayedColumns"
-    [ngClass]="{ alternate: even }"
+    [ngClass]="{ 'table__row--alternate': even }"
   ></tr>
   <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" colspan="4" class="table__empty">
+    <td class="mat-cell table__empty" colspan="4">
       Nenhum aluno encontrado.
       <button *ngIf="term" (click)="clearSearch()">Limpar filtros</button>
     </td>

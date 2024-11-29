@@ -10,11 +10,7 @@
     width: 33.33%;
   }
 
-  .alternate {
-    background-color: rgba($border-color, 0.02);
-  }
-
-  .badge {
+  &__badge {
     border-radius: 99rem;
     border: 1px solid;
     display: inline-block;
@@ -23,34 +19,46 @@
     text-transform: capitalize;
   }
 
-  .badge.outstanding {
+  &__badge.outstanding {
     background-color: rgba($green-color, 0.05);
     border-color: rgba($green-color, 0.85);
     color: $green-color;
   }
 
-  .badge.reliable {
+  &__badge.reliable {
     background-color: rgba($blue-color, 0.05);
     border-color: rgba($blue-color, 0.85);
     color: $blue-color;
   }
 
-  .badge.developing {
+  &__badge.developing {
     background-color: rgba($blue-gray-color, 0.05);
     border-color: rgba($blue-gray-color, 0.85);
     color: $blue-gray-color;
   }
 
-  .badge.attention {
+  &__badge.attention {
     background-color: rgba($orange-color, 0.05);
     border-color: rgba($orange-color, 0.85);
     color: $orange-color;
   }
 
-  .badge.critical {
+  &__badge.critical {
     background-color: rgba($error-color, 0.05);
     border-color: rgba($error-color, 0.85);
     color: $error-color;
+  }
+
+  &__row--alternate {
+    background-color: rgba($border-color, 0.02);
+  }
+
+  &__cell--right {
+    text-align: right;
+  }
+
+  &__cell--center {
+    text-align: center;
   }
 
   &__empty {
@@ -63,14 +71,6 @@
       text-decoration: underline;
     }
   }
-}
-
-.right {
-  text-align: right;
-}
-
-.center {
-  text-align: center;
 }
 
 ::ng-deep .center .mat-sort-header-container {
