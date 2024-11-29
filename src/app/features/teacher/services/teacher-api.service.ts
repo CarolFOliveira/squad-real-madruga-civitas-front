@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class TeacherService {
+export class TeacherAPIService {
   constructor(private _http: HttpClient, private _toastService: ToastService) {}
 
   /**

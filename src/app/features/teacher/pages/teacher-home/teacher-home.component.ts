@@ -8,7 +8,7 @@ import { VideoDialogComponent } from 'src/app/shared/components/video-dialog/vid
 import { StudentTableComponent } from '../../components/student-table/student-table.component';
 
 // Services
-import { TeacherService } from '../../services/teacher.service';
+import { TeacherAPIService } from '../../services/teacher-api.service';
 
 // Interfaces
 import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
@@ -51,7 +51,7 @@ export class TeacherHomeComponent implements OnInit {
 
   constructor(
     private _dialog: MatDialog,
-    private _teacherService: TeacherService
+    private _teacherService: TeacherAPIService
   ) {}
 
   /**
