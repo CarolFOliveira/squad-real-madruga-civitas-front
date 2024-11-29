@@ -1,18 +1,18 @@
 @import "mixins";
 @import "variables";
 
-.section {
+.teacher-home {
   &__header {
     margin-block-start: 5rem;
   }
 
   &__title {
-    font-size: clamp(3.25rem, (1rem + 4vw), 4.5rem);
+    font-size: clamp(2.9rem, (1rem + 4vw), 4.5rem);
     line-height: 1.4;
     margin-block-start: -0.25rem;
   }
 
-  &__button {
+  &__help-button {
     display: block;
     background-color: rgba($sidebar-active-color, 0.2) !important;
     border-radius: 99rem;
@@ -25,7 +25,7 @@
     }
   }
 
-  &__empty-state {
+  &__empty-state-message {
     background-color: rgba($card-bg-color-dark, 0.1);
     border-radius: 0.5rem;
     border: 1px solid $card-bg-color-dark;
@@ -44,32 +44,32 @@
       content: "🛈";
     }
   }
-}
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 2rem;
-
-  &__description {
-    flex-basis: 100%;
-  }
-
-  &__select {
-    flex: 2;
-  }
-
-  &__search {
+  &__filters {
     display: flex;
-    flex: 1;
+    flex-wrap: wrap;
+    column-gap: 2rem;
 
-    @media screen and (min-width: $breakpoint-small-desktop) {
-      max-width: 38.75rem;
+    &-description {
+      flex-basis: 100%;
     }
-  }
 
-  &__select,
-  &__search {
-    min-width: 30rem;
+    &-select {
+      flex: 2;
+    }
+
+    &-search {
+      display: flex;
+      flex: 1;
+
+      @media screen and (min-width: $breakpoint-small-desktop) {
+        max-width: 38.75rem;
+      }
+    }
+
+    &-select,
+    &-search {
+      min-width: 30rem;
+    }
   }
 }

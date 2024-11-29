@@ -1,6 +1,6 @@
-<section class="section">
-  <header class="section__header">
-    <h2 class="section__title">Plano de desenvolvimento individual</h2>
+<section class="teacher-home__content">
+  <header class="teacher-home__header">
+    <h2 class="teacher-home__title">Plano de desenvolvimento individual</h2>
     <p>
       Olá, professor(a).
       <br />
@@ -9,15 +9,19 @@
     </p>
   </header>
 
-  <button mat-flat-button class="section__button" (click)="openDialog()">
+  <button
+    mat-flat-button
+    class="teacher-home__help-button"
+    (click)="openDialog()"
+  >
     Ficou com alguma duvida? <strong>Clique aqui</strong>
   </button>
 
-  <div class="filters">
-    <p class="filters__description">
+  <div class="teacher-home__filters">
+    <p class="teacher-home__filters-description">
       Selecione uma turma para visualizar os alunos
     </p>
-    <mat-form-field appearance="outline" class="filters__select">
+    <mat-form-field appearance="outline" class="teacher-home__filters-select">
       <mat-select
         placeholder="Selecione uma Turma"
         (selectionChange)="onSelect($event)"
@@ -28,7 +32,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="filters__search" appearance="outline">
+    <mat-form-field class="teacher-home__filters-search" appearance="outline">
       <button
         mat-icon-button
         matSuffix
@@ -57,11 +61,14 @@
     *ngIf="students.length"
   />
 
-  <p class="section__empty-state" *ngIf="!selectedClassId">
+  <p class="teacher-home__empty-state-message" *ngIf="!selectedClassId">
     Por favor, selecione uma turma para visualizar os alunos.
   </p>
 
-  <p class="section__empty-state" *ngIf="selectedClassId && !students.length">
+  <p
+    class="teacher-home__empty-state-message"
+    *ngIf="selectedClassId && !students.length"
+  >
     Ainda <strong>não</strong> há alunos cadastrados para esta turma no banco de
     dados.
   </p>
