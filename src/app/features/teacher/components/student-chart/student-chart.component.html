@@ -17,17 +17,28 @@
   <ngx-skeleton-loader class="skeleton" [theme]="{ 'height.px': 390 }" />
 </ng-template>
 
-<button mat-stroked-button color="primary" class="button">Ver detalhes</button>
+<button
+  mat-stroked-button
+  color="primary"
+  class="button"
+  [disabled]="!studentIdpRecords.length"
+>
+  Ver detalhes
+</button>
 
 <div class="actions">
-  <mat-form-field
-    class="actions__field"
-    appearance="outline"
-    *ngIf="registrationDate"
-  >
-    <mat-label class="actions__label">Data do registro</mat-label>
-    <input matInput [value]="registrationDate" readonly disabled />
+  <mat-form-field class="actions__field" appearance="outline">
+    <mat-label class="actions__label">
+      {{ studentIdpRecords.length ? "Seleciona uma data" : "Não há dados" }}
+    </mat-label>
+    <mat-select [formControl]="optionsControl" name="studentRecords">
+      <mat-option
+        *ngFor="let studentIdpRecord of studentIdpRecords"
+        [value]="studentIdpRecord.id"
+      >
+        {{ studentIdpRecord.registrationDate }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
-
   <ng-content></ng-content>
 </div>

@@ -1,7 +1,7 @@
 // Libs
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
@@ -37,18 +37,19 @@ const COMPONENTS = [
 
 const MODULES = [
   CommonModule,
+  FormsModule,
   MatBadgeModule,
   MatButtonModule,
   MatFormFieldModule,
   MatIconModule,
+  MatInputModule,
   MatSelectModule,
   MatSortModule,
   MatTableModule,
-  MatInputModule,
   MatTooltipModule,
   NgApexchartsModule,
   NgxSkeletonLoaderModule,
-  FormsModule,
+  ReactiveFormsModule,
   SharedModule,
   TeacherRoutingModule,
 ];

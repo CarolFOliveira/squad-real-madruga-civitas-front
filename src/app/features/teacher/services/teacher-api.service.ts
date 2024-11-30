@@ -91,7 +91,7 @@ export class TeacherAPIService {
   public getStudentIdp(id: number | null): Promise<IStudentIdpDetails> {
     return firstValueFrom(
       this._http.get<IStudentIdpDetails>(
-        `${environment.apiUrl}/pdi/alunos/${id}/detalhes`
+        `${environment.apiUrl}/pdi/${id}/detalhes`
       )
     );
   }

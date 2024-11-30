@@ -52,7 +52,7 @@ export class StudentIdpChartComponent implements OnInit {
   /**
    * Define as séries de dados a serem exibidas no gráfico ApexCharts.
    */
-  public series!: ApexAxisChartSeries;
+  public series: ApexAxisChartSeries = [{ data: [] }];
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -87,7 +87,7 @@ export class StudentIdpChartComponent implements OnInit {
     try {
       await this._loadStudentIdpHistory();
       await this._loadStudentIdpDetails();
-      await this._loadStudentData();
+      // await this._loadStudentData();
     } catch (error) {
       this._toastService.error('Erro ao inicializar os dados');
     } finally {
@@ -115,12 +115,15 @@ export class StudentIdpChartComponent implements OnInit {
    *
    * Carrega os dados do PDI de um aluno específico, utilizando o ID do último PDI carregado.
    *
+   * @param id `number` (opcional) O identificador numérico do PDI a ser exibido.
+   * @remarks
+   * - Se um ID for fornecido, exibe os dados do PDI relacionados a esse PDI.
+   * - Caso contrário, utiliza o ID do último PDI cadastrado.
    * @returns Uma Promise resolvida quando o último PDI do aluno é carregado com sucesso.
    */
-  private async _loadStudentIdpDetails(): Promise<void> {
-    const studentIdp = await this._teacherService.getStudentIdp(
-      this.latestStudentIdpRecord.id
-    );
+  private async _loadStudentIdpDetails(id?: number): Promise<void> {
+    const idpId = id ? id : this.latestStudentIdpRecord.id;
+    const studentIdp = await this._teacherService.getStudentIdp(idpId);
     this.series = [
       { name: 'Mês Anterior', data: [...studentIdp.previousIdpAverages] },
       { name: 'Mês Atual', data: [...studentIdp.averages] },
@@ -150,5 +153,23 @@ export class StudentIdpChartComponent implements OnInit {
   private _getStudentId(): void {
     const id = this._activatedRoute.snapshot.paramMap.get('id');
     this.studentId = Number(id);
+  }
+
+  /**
+   * onSelectedIdChange
+   *
+   * Manipula a mudança de ID selecionado e carrega os detalhes do PDI correspondente.
+   *
+   * @param id `number` que representa o id do PDI selecionado.
+   * @remarks
+   * Se houver um erro nesse processo, uma notificação aparece para o usuário.
+   * @returns Uma `Promise<void>` que é resolvida quando a operação é concluída.
+   */
+  async onSelectedIdChange(id: number): Promise<void> {
+    try {
+      await this._loadStudentIdpDetails(id);
+    } catch (error) {
+      this._toastService.error('Não foi possível carregar os dados do PDI');
+    }
   }
 }

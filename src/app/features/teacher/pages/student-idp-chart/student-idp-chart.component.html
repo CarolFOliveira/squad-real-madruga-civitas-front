@@ -20,13 +20,12 @@
     </ng-template>
   </header>
 
-  <ng-container *ngIf="latestStudentIdpRecord">
-    <app-student-chart
-      [series]="series"
-      [isLoading]="isLoading"
-      [registrationDate]="latestStudentIdpRecord.registrationDate"
-    >
-      <app-button label="Cadastrar novo PDI" routerLink="cadastrar" />
-    </app-student-chart>
-  </ng-container>
+  <app-student-chart
+    [series]="series"
+    [isLoading]="isLoading"
+    [studentIdpRecords]="studentIdpHistory"
+    (selectedIdChange)="onSelectedIdChange($event)"
+  >
+    <app-button label="Cadastrar novo PDI" routerLink="cadastrar" />
+  </app-student-chart>
 </section>
