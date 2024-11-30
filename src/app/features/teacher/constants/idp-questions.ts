@@ -19,20 +19,20 @@ export const idpQuestion: IQuestionGroups[] = [
         text: 'Nível de interesse e engajamento nas atividades de sala de aula:',
       },
       {
-        name: 'performanceTests',
-        text: 'Desempenho em testes e atividades avaliativas:',
-      },
-      {
         name: 'concentrationAbility',
         text: 'Capacidade de concentração durante as aulas:',
       },
       {
-        name: 'deadlineSkills',
-        text: 'Habilidade em cumprir com prazos e trabalhos escolares:',
+        name: 'activeParticipation',
+        text: 'Participação ativa em discussões em sala de aula:',
       },
       {
-        name: 'contentProgress',
-        text: 'Progresso no domínio dos conteúdos do currículo:',
+        name: 'practicalApplication',
+        text: 'Capacidade de aplicar conceitos aprendidos em problemas práticos:',
+      },
+      {
+        name: 'helpSeekingInitiative',
+        text: 'Iniciativa em buscar ajuda para resolver dúvidas:',
       },
     ],
   },
@@ -46,10 +46,6 @@ export const idpQuestion: IQuestionGroups[] = [
         text: 'Capacidade de lidar com frustrações e desafios:',
       },
       {
-        name: 'emotionExpression',
-        text: 'Expressão adequada de emoções em diferentes situações:',
-      },
-      {
         name: 'conflictResolution',
         text: 'Habilidade em resolver conflitos com colegas de forma pacífica:',
       },
@@ -60,6 +56,10 @@ export const idpQuestion: IQuestionGroups[] = [
       {
         name: 'empathyRespect',
         text: 'Empatia e respeito pelos sentimentos dos colegas e professores:',
+      },
+      {
+        name: 'collaborativeAttitude',
+        text: 'Atitude colaborativa ao trabalhar em grupo:',
       },
     ],
   },
@@ -73,20 +73,20 @@ export const idpQuestion: IQuestionGroups[] = [
         text: 'Pontualidade e assiduidade nas atividades escolares:',
       },
       {
-        name: 'taskCompletion',
-        text: 'Cumprimento de tarefas individuais e em grupo:',
-      },
-      {
-        name: 'materialOrganization',
-        text: 'Capacidade de manter materiais e pertences organizados:',
-      },
-      {
         name: 'collectiveResponsibility',
-        text: 'Participação em atividades de responsabilidade coletiva, como limpeza da sala ou atividades de grupo:',
+        text: 'Participação em atividades de responsabilidade coletiva e atividades de grupo:',
       },
       {
         name: 'schoolRulesRespect',
         text: 'Respeito pelas regras e normas da escola:',
+      },
+      {
+        name: 'resourceResponsibility',
+        text: 'Responsabilidade no uso de materiais e recursos da escola:',
+      },
+      {
+        name: 'activityPlanning',
+        text: 'Habilidade em planejar suas atividades de modo a cumprir compromissos escolares:',
       },
     ],
   },

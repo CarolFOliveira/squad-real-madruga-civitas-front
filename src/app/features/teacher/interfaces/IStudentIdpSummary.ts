@@ -9,4 +9,5 @@ export interface IStudentIdpSummary {
   studentName: string;
   teacherName: string;
   enrollmentNumber: string;
+  idpRegisterDate: string;
 }
