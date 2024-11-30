@@ -17,7 +17,15 @@
   <ngx-skeleton-loader class="skeleton" [theme]="{ 'height.px': 390 }" />
 </ng-template>
 
-<button mat-stroked-button color="primary" class="button">Ver detalhes</button>
+<button
+  mat-stroked-button
+  color="primary"
+  class="button"
+  [disabled]="!selectedId"
+  [routerLink]="['detalhes', selectedId]"
+>
+  Ver detalhes
+</button>
 
 <div class="actions">
   <mat-form-field class="actions__field" appearance="outline">

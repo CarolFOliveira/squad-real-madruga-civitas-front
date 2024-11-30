@@ -2,7 +2,7 @@
 import { Component, Input } from '@angular/core';
 
 // Interfaces
-import { IStudentIDPSummary } from '../../interfaces/IStudentIDPSummary';
+import { IStudentIdpSummary } from '../../interfaces/IStudentIdpSummary';
 
 /**
  * StudentOverviewComponent
@@ -23,5 +23,5 @@ export class StudentOverviewComponent {
   /**
    * Informações do aluno que serão exibidas em tela.
    */
-  @Input() public student!: IStudentIDPSummary;
+  @Input() public student!: IStudentIdpSummary;
 }

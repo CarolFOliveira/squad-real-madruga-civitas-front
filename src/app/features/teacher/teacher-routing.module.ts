@@ -19,7 +19,7 @@ const routes: Routes = [
         component: StudentIdpChartComponent,
       },
       {
-        path: 'aluno-pdi/:id/detalhes',
+        path: 'aluno-pdi/:studentId/detalhes/:idpId',
         component: StudentIdpDetailsComponent,
       },
     ],

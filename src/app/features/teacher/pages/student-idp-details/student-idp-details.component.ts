@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // Services
-import { TeacherService } from '../../services/teacher.service';
+import { TeacherAPIService } from '../../services/teacher-api.service';
 
 // Interfaces
-import { IStudentIDPForm } from '../../interfaces/IStudentIDPForm';
-import { IStudentIDPSummary } from '../../interfaces/IStudentIDPSummary';
+import { IStudentIdpDetails } from '../../interfaces/IStudentIdpDetails';
+import { IStudentIdpSummary } from '../../interfaces/IStudentIdpSummary';
 
 // Constants
 import { idpAnswerOptions } from '../../constants/idp-answer-options';
@@ -25,6 +25,13 @@ import { idpQuestion } from '../../constants/idp-questions';
 })
 export class StudentIdpDetailsComponent implements OnInit {
   /**
+   * Indica o estado de carregamento dos dados.
+   *
+   * @defaultValue `false`
+   */
+  public isLoading = false;
+
+  /**
    * Opções de resposta utilizadas no formulário do PDI.
    */
   public answerOptions = [...idpAnswerOptions];
@@ -37,26 +44,43 @@ export class StudentIdpDetailsComponent implements OnInit {
   /**
    * Dados das respostas preenchidas no formulário do PDI do aluno.
    */
-  public answerData: IStudentIDPForm = {} as IStudentIDPForm;
+  public answerData: IStudentIdpDetails = {} as IStudentIdpDetails;
 
   /**
    * Informações detalhadas do aluno relacionadas ao PDI.
    */
-  public student: IStudentIDPSummary = {} as IStudentIDPSummary;
+  public student: IStudentIdpSummary = {} as IStudentIdpSummary;
+
+  public studentId!: number;
+  public idpId!: number;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _teacherService: TeacherService
+    private _teacherApiService: TeacherAPIService
   ) {}
 
   /**
    * ngOnInit
    *
-   * Busca o id nos parâmetros ao inicializar o componente e carrega as informações do aluno.
+   * Busca o id nos parâmetros ao inicializar o componente e carrega as informações do aluno e do PDI.
    */
   public ngOnInit(): void {
-    const studentId = this._activatedRoute.snapshot.paramMap.get('id');
-    this._loadStudentIDPData(studentId);
+    this._getRouteParamsId();
+    this._initialize();
+  }
+
+  private _getRouteParamsId(): void {
+    const studentId = this._activatedRoute.snapshot.paramMap.get('studentId');
+    const idpId = this._activatedRoute.snapshot.paramMap.get('idpId');
+
+    if (studentId && idpId) {
+      this.studentId = Number(studentId);
+      this.idpId = Number(idpId);
+    }
+  }
+
+  private _initialize(): void {
+    this._loadStudentIdpData();
   }
 
   /**
@@ -73,16 +97,15 @@ export class StudentIdpDetailsComponent implements OnInit {
   }
 
   /**
-   * _loadStudentIDPData
+   * _loadStudentIdpData
    *
    * Carrega os dados do PDI de um aluno, a partir do seu Id.
    *
-   * @param studentId - O Id do aluno, que pode ser uma `string` ou `null`.
    * @returns Uma `Promise` que resolve quando os dados forem carregados e atribuídos.
    */
-  public async _loadStudentIDPData(studentId: string | null): Promise<void> {
-    const response = await this._teacherService.getStudentPDI(studentId);
-    this.student = response.student;
-    this.answerData = response.answerData;
+  public async _loadStudentIdpData(): Promise<void> {
+    this.answerData = await this._teacherApiService.getStudentIdp(
+      this.studentId
+    );
   }
 }
