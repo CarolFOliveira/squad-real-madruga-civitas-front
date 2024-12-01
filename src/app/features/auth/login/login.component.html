@@ -1,12 +1,15 @@
-<section class="section">
-  <header class="section__header">
-    <h2 class="section__title">Seja bem-vindo!</h2>
-    <p class="section__description">
+<section class="login-section">
+  <header class="login-section__header">
+    <h2 class="login-section__title">Seja bem-vindo!</h2>
+    <p class="login-section__description">
       Utilize suas credenciais para realizar o login na plataforma Civitas.
     </p>
 
-    <figure>
-      <img src="assets/logo.png" alt="" />
+    <figure class="login-section__brand-logo">
+      <img
+        src="assets/logo.png"
+        alt="Logo da Civitas: Uma imagem estilizada com uma figura central de uma silhueta de uma pessoa com os braços abertos, alcançando uma estrela. Ao redor, formas que lembram folhas ou pétalas em tons de laranja, verde e azul claro, com uma estrela amarela acima da mão da pessoa."
+      />
       <figcaption>Civitas</figcaption>
     </figure>
   </header>
@@ -43,16 +46,14 @@
     <app-button label="Entrar" type="submit" [isLoading]="isSubmitting" />
   </form>
 
-  <picture class="picture">
+  <picture class="login-section__picture">
     <source
       type="image/webp"
       srcset="assets/login-image.webp 1x, assets/login-image2x.webp 2x"
     />
     <img
-      class="picture__image"
       src="assets/login-image.webp"
-      alt="Um grupo de crianças do ensino fundamental está sentado em suas carteiras em uma sala de aula bem iluminada, com as mãos levantadas entusiasticamente. Elas estão engajadas e ansiosas para responder à pergunta da professora.
-    "
+      alt="Um grupo de crianças do ensino fundamental está sentado em suas carteiras em uma sala de aula bem iluminada, com as mãos levantadas entusiasticamente. Elas estão engajadas e ansiosas para responder à pergunta da professora."
     />
   </picture>
 </section>
