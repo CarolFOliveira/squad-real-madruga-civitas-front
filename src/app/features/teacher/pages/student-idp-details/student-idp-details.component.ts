@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // Services
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { TeacherAPIService } from '../../services/teacher-api.service';
 
 // Interfaces
@@ -51,36 +52,29 @@ export class StudentIdpDetailsComponent implements OnInit {
    */
   public student: IStudentIdpSummary = {} as IStudentIdpSummary;
 
+  /**
+   * Id do aluno que é extraído dos parâmetros da rota.
+   */
   public studentId!: number;
+
+  /**
+   * Id do PDI que é extraído dos parâmetros da rota.
+   */
   public idpId!: number;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _teacherApiService: TeacherAPIService
+    private _teacherApiService: TeacherAPIService,
+    private _toastService: ToastService
   ) {}
 
   /**
    * ngOnInit
    *
-   * Busca o id nos parâmetros ao inicializar o componente e carrega as informações do aluno e do PDI.
+   * Executa o método para inicializar os dados do componente com informações do aluno e do PDI.
    */
   public ngOnInit(): void {
-    this._getRouteParamsId();
     this._initialize();
-  }
-
-  private _getRouteParamsId(): void {
-    const studentId = this._activatedRoute.snapshot.paramMap.get('studentId');
-    const idpId = this._activatedRoute.snapshot.paramMap.get('idpId');
-
-    if (studentId && idpId) {
-      this.studentId = Number(studentId);
-      this.idpId = Number(idpId);
-    }
-  }
-
-  private _initialize(): void {
-    this._loadStudentIdpData();
   }
 
   /**
@@ -97,15 +91,62 @@ export class StudentIdpDetailsComponent implements OnInit {
   }
 
   /**
+   * _initialize
+   *
+   * Método privado responsável por inicializar o carregamento dos dados do aluno e seu PDI.
+   *
+   * @remarks
+   * Se houver algum erro nesse processo será exibido uma mensagem de erro ao usuário.
+   */
+  private async _initialize(): Promise<void> {
+    this.isLoading = true;
+    try {
+      this._getRouteParamsId();
+      await this._loadStudentIdpData();
+      await this._loadStudentData();
+    } catch (error) {
+      this._toastService.error('Não foi possível carregar algumas informações');
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  /**
+   * _getRouteParamsId
+   *
+   * Recupera os parâmetros da URL e atribui os valores de `studentId` e `idpId` a partir dos parâmetros de rota.
+   */
+  private _getRouteParamsId(): void {
+    const studentId = this._activatedRoute.snapshot.paramMap.get('studentId');
+    const idpId = this._activatedRoute.snapshot.paramMap.get('idpId');
+
+    if (studentId && idpId) {
+      this.studentId = Number(studentId);
+      this.idpId = Number(idpId);
+    }
+  }
+
+  /**
    * _loadStudentIdpData
    *
    * Carrega os dados do PDI de um aluno, a partir do seu Id.
    *
    * @returns Uma `Promise` que resolve quando os dados forem carregados e atribuídos.
    */
-  public async _loadStudentIdpData(): Promise<void> {
+  private async _loadStudentIdpData(): Promise<void> {
     this.answerData = await this._teacherApiService.getStudentIdp(
       this.studentId
     );
+  }
+
+  /**
+   * _loadStudentData
+   *
+   * Carrega os dados de um determinado aluno e seu professor.
+   *
+   * @returns Uma `Promise` que resolve quando os dados forem carregados e atribuídos.
+   */
+  private async _loadStudentData(): Promise<void> {
+    this.student = await this._teacherApiService.getStudentData(this.studentId);
   }
 }
