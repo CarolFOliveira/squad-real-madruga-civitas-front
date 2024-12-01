@@ -1,11 +1,8 @@
-// Libs
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// Components
-import { HomeComponent } from './core/home/home.component';
-
 const routes: Routes = [
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>
@@ -23,7 +20,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/teacher/teacher.module').then((m) => m.TeacherModule),
   },
-  { path: '', component: HomeComponent },
 ];
 
 @NgModule({

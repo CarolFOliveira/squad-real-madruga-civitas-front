@@ -7,7 +7,6 @@ import { provideHotToastConfig } from '@ngneat/hot-toast';
 
 // App Modules
 import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core/core.module';
 
 // Angular Material
 import { MatPaginatorIntl } from '@angular/material/paginator';
@@ -28,7 +27,6 @@ import { PaginatorIntlService } from './shared/services/paginator-intl.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    CoreModule,
   ],
   providers: [
     {
