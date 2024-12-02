@@ -26,6 +26,7 @@ export class Teacher {
     return {
       teacherName: teacher.nomeCompleto,
       teacherCPF: teacher.cpf,
+      email: teacher.email,
       enrollmentNumber: teacher.numeroMatricula,
       classrooms: teacher.turmas,
     };
@@ -46,6 +47,7 @@ export class Teacher {
       nomeCompleto: form.teacherName,
       numeroMatricula: form.enrollmentNumber,
       cpf: form.teacherCPF,
+      email: form.email,
       turmas: form.classrooms,
     };
   }

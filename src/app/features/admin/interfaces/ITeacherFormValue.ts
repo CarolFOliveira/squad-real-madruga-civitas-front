@@ -6,6 +6,7 @@
 export interface ITeacherFormValue {
   teacherName: string;
   teacherCPF: string;
+  email: string;
   enrollmentNumber: string;
   classrooms: number[];
 }

@@ -28,7 +28,7 @@ export class Student {
       guardianCPF: student.responsavelCpf,
       studentClass: student.turmaId,
       studentName: student.nomeCompleto,
-      studentRG: student.rg,
+      email: student.email,
     };
   }
 
@@ -47,7 +47,7 @@ export class Student {
       nomeCompleto: form.studentName,
       numeroMatricula: form.enrollmentNumber,
       responsavelCpf: form.guardianCPF,
-      rg: form.studentRG,
+      email: form.email,
       turmaId: form.studentClass,
     };
   }

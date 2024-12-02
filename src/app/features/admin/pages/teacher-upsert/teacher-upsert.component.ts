@@ -58,6 +58,7 @@ export class TeacherUpsertComponent implements OnInit {
         Validators.required,
         Validators.maxLength(14),
       ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       enrollmentNumber: new FormControl('', [
         Validators.required,
         Validators.min(1),
