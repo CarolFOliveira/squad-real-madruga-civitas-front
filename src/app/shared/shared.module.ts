@@ -21,7 +21,6 @@ import { BrandLinkComponent } from './components/brand-link/brand-link.component
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CardComponent } from './components/card/card.component';
-import { ImageActionPanelComponent } from './components/image-action-panel/image-action-panel.component';
 import { InputComponent } from './components/input/input.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ReturnButtonComponent } from './components/return-button/return-button.component';
@@ -40,7 +39,6 @@ const COMPONENTS = [
   BreadcrumbsComponent,
   ButtonComponent,
   CardComponent,
-  ImageActionPanelComponent,
   InputComponent,
   PaginationComponent,
   ReturnButtonComponent,

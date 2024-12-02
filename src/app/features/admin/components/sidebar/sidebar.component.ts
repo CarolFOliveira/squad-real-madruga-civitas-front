@@ -87,6 +87,6 @@ export class SidebarComponent {
    */
   public logout(): void {
     this._authService.purgeAuth();
-    this._router.navigate(['auth/administrador']);
+    this._router.navigate(['/']);
   }
 }

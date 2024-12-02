@@ -6,31 +6,39 @@ import { Router } from '@angular/router';
 
 // Services
 import { StorageService } from 'src/app/shared/services/storage.service';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 // Interfaces
-import { ILoginRequest } from '../../interfaces/ILoginRequest';
-import { ILoginResponse } from '../../interfaces/ILoginResponse';
+import { ILoginCredentials } from '../interfaces/ILoginCredentials';
+import { ILoginResponse } from '../interfaces/ILoginResponse';
+
+// Enum
+import { EnumRoles } from 'src/app/shared/enums/EnumRoles';
 
 /**
- * AdminLoginComponent
+ * LoginComponent
  *
- * Componente que representa a página que exibe o login para administradores.
+ * Componente que representa a página que exibe o login para o usuário.
  *
- * Este componente gerencia a interface e a lógica de autenticação de administradores.
+ * Este componente gerencia a interface e a lógica de autenticação de usuários.
  */
 @Component({
-  selector: 'app-admin-login',
-  templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class AdminLoginComponent {
+export class LoginComponent {
   /**
    * Indica se ocorreu um erro durante o processo de login.
    *
    * Utilizada para controlar a exibição de mensagens de erro para o usuário.
    */
   public loginFailed = false;
+
+  /**
+   * Indica se o formulário está em processo de submissão para o backend.
+   */
+  public isSubmitting = false;
 
   /**
    * Formulário de login do administrador com as devidas validações.
@@ -54,7 +62,7 @@ export class AdminLoginComponent {
    *
    * Lida com o evento de submissão do formulário de login do administrador.
    *
-   * @param $event - Evento do tipo `SubmitEvent` de envio de um formulário no browser
+   * @param $event - Evento do tipo `SubmitEvent` de envio de um formulário no navegador.
    * @returns Uma `Promise` vazia que é resolvida após o processo de login ser concluído.
    * @remarks
    * Responsável por todo o processo de login, incluindo validação do formulário,
@@ -62,40 +70,49 @@ export class AdminLoginComponent {
    */
   public async onSubmit($event: SubmitEvent): Promise<void> {
     $event.preventDefault();
+    this.isSubmitting = true;
 
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      this.isSubmitting = false;
       return;
     }
-
-    this.loginForm.markAsPending();
-    const credentials = this.loginForm.value as ILoginRequest;
+    const credentials = this.loginForm.value as ILoginCredentials;
 
     try {
       const response = await this._authService.login(credentials);
       this._handleLoginSuccess(response);
     } catch (error) {
       this._handleLoginError(error as HttpErrorResponse);
+    } finally {
+      this.isSubmitting = false;
     }
   }
 
   /**
    * _handleLoginSuccess
    *
-   * Trata o sucesso do login
-   *
    * Realiza as ações necessárias, como salvar o token de autenticação e redirecionar o usuário.
    *
-   * @param response - A resposta do servidor contendo o token de autenticação.
+   * @param response - A resposta do servidor do tipo {@link ILoginResponse}.
    * @remarks
    * - Utiliza o serviço do token para armazenar ele no localStorage.
-   * - Redireciona o usuário para a página inicial após o login bem-sucedido.
+   * - Redireciona o usuário para a página inicial do respectivo usuário após o login bem-sucedido.
    */
   private _handleLoginSuccess(response: ILoginResponse): void {
-    const { token } = response;
+    const { token, tipoConta } = response;
+
     if (token) {
+      const routeMap = {
+        [EnumRoles.ADMIN]: 'administrador',
+        [EnumRoles.TEACHER]: 'professor',
+        [EnumRoles.STUDENT]: 'aluno',
+        [EnumRoles.GUARDIAN]: 'aluno',
+      };
+      const route = routeMap[tipoConta as EnumRoles];
+
       this._storageService.saveItem('jwtToken', token);
-      this._router.navigate(['/administrador']);
+      this._router.navigate([route]);
     }
   }
 
@@ -113,7 +130,6 @@ export class AdminLoginComponent {
    */
   private _handleLoginError(error: HttpErrorResponse): void {
     this.loginFailed = true;
-    this.loginForm.updateValueAndValidity();
 
     switch (error.status) {
       case 400:

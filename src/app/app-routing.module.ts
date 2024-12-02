@@ -1,11 +1,8 @@
-// Libs
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// Components
-import { HomeComponent } from './core/home/home.component';
-
 const routes: Routes = [
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>
@@ -13,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'administrador',
-    data: { breadcrumbs: 'Tela Inicial' },
+    data: { breadcrumbs: 'Painel Administrativo' },
     loadChildren: () =>
       import('./features/admin/admin.module').then((m) => m.AdminModule),
   },
@@ -23,7 +20,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/teacher/teacher.module').then((m) => m.TeacherModule),
   },
-  { path: '', component: HomeComponent },
 ];
 
 @NgModule({
