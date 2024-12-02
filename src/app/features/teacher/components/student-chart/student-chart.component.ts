@@ -47,11 +47,6 @@ export class StudentChartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public series: ApexAxisChartSeries = [];
 
   /**
-   * Personalização do gráfico ApexCharts
-   */
-  public chartOptions = customChartOptions;
-
-  /**
    * Lista de registros que representa o histórico de PDIs do aluno.
    */
   @Input() public studentIdpRecords: IStudentIdpHistory[] = [];
@@ -70,6 +65,11 @@ export class StudentChartComponent implements OnInit, OnChanges, OnDestroy {
    * ID do PDI selecionado atualmente.
    */
   public selectedId: number | null = null;
+
+  /**
+   * Personalização do gráfico ApexCharts
+   */
+  public chartOptions = customChartOptions;
 
   /**
    * ngOnInit

@@ -87,7 +87,7 @@ export class StudentIdpChartComponent implements OnInit {
     try {
       await this._loadStudentIdpHistory();
       await this._loadStudentIdpDetails();
-      // await this._loadStudentData();
+      await this._loadStudentData();
     } catch (error) {
       this._toastService.error('Erro ao inicializar os dados');
     } finally {
@@ -111,7 +111,7 @@ export class StudentIdpChartComponent implements OnInit {
   }
 
   /**
-   * _loadStudentIdpData
+   * _loadStudentIdpDetails
    *
    * Carrega os dados do PDI de um aluno específico, utilizando o ID do último PDI carregado.
    *
