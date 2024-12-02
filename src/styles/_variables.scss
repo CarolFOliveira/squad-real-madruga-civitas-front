@@ -1,3 +1,12 @@
+@use "@angular/material" as mat;
+@import "themes";
+
+/* Paletas */
+$green-palette: mat.define-palette(mat.$green-palette);
+$blue-palette: mat.define-palette(mat.$blue-palette);
+$blue-gray-palette: mat.define-palette(mat.$blue-gray-palette, A400);
+$orange-palette: mat.define-palette(mat.$orange-palette);
+
 /* Breakpoints */
 $breakpoint-mobile: 576px;
 $breakpoint-tablet: 768px;
@@ -5,23 +14,35 @@ $breakpoint-small-desktop: 992px;
 $breakpoint-large-desktop: 1200px;
 
 /* Cores */
-$primary-color: #65558f;
-$primary-color-200: rgba($primary-color, 0.15);
-$error-color: #d63a32;
+$primary-color: mat.get-color-from-palette($primary-palette);
+$error-color: mat.get-color-from-palette($warn-palette);
+$green-color: mat.get-color-from-palette($green-palette, 500);
+$blue-color: mat.get-color-from-palette($blue-palette);
+$blue-gray-color: mat.get-color-from-palette($blue-gray-palette);
+$orange-color: mat.get-color-from-palette($orange-palette);
 
 /* Inputs */
-$input-label-color: #fef7ff;
-$input-placeholder-color: #cac4d0;
+$input-label-color: mat.get-color-from-palette($primary-palette, 50);
+$input-placeholder-color: mat.get-color-from-palette($primary-palette, 300);
 
 /* Sidebar */
-$sidebar-bg-color: #dbd5e9;
-$sidebar-active-color: #9354bc;
+$sidebar-bg-color: mat.get-color-from-palette($primary-palette, 200);
+$sidebar-active-color: mat.get-color-from-palette($primary-palette);
 
-/* Card */
-$card-bg-color-default: #b8add4;
-$card-bg-color-light: #f4f0fe;
-$card-bg-color-dark: #e4dcf7;
+/* Cards */
+$card-bg-color-default: mat.get-color-from-palette($primary-palette, 500);
+$card-bg-color-light: mat.get-color-from-palette($primary-palette, 100);
+$card-bg-color-dark: mat.get-color-from-palette($primary-palette, 400);
 
 /* Links */
-$link-color: #2c75fb;
+$link-color: $blue-color;
 $link-hover-color: darken($link-color, 10%);
+
+/* Searchbar */
+$searchbar-bg-color: rgba($primary-color, 0.15);
+
+/* Background */
+$light-bg-color: #fff;
+
+/* Border */
+$border-color: #8080802f;

@@ -2,19 +2,19 @@
 
 .sidebar-container {
   position: relative;
-  background: transparent;
+  background-color: transparent;
   bottom: 0;
   left: 0;
   right: 0;
 
   .sidebar {
     position: fixed;
-    background: $sidebar-bg-color;
+    background-color: $sidebar-bg-color;
     text-align: center;
     width: 14rem;
 
     &__brand {
-      background-color: #fff;
+      background-color: $light-bg-color;
     }
   }
 
@@ -27,7 +27,7 @@
 
       &.active {
         position: relative;
-        background: mix($sidebar-active-color, transparent, 10%);
+        background-color: rgba($sidebar-active-color, 0.1);
 
         .item__icon,
         .item__label {
@@ -37,7 +37,7 @@
         &::after {
           position: absolute;
           content: "";
-          background: $sidebar-active-color;
+          background-color: $sidebar-active-color;
           border-radius: 3px 0 0 3px;
           right: 0;
           top: 0;
@@ -72,5 +72,6 @@
 }
 
 ::ng-deep .mat-mdc-list-base {
-  --mdc-list-list-item-focus-state-layer-color: transparent;
+  --mdc-list-list-item-focus-state-layer-color: transparent !important;
+  --mdc-list-list-item-focus-state-layer-opacity: 0 !important;
 }

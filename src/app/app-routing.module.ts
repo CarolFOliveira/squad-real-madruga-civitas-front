@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './core/home/home.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   {
     path: 'auth',
     loadChildren: () =>
@@ -18,6 +17,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/admin/admin.module').then((m) => m.AdminModule),
   },
+  {
+    path: 'professor',
+    data: { breadcrumbs: 'Tela Inicial' },
+    loadChildren: () =>
+      import('./features/teacher/teacher.module').then((m) => m.TeacherModule),
+  },
+  { path: '', component: HomeComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,72 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+/* Tipografia */
+$typography-config: mat.define-typography-config(
+  $headline-5: /* Usado para o h1 */
+    mat.define-typography-level(
+      clamp(4rem, (1rem + 5vw), 4.5rem),
+      5rem,
+      700,
+      $font-family: "Inter, Roboto, sans-serif"
+    ),
+  $headline-6: /* Usado para o h2 */
+    mat.define-typography-level(
+      clamp(3.5rem, (1rem + 6vw), 4.5rem),
+      5rem,
+      500,
+      $font-family: "Inter, Roboto, sans-serif"
+    ),
+  $body-2: mat.define-typography-level(1.6rem, 2.5rem, 400),
+);
+
+/* Paleta de cor principal */
+$primary-palette: mat.define-palette(
+  (
+    50: #fef7ff,
+    100: #f4f0fe,
+    200: #dbd5e9,
+    300: #cac4d0,
+    400: #e4dcf7,
+    500: #b8add4,
+    600: #65558f,
+    700: #5a4b7f,
+    800: #4d416c,
+    900: #3d3355,
+    contrast: (
+      50: black,
+      100: black,
+      200: black,
+      300: black,
+      400: black,
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+    ),
+  ),
+  600
+);
+
+/* Outras paletas */
+$accent-palette: mat.define-palette(mat.$blue-palette);
+$warn-palette: mat.define-palette(mat.$red-palette, 700);
+
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $primary-palette,
+      accent: $accent-palette,
+      warn: $warn-palette,
+    ),
+    typography:
+      mat.define-typography-config(
+        $font-family: "Roboto, Arial, sans-serif",
+      ),
+    density: 0,
+  )
+);
+
+@include mat.typography-hierarchy($typography-config);
+@include mat.all-component-themes($light-theme);

@@ -1,0 +1,79 @@
+@import "variables";
+
+.table {
+  border: 1px solid $border-color;
+  border-radius: 0.25rem;
+  margin-block-start: 5rem;
+
+  th,
+  td {
+    width: 33.33%;
+  }
+
+  &__badge {
+    border-radius: 99rem;
+    border: 1px solid;
+    display: inline-block;
+    min-width: 8.5rem;
+    padding: 0.25rem 0.75rem;
+    text-transform: capitalize;
+  }
+
+  &__badge.outstanding {
+    background-color: rgba($green-color, 0.05);
+    border-color: rgba($green-color, 0.85);
+    color: $green-color;
+  }
+
+  &__badge.reliable {
+    background-color: rgba($blue-color, 0.05);
+    border-color: rgba($blue-color, 0.85);
+    color: $blue-color;
+  }
+
+  &__badge.developing {
+    background-color: rgba($blue-gray-color, 0.05);
+    border-color: rgba($blue-gray-color, 0.85);
+    color: $blue-gray-color;
+  }
+
+  &__badge.attention {
+    background-color: rgba($orange-color, 0.05);
+    border-color: rgba($orange-color, 0.85);
+    color: $orange-color;
+  }
+
+  &__badge.critical {
+    background-color: rgba($error-color, 0.05);
+    border-color: rgba($error-color, 0.85);
+    color: $error-color;
+  }
+
+  &__row--alternate {
+    background-color: rgba($border-color, 0.02);
+  }
+
+  &__cell--right {
+    text-align: right;
+  }
+
+  &__cell--center {
+    text-align: center;
+  }
+
+  &__empty {
+    padding: 1.5rem;
+
+    button {
+      all: unset;
+      color: $blue-color;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
+
+::ng-deep .table__cell--center .mat-sort-header-container {
+  justify-content: center;
+  margin-left: 1.8rem;
+}

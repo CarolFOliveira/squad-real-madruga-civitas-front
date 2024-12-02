@@ -1,7 +1,7 @@
 @import "variables";
 
 :host {
-  background-color: rgba($color: $primary-color, $alpha: 0.65);
+  background-color: rgba($primary-color, 0.65);
   display: grid;
   place-items: center;
   min-height: 100vh;
@@ -14,7 +14,7 @@
 }
 
 .section {
-  background: #fff;
+  background-color: $light-bg-color;
   box-sizing: border-box;
   max-width: 50rem;
   text-align: center;

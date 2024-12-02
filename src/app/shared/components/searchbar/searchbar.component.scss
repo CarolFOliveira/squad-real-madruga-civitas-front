@@ -3,7 +3,7 @@
 
 .search {
   @include center-flex($justify: space-between);
-  background-color: $primary-color-200;
+  background-color: $searchbar-bg-color;
   border-radius: 9rem;
   margin-inline-start: auto;
   overflow: hidden;

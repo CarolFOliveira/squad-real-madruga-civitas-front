@@ -5,7 +5,7 @@
     [(opened)]="isSidenavOpen"
     (openedChange)="onOpenedChange($event)"
   >
-    <app-brand-link class="sidebar__brand" />
+    <app-brand-link class="sidebar__brand" returnLink="/administrador" />
 
     <mat-nav-list class="list">
       <ng-container *ngFor="let item of menuItems">

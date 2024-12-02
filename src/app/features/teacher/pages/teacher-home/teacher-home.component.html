@@ -1,0 +1,75 @@
+<section class="teacher-home__content">
+  <header class="teacher-home__header">
+    <h2 class="teacher-home__title">Plano de desenvolvimento individual</h2>
+    <p>
+      Olá, professor(a).
+      <br />
+      Vamos juntos acompanhar a evolução dos nossos estudantes? Nosso objetivo é
+      evoluir as habilidades humanas dos nossos estudantes.
+    </p>
+  </header>
+
+  <button
+    mat-flat-button
+    class="teacher-home__help-button"
+    (click)="openDialog()"
+  >
+    Ficou com alguma duvida? <strong>Clique aqui</strong>
+  </button>
+
+  <div class="teacher-home__filters">
+    <p class="teacher-home__filters-description">
+      Selecione uma turma para visualizar os alunos
+    </p>
+    <mat-form-field appearance="outline" class="teacher-home__filters-select">
+      <mat-select
+        placeholder="Selecione uma Turma"
+        (selectionChange)="onSelect($event)"
+      >
+        <mat-option *ngFor="let option of options" [value]="option.value">
+          {{ option.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="teacher-home__filters-search" appearance="outline">
+      <button
+        mat-icon-button
+        matSuffix
+        *ngIf="!term"
+        [disabled]="!(selectedClassId && students.length)"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button matSuffix *ngIf="term" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <input
+        matInput
+        placeholder="Pesquisar aluno"
+        [disabled]="!(selectedClassId && students.length)"
+        [(ngModel)]="term"
+        (keyup)="applyFilter()"
+      />
+    </mat-form-field>
+  </div>
+
+  <app-student-table
+    [students]="students"
+    [term]="term"
+    (termChangeEvent)="term = $event"
+    *ngIf="students.length"
+  />
+
+  <p class="teacher-home__empty-state-message" *ngIf="!selectedClassId">
+    Por favor, selecione uma turma para visualizar os alunos.
+  </p>
+
+  <p
+    class="teacher-home__empty-state-message"
+    *ngIf="selectedClassId && !students.length"
+  >
+    Ainda <strong>não</strong> há alunos cadastrados para esta turma no banco de
+    dados.
+  </p>
+</section>

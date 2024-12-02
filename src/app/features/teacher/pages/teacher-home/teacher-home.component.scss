@@ -1,0 +1,75 @@
+@import "mixins";
+@import "variables";
+
+.teacher-home {
+  &__header {
+    margin-block-start: 5rem;
+  }
+
+  &__title {
+    font-size: clamp(2.9rem, (1rem + 4vw), 4.5rem);
+    line-height: 1.4;
+    margin-block-start: -0.25rem;
+  }
+
+  &__help-button {
+    display: block;
+    background-color: rgba($sidebar-active-color, 0.2) !important;
+    border-radius: 99rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-block-end: 7rem;
+
+    strong {
+      color: $primary-color;
+    }
+  }
+
+  &__empty-state-message {
+    background-color: rgba($card-bg-color-dark, 0.1);
+    border-radius: 0.5rem;
+    border: 1px solid $card-bg-color-dark;
+    color: $primary-color;
+    font-weight: 500;
+    letter-spacing: 0.7px;
+    margin-block-start: 5rem;
+    padding: 2rem;
+    text-align: center;
+
+    strong {
+      text-decoration: underline;
+    }
+
+    &::before {
+      content: "🛈";
+    }
+  }
+
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+
+    &-description {
+      flex-basis: 100%;
+    }
+
+    &-select {
+      flex: 2;
+    }
+
+    &-search {
+      display: flex;
+      flex: 1;
+
+      @media screen and (min-width: $breakpoint-small-desktop) {
+        max-width: 38.75rem;
+      }
+    }
+
+    &-select,
+    &-search {
+      min-width: 30rem;
+    }
+  }
+}
