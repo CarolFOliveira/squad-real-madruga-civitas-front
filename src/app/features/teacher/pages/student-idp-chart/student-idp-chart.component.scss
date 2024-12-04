@@ -1,0 +1,30 @@
+@import "mixins";
+@import "variables";
+
+.idp-chart-section {
+  &__content {
+    margin-block: 1rem 7.5rem;
+  }
+
+  &__title {
+    font-size: clamp(2.6rem, (1rem + 3vw), 4.5rem);
+    line-height: 1.4;
+  }
+
+  &__description {
+    background-color: $card-bg-color-light;
+    border-radius: 6px;
+    border: 1px solid $border-color;
+    font-size: 1.75rem;
+    min-height: 7rem;
+    padding: 1rem 2rem;
+
+    strong {
+      color: $primary-color;
+    }
+  }
+}
+
+app-button {
+  text-wrap: nowrap;
+}

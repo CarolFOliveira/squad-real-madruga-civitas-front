@@ -1,7 +1,9 @@
 // Libs
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 // App Modules
 import { SharedModule } from '../../shared/shared.module';
@@ -19,11 +21,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Components
+import { StudentChartComponent } from './components/student-chart/student-chart.component';
 import { StudentTableComponent } from './components/student-table/student-table.component';
 import { TeacherLayoutComponent } from './components/teacher-layout/teacher-layout.component';
+import { StudentIdpChartComponent } from './pages/student-idp-chart/student-idp-chart.component';
 import { TeacherHomeComponent } from './pages/teacher-home/teacher-home.component';
 
 const COMPONENTS = [
+  StudentChartComponent,
+  StudentIdpChartComponent,
   StudentTableComponent,
   TeacherHomeComponent,
   TeacherLayoutComponent,
@@ -31,16 +37,19 @@ const COMPONENTS = [
 
 const MODULES = [
   CommonModule,
+  FormsModule,
   MatBadgeModule,
   MatButtonModule,
   MatFormFieldModule,
   MatIconModule,
+  MatInputModule,
   MatSelectModule,
   MatSortModule,
   MatTableModule,
-  MatInputModule,
   MatTooltipModule,
-  FormsModule,
+  NgApexchartsModule,
+  NgxSkeletonLoaderModule,
+  ReactiveFormsModule,
   SharedModule,
   TeacherRoutingModule,
 ];

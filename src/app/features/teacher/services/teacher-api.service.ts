@@ -8,6 +8,9 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 
 // Interfaces
 import { ISelectOptions } from 'src/app/shared/interfaces/ISelectOptions';
+import { IStudentIdpDetails } from '../interfaces/IStudentIdpDetails';
+import { IStudentIdpHistory } from '../interfaces/IStudentIdpHistory';
+import { IStudentIdpSummary } from '../interfaces/IStudentIdpSummary';
 import { IStudentTableData } from '../interfaces/IStudentTableData';
 
 // Variable Environment
@@ -75,5 +78,55 @@ export class TeacherAPIService {
     }
 
     return [];
+  }
+
+  /**
+   * getStudentIdp
+   *
+   * Responsável por buscar os detalhes do PDI de um aluno específico.
+   *
+   * @param id O ID para buscar os detalhes relacionados ao PDI do aluno.
+   * @returns Uma Promise que é resolvida com um objeto do tipo {@link IStudentPdiDetails}
+   */
+  public getStudentIdp(id: number | null): Promise<IStudentIdpDetails> {
+    return firstValueFrom(
+      this._http.get<IStudentIdpDetails>(
+        `${environment.apiUrl}/pdi/${id}/detalhes`
+      )
+    );
+  }
+
+  /**
+   * getStudentData
+   *
+   * Responsável por buscar os dados de um aluno pelo ID.
+   *
+   * @param studentId O ID O ID do aluno para buscar os dados.
+   * @returns Uma Promise que é resolvida com um objeto do tipo {@link IStudentIdpSummary}
+   */
+  public getStudentData(studentId: number): Promise<IStudentIdpSummary> {
+    return firstValueFrom(
+      this._http.get<IStudentIdpSummary>(
+        `${environment.apiUrl}/pdi/alunos/${studentId}/dados`
+      )
+    );
+  }
+
+  /**
+   * getStudentIdpHistory
+   *
+   * Responsável por realizar a busca de todos os registros de PDI de um aluno.
+   *
+   * @param studentId O ID do aluno, utilizado para buscar o histórico de PDI.
+   * @returns Uma Promise que é resolvida com uma lista de objetos do tipo {@link IStudentIdpHistory}
+   */
+  public getStudentIdpHistory(
+    studentId: number
+  ): Promise<IStudentIdpHistory[]> {
+    return firstValueFrom(
+      this._http.get<IStudentIdpHistory[]>(
+        `${environment.apiUrl}/pdi/alunos/${studentId}/registros`
+      )
+    );
   }
 }

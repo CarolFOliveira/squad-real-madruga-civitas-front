@@ -32,7 +32,8 @@
             "stylePreprocessorOptions": {
               "includePaths": ["src/styles"]
             },
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["apexcharts"]
           },
           "configurations": {
             "production": {
