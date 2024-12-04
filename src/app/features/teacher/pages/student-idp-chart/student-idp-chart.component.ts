@@ -85,8 +85,10 @@ export class StudentIdpChartComponent implements OnInit {
   private async _initialize(): Promise<void> {
     this.isLoading = true;
     try {
-      await this._loadStudentIdpHistory();
-      await this._loadStudentIdpDetails();
+      await Promise.all([
+        this._loadStudentIdpHistory(),
+        this._loadStudentIdpDetails(),
+      ]);
       await this._loadStudentData();
     } catch (error) {
       this._toastService.error('Erro ao inicializar os dados');
