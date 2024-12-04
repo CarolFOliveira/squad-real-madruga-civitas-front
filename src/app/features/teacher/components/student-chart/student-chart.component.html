@@ -21,7 +21,8 @@
   mat-stroked-button
   color="primary"
   class="button"
-  [disabled]="!studentIdpRecords.length"
+  [disabled]="!selectedId"
+  [routerLink]="['detalhes', selectedId]"
 >
   Ver detalhes
 </button>

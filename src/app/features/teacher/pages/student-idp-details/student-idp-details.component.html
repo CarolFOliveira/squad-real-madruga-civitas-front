@@ -1,0 +1,32 @@
+<app-return-button [routerLink]="['/professor/aluno-pdi', studentId]" />
+
+<app-student-overview title="Detalhes do PDI" [student]="student" />
+
+<section class="section" *ngFor="let questionGroup of questionGroups">
+  <h3 class="section__title">
+    {{ questionGroup.name + " - " + questionGroup.title }}
+  </h3>
+
+  <ul class="list">
+    <li class="list__item" *ngFor="let question of questionGroup.questions">
+      <span>{{ question.text }}</span>
+      <mat-radio-group>
+        <mat-radio-button [value]="answerData[question.name]" checked disabled>
+          <span class="label">
+            {{ getAnswer(+answerData[question.name]) }}
+          </span>
+        </mat-radio-button>
+      </mat-radio-group>
+    </li>
+  </ul>
+</section>
+
+<mat-form-field appearance="outline" class="textarea-container">
+  <mat-label for="comments">Considerações</mat-label>
+  <textarea
+    [disabled]="true"
+    [value]="answerData.comments"
+    matInput
+    readonly
+  ></textarea>
+</mat-form-field>

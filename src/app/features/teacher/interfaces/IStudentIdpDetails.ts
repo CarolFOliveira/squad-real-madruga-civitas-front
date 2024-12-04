@@ -36,4 +36,5 @@ export interface IStudentIdpDetails {
   previousIdpAverages: number[];
   /** Data de registro do PDI */
   registrationDate: string;
+  [key: string]: string | number | number[];
 }

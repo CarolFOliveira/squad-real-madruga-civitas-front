@@ -24,7 +24,7 @@ export class ReturnButtonComponent implements OnInit {
    *
    * @defaultValue `'..'` (página anterior)
    */
-  @Input() public routerLink = '..';
+  @Input() public routerLink: string | (string | number)[] = '..';
 
   /**
    * Se for a pagina inicial, não deve mostrar o botão.

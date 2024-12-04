@@ -38,13 +38,14 @@ export class TeacherAPIService {
    */
   public async getTeacherClassrooms(): Promise<ISelectOptions[]> {
     try {
-      const response = await firstValueFrom(
-        this._http.get<{ id: number; turmaApelido: string }[]>(
+      const { data } = await firstValueFrom(
+        // TODO: reutilizar a interface ja existente para turmas
+        this._http.get<{ data: { id: number; turmaApelido: string }[] }>(
           `${environment.apiUrl}/turmas`
         )
       );
 
-      return response.map((classroom) => ({
+      return data.map((classroom) => ({
         value: classroom.id,
         viewValue: classroom.turmaApelido,
       }));
